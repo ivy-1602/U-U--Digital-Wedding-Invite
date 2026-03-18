@@ -2,3 +2,4 @@
 it has 3 files
 index.html
 style.css
+animation.js
