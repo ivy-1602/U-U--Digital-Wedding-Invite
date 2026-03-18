@@ -1,2 +1,2 @@
 # U-U--Digital-Wedding-Invite
-it has 2 files
+it has 1 files
