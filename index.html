@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+  <title>Uday &amp; Unnati — Wedding Invitation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Devanagari:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+<canvas id="petal-canvas-2d" style="position:fixed;inset:0;pointer-events:none;z-index:2;"></canvas>
+<div class="fairy-lights" aria-hidden="true"></div>
+
+<div class="petal-canvas" id="petal-canvas" aria-hidden="true"></div>
+
+
+<!-- ═══════════════════════════
+     §1  HERO
+     ═══════════════════════════ -->
+<section id="hero">
+
+  <!-- SVG Swastikas — four corners, right-facing Hindu swastika -->
+<svg class="sw tl" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <path fill="#F0C878" d="M26 8h8v18h18v8H34v18h-8V34H8v-8h18V8z M34 8h18v8H34z M44 34h8v18h-8z M8 44h18v8H8z M8 8h8v18H8z"/>
+</svg>
+<svg class="sw tr" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <path fill="#F0C878" d="M26 8h8v18h18v8H34v18h-8V34H8v-8h18V8z M34 8h18v8H34z M44 34h8v18h-8z M8 44h18v8H8z M8 8h8v18H8z"/>
+</svg>
+<svg class="sw bl" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <path fill="#F0C878" d="M26 8h8v18h18v8H34v18h-8V34H8v-8h18V8z M34 8h18v8H34z M44 34h8v18h-8z M8 44h18v8H8z M8 8h8v18H8z"/>
+</svg>
+<svg class="sw br" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <path fill="#F0C878" d="M26 8h8v18h18v8H34v18h-8V34H8v-8h18V8z M34 8h18v8H34z M44 34h8v18h-8z M8 44h18v8H8z M8 8h8v18H8z"/>
+</svg>
+
+  <!-- GANPATI LOGO — place ganpati.png in same folder -->
+  <div class="ganpati-wrap">
+    <img src="assets/ganpati.png" alt="Ganpati Bappa" class="ganpati-img"
+         onerror="this.style.display='none';document.getElementById('ganpati-fallback').style.display='block';"/>
+    <p id="ganpati-fallback" class="ganpati-fallback devanagari">गणपती बाप्पा</p>
+  </div>
+
+  <p class="hero-invocation devanagari">॥ श्री गणेशाय नमः ॥</p>
+  <p class="hero-shubh devanagari">शुभ विवाह</p>
+
+  <!-- COUPLE NAMES — side by side, swastika in centre -->
+  <div class="hero-names">
+
+    <div class="hero-names-row">
+      <!-- Uday — left -->
+      <div class="hero-name-block">
+        <h1 class="groom-name devanagari">उदय</h1>
+        <p class="hero-name-en-sub">Uday</p>
+      </div>
+
+      <!-- Centre image between names -->
+<div class="C:\Users\udays\Downloads\1.png" aria-hidden="false">
+  <!--
+    REPLACE THIS PLACEHOLDER with any image you like:
+    e.g. a flower, diya, ganpati, couple illustration, mandala etc.
+    Recommended size: square PNG with transparent bg, ~120×120px
+    Just change src="your-image.png" below
+  -->
+  <img
+    src="assets/1.png"
+    alt=""
+    class="hero-centre-icon"
+    onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+  />
+
+</div>
+
+      <!-- Unnati — right -->
+      <div class="hero-name-block">
+        <h1 class="bride-name devanagari">उन्नती</h1>
+        <p class="hero-name-en-sub">Unnati</p>
+      </div>
+    </div>
+
+    <!-- English names below -->
+    <p class="hero-names-en">Uday <em class="en-amp">&amp;</em> Unnati</p>
+  </div>
+
+  <!-- Ornamental border frame (like reference image) -->
+  <div class="hero-ornament-frame" aria-hidden="true">
+    <!-- Top bar -->
+    <svg class="hof top" viewBox="0 0 360 28" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <line x1="0" y1="14" x2="360" y2="14" stroke="#C9922A" stroke-width="1" opacity="0.5"/>
+      <line x1="0" y1="10" x2="360" y2="10" stroke="#C9922A" stroke-width="0.5" opacity="0.3"/>
+      <line x1="0" y1="18" x2="360" y2="18" stroke="#C9922A" stroke-width="0.5" opacity="0.3"/>
+      <!-- Centre ornament -->
+      <ellipse cx="180" cy="14" rx="22" ry="8" fill="none" stroke="#C9922A" stroke-width="0.8" opacity="0.6"/>
+      <circle cx="180" cy="14" r="3" fill="#C9922A" opacity="0.7"/>
+      <circle cx="150" cy="14" r="2" fill="#C9922A" opacity="0.5"/>
+      <circle cx="210" cy="14" r="2" fill="#C9922A" opacity="0.5"/>
+      <!-- Left scrolls -->
+      <path d="M10 14 Q30 6 50 14 Q30 22 10 14" fill="none" stroke="#C9922A" stroke-width="0.8" opacity="0.55"/>
+      <path d="M60 14 Q75 8 90 14 Q75 20 60 14" fill="none" stroke="#C9922A" stroke-width="0.7" opacity="0.45"/>
+      <!-- Right scrolls (mirror) -->
+      <path d="M350 14 Q330 6 310 14 Q330 22 350 14" fill="none" stroke="#C9922A" stroke-width="0.8" opacity="0.55"/>
+      <path d="M300 14 Q285 8 270 14 Q285 20 300 14" fill="none" stroke="#C9922A" stroke-width="0.7" opacity="0.45"/>
+    </svg>
+    <!-- Bottom bar -->
+    <svg class="hof bottom" viewBox="0 0 360 28" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <line x1="0" y1="14" x2="360" y2="14" stroke="#C9922A" stroke-width="1" opacity="0.5"/>
+      <line x1="0" y1="10" x2="360" y2="10" stroke="#C9922A" stroke-width="0.5" opacity="0.3"/>
+      <line x1="0" y1="18" x2="360" y2="18" stroke="#C9922A" stroke-width="0.5" opacity="0.3"/>
+      <ellipse cx="180" cy="14" rx="22" ry="8" fill="none" stroke="#C9922A" stroke-width="0.8" opacity="0.6"/>
+      <circle cx="180" cy="14" r="3" fill="#C9922A" opacity="0.7"/>
+      <circle cx="150" cy="14" r="2" fill="#C9922A" opacity="0.5"/>
+      <circle cx="210" cy="14" r="2" fill="#C9922A" opacity="0.5"/>
+      <path d="M10 14 Q30 6 50 14 Q30 22 10 14" fill="none" stroke="#C9922A" stroke-width="0.8" opacity="0.55"/>
+      <path d="M60 14 Q75 8 90 14 Q75 20 60 14" fill="none" stroke="#C9922A" stroke-width="0.7" opacity="0.45"/>
+      <path d="M350 14 Q330 6 310 14 Q330 22 350 14" fill="none" stroke="#C9922A" stroke-width="0.8" opacity="0.55"/>
+      <path d="M300 14 Q285 8 270 14 Q285 20 300 14" fill="none" stroke="#C9922A" stroke-width="0.7" opacity="0.45"/>
+    </svg>
+    <!-- Left bar -->
+    <svg class="hof left" viewBox="0 0 28 500" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <line x1="14" y1="0" x2="14" y2="500" stroke="#C9922A" stroke-width="1" opacity="0.5"/>
+      <line x1="10" y1="0" x2="10" y2="500" stroke="#C9922A" stroke-width="0.5" opacity="0.3"/>
+      <line x1="18" y1="0" x2="18" y2="500" stroke="#C9922A" stroke-width="0.5" opacity="0.3"/>
+      <!-- Dot accents -->
+      <circle cx="14" cy="100" r="2.5" fill="#C9922A" opacity="0.5"/>
+      <circle cx="14" cy="200" r="2.5" fill="#C9922A" opacity="0.5"/>
+      <circle cx="14" cy="300" r="2.5" fill="#C9922A" opacity="0.5"/>
+      <circle cx="14" cy="400" r="2.5" fill="#C9922A" opacity="0.5"/>
+      <!-- Corner flourish bottom-left -->
+      <path d="M14 440 Q6 460 14 480" fill="none" stroke="#C9922A" stroke-width="1" opacity="0.6"/>
+      <path d="M14 60 Q6 40 14 20" fill="none" stroke="#C9922A" stroke-width="1" opacity="0.6"/>
+    </svg>
+    <!-- Right bar -->
+    <svg class="hof right" viewBox="0 0 28 500" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <line x1="14" y1="0" x2="14" y2="500" stroke="#C9922A" stroke-width="1" opacity="0.5"/>
+      <line x1="10" y1="0" x2="10" y2="500" stroke="#C9922A" stroke-width="0.5" opacity="0.3"/>
+      <line x1="18" y1="0" x2="18" y2="500" stroke="#C9922A" stroke-width="0.5" opacity="0.3"/>
+      <circle cx="14" cy="100" r="2.5" fill="#C9922A" opacity="0.5"/>
+      <circle cx="14" cy="200" r="2.5" fill="#C9922A" opacity="0.5"/>
+      <circle cx="14" cy="300" r="2.5" fill="#C9922A" opacity="0.5"/>
+      <circle cx="14" cy="400" r="2.5" fill="#C9922A" opacity="0.5"/>
+      <path d="M14 440 Q22 460 14 480" fill="none" stroke="#C9922A" stroke-width="1" opacity="0.6"/>
+      <path d="M14 60 Q22 40 14 20" fill="none" stroke="#C9922A" stroke-width="1" opacity="0.6"/>
+    </svg>
+  </div>
+
+  <div class="scroll-cue" aria-hidden="true">
+    <span class="scroll-txt">S C R O L L</span>
+    <div class="scroll-line"></div>
+  </div>
+
+</section>
+
+
+<!-- ── TRANSITION: Hero → Blessings ── -->
+<div class="orn-band band-hero-bless" aria-hidden="true"></div>
+
+
+<!-- ═══════════════════════════
+     §2  BLESSINGS
+     ═══════════════════════════ -->
+<section id="blessings" data-parallax="0.2">
+  <!--
+    BG IMAGE: In style.css find  #blessings { background:
+    Add:  background-image: url('blessings-bg.jpg'); background-size:cover;
+  -->
+  <span class="eyebrow bless-eyebrow">With Divine Blessings</span>
+  <div class="gold-bar" aria-hidden="true"></div>
+  <h2 class="sec-head devanagari">आशीर्वाद व आमंत्रण</h2>
+
+  <div class="bless-card reveal">
+
+    <!-- GROOM'S FAMILY first (Uday above) -->
+    <div class="family-block">
+      <span class="fam-label">वराचे कुटुंब &nbsp;&middot;&nbsp; Groom's Family</span>
+      <p class="fam-parents devanagari">
+        श्री. सतीश साळुंके व सौ. साळुंके<br/>
+        यांचा लाडका सुपुत्र
+      </p>
+      <div class="name-bar"></div>
+      <p class="c-name-mr devanagari">उदय सतीश साळुंके</p>
+      <p class="c-name-en">Uday Satish Salunke</p>
+    </div>
+
+    <div class="fam-sep" aria-hidden="true">
+      <span class="sep-line"></span>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <g fill="rgba(180,60,80,0.6)">
+          <ellipse cx="12" cy="12" rx="3" ry="9.5" transform="rotate(0,12,12)"/>
+          <ellipse cx="12" cy="12" rx="3" ry="9.5" transform="rotate(60,12,12)"/>
+          <ellipse cx="12" cy="12" rx="3" ry="9.5" transform="rotate(120,12,12)"/>
+        </g>
+        <circle cx="12" cy="12" r="3.5" fill="#C8401A"/>
+      </svg>
+      <span class="sep-line"></span>
+    </div>
+
+    <!-- BRIDE'S FAMILY second (Unnati below) -->
+    <div class="family-block">
+      <span class="fam-label">वधूचे कुटुंब &nbsp;&middot;&nbsp; Bride's Family</span>
+      <p class="fam-parents devanagari">
+        श्री. उमेश आमले व सौ. आमले<br/>
+        यांची लाडकी सुकन्या
+      </p>
+      <div class="name-bar"></div>
+      <p class="c-name-mr devanagari">उन्नती उमेश आमले</p>
+      <p class="c-name-en">Unnati Umesh Amale</p>
+    </div>
+
+    <div class="name-bar" style="margin-top:1.8rem"></div>
+    <p class="invite-text devanagari">
+      यांच्या <strong>साखरपुडा व शुभविवाह सोहळ्यास</strong><br/>
+      आपण सपरिवार यावे,<br/>
+      आशीर्वाद द्यावा ही नम्र विनंती
+    </p>
+
+  </div>
+</section>
+
+
+<!-- ── ORNAMENTAL BAND: Blessings → Ring Ceremony ── -->
+<div class="orn-band band-bless-ring" aria-hidden="true">
+  <div class="orn-band-inner">
+    <span class="orn-line"></span>
+    <span class="orn-centre">
+      <svg width="80" height="32" viewBox="0 0 80 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="40" cy="16" rx="28" ry="10" fill="none" stroke="#C9922A" stroke-width="1" opacity="0.7"/>
+        <circle cx="40" cy="16" r="4" fill="#C9922A" opacity="0.9"/>
+        <circle cx="14" cy="16" r="2.5" fill="#C9922A" opacity="0.6"/>
+        <circle cx="66" cy="16" r="2.5" fill="#C9922A" opacity="0.6"/>
+        <path d="M6 16 Q18 8 30 16 Q18 24 6 16" fill="none" stroke="#C9922A" stroke-width="0.9" opacity="0.5"/>
+        <path d="M74 16 Q62 8 50 16 Q62 24 74 16" fill="none" stroke="#C9922A" stroke-width="0.9" opacity="0.5"/>
+      </svg>
+    </span>
+    <span class="orn-line"></span>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════
+     §3a  RING CEREMONY
+     Blue · Silver · Royal
+     ═══════════════════════════ -->
+<section id="ev-ring" class="ev-section">
+  <!--
+    BG IMAGE: In style.css find  #ev-ring { background:
+    Add:  background-image: url('ring-ceremony-bg.jpg'); background-blend-mode:multiply;
+  -->
+  <div class="ev-section-inner">
+    <span class="ev-eyebrow">22 June 2026 · Monday</span>
+    <div class="ev-rule ev-rule-ring" aria-hidden="true"></div>
+
+    <div class="ev-full-card reveal">
+      <!-- IMAGE PLACEHOLDER — Ring Ceremony
+           Replace with: <img src="ring-ceremony.jpg" class="ev-full-img" alt="Ring Ceremony"/> -->
+      <div class="ev-full-ph ring-ph photo-frame">
+        <svg width="52" height="52" viewBox="0 0 52 52" fill="none">
+          <circle cx="26" cy="26" r="15" stroke="#C8D8FF" stroke-width="2" fill="none"/>
+          <circle cx="26" cy="26" r="9"  stroke="#C8D8FF" stroke-width="1.3" fill="none" opacity="0.5"/>
+          <line x1="26" y1="11" x2="26" y2="6"  stroke="#C8D8FF" stroke-width="1.6"/>
+          <line x1="36" y1="16" x2="39" y2="13" stroke="#C8D8FF" stroke-width="1.6"/>
+        </svg>
+        <img src="assets/ring.jpg" class="ev-full-img" alt="Ring Ceremony"/>
+      </div>
+
+      <div class="ev-full-info">
+        <h3 class="ev-name-mr devanagari ev-name-ring">साखरपुडा</h3>
+        <p class="ev-name-en ev-en-ring">Ring Ceremony</p>
+        <div class="ev-detail-row ev-row-ring">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+          </svg>
+          <!-- Edit time here -->
+          <span class="devanagari">सायंकाळी ४:०० वाजता &nbsp;|&nbsp; 4:00 PM onwards</span>
+        </div>
+        <div class="ev-detail-row ev-row-ring">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/>
+          </svg>
+          <span>Shree Swami Krupa Hall, Kothrud, Pune</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TRANSITION: Ring → Haldi ── -->
+<div class="orn-band band-ring-haldi" aria-hidden="true">
+  <div class="orn-band-inner">
+    <span class="orn-line"></span>
+    <span class="orn-centre"></span>
+    <span class="orn-line"></span>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════
+     §3b  HALDI CEREMONY
+     Yellow · Royal · Bright
+     ═══════════════════════════ -->
+<section id="ev-haldi" class="ev-section">
+  <!--
+    BG IMAGE: In style.css find  #ev-haldi { background:
+    Add:  background-image: url('haldi-bg.jpg'); background-blend-mode:multiply;
+  -->
+  <div class="ev-section-inner">
+    <span class="ev-eyebrow ev-eyebrow-haldi">22 June 2026 · Monday</span>
+    <div class="ev-rule ev-rule-haldi" aria-hidden="true"></div>
+
+    <div class="ev-full-card reveal">
+      <!-- IMAGE PLACEHOLDER — Haldi
+           Replace with: <img src="haldi.jpg" class="ev-full-img" alt="Haldi"/> -->
+      <div class="ev-full-ph haldi-ph photo-frame">
+        <svg width="52" height="52" viewBox="0 0 52 52" fill="none">
+          <path d="M26 8 Q18 20 18 28 a8 8 0 0 0 16 0 Q34 20 26 8z" stroke="#FFE840" stroke-width="1.8" fill="rgba(255,232,64,0.18)"/>
+          <path d="M15 38 Q20 44 26 44 Q32 44 37 38" stroke="#FFE840" stroke-width="1.4" fill="none"/>
+        </svg>
+        <span class="ev-ph-label ev-ph-haldi">Add Haldi photo here</span>
+      </div>
+
+      <div class="ev-full-info">
+        <h3 class="ev-name-mr devanagari ev-name-haldi">हळदी</h3>
+        <p class="ev-name-en ev-en-haldi">Haldi Ceremony</p>
+        <div class="ev-detail-row ev-row-haldi">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+          </svg>
+          <!-- Edit time here -->
+          <span class="devanagari">सकाळी ९:०० वाजता &nbsp;|&nbsp; 9:00 AM onwards</span>
+        </div>
+        <div class="ev-detail-row ev-row-haldi">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/>
+          </svg>
+          <span>Shree Swami Krupa Hall, Kothrud, Pune</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TRANSITION: Haldi → Sangeet ── -->
+<div class="orn-band band-haldi-sangeet" aria-hidden="true">
+  <div class="orn-band-inner">
+    <span class="orn-line"></span>
+    <span class="orn-centre"></span>
+    <span class="orn-line"></span>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════
+     §3c  SANGEET NIGHT
+     Pink · Magenta · Rose
+     ═══════════════════════════ -->
+<section id="ev-sangeet" class="ev-section">
+  <!--
+    BG IMAGE: In style.css find  #ev-sangeet { background:
+    Add:  background-image: url('sangeet-bg.jpg'); background-blend-mode:multiply;
+  -->
+  <div class="ev-section-inner">
+    <span class="ev-eyebrow ev-eyebrow-sangeet">22 June 2026 · Monday</span>
+    <div class="ev-rule ev-rule-sangeet" aria-hidden="true"></div>
+
+    <div class="ev-full-card reveal">
+      <!-- IMAGE PLACEHOLDER — Sangeet
+           Replace with: <img src="sangeet.jpg" class="ev-full-img" alt="Sangeet"/> -->
+      <div class="ev-full-ph sangeet-ph photo-frame">
+        <svg width="52" height="52" viewBox="0 0 52 52" fill="none">
+          <path d="M20 36 L20 18 L38 14 L38 32" stroke="#FFB0E0" stroke-width="1.8" stroke-linejoin="round" fill="none"/>
+          <circle cx="18" cy="37" r="6" stroke="#FFB0E0" stroke-width="1.6" fill="rgba(255,140,220,0.18)"/>
+          <circle cx="36" cy="33" r="6" stroke="#FFB0E0" stroke-width="1.6" fill="rgba(255,140,220,0.18)"/>
+        </svg>
+        <span class="ev-ph-label ev-ph-sangeet">Add Sangeet Night photo here</span>
+      </div>
+
+      <div class="ev-full-info">
+        <h3 class="ev-name-mr devanagari ev-name-sangeet">संगीत</h3>
+        <p class="ev-name-en ev-en-sangeet">Sangeet Night</p>
+        <div class="ev-detail-row ev-row-sangeet">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+          </svg>
+          <!-- Edit time here -->
+          <span class="devanagari">सायंकाळी ७:०० वाजता &nbsp;|&nbsp; 7:00 PM onwards</span>
+        </div>
+        <div class="ev-detail-row ev-row-sangeet">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/>
+          </svg>
+          <span>Shree Swami Krupa Hall, Kothrud, Pune</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TRANSITION: Sangeet → Wedding ── -->
+<div class="orn-band band-sangeet-wedding" aria-hidden="true">
+  <div class="orn-band-inner">
+    <span class="orn-line"></span>
+    <span class="orn-centre"></span>
+    <span class="orn-line"></span>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════
+     §3d  WEDDING CEREMONY
+     Royal Red · Gold
+     ═══════════════════════════ -->
+<section id="ev-wedding" class="ev-section">
+  <!--
+    BG IMAGE: In style.css find  #ev-wedding { background:
+    Add:  background-image: url('wedding-bg.jpg'); background-blend-mode:multiply;
+  -->
+  <div class="ev-section-inner">
+    <span class="ev-eyebrow ev-eyebrow-wedding">23 June 2026 · Tuesday</span>
+    <div class="ev-rule ev-rule-wedding" aria-hidden="true"></div>
+
+    <div class="ev-full-card reveal">
+      <!-- IMAGE PLACEHOLDER — Wedding
+           Replace with: <img src="wedding.jpg" class="ev-full-img" alt="Wedding"/> -->
+      <div class="ev-full-ph wedding-ph photo-frame">
+        <svg width="52" height="52" viewBox="0 0 52 52" fill="none">
+          <path d="M12 24 Q26 10 40 24 L40 40 Q40 45 26 45 Q12 45 12 40Z" stroke="#FFD700" stroke-width="1.8" fill="rgba(255,215,0,0.12)"/>
+          <path d="M18 28 Q26 18 34 28" stroke="#FFD700" stroke-width="1.4" fill="none"/>
+          <circle cx="26" cy="15" r="4.5" stroke="#FFD700" stroke-width="1.4" fill="rgba(255,215,0,0.2)"/>
+        </svg>
+        <span class="ev-ph-label ev-ph-wedding">Add Wedding photo here</span>
+      </div>
+
+      <div class="ev-full-info">
+        <h3 class="ev-name-mr devanagari ev-name-wedding">विवाह सोहळा</h3>
+        <p class="ev-name-en ev-en-wedding">Wedding Ceremony</p>
+        <div class="ev-detail-row ev-row-wedding">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+          </svg>
+          <!-- Edit muhurta time here -->
+          <span class="devanagari">शुभ मुहूर्त &nbsp;|&nbsp; दुपारी १२:३० &nbsp;|&nbsp; 12:30 PM</span>
+        </div>
+        <div class="ev-detail-row ev-row-wedding">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/>
+          </svg>
+          <span>Shree Swami Krupa Hall, Kothrud, Pune</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── ORNAMENTAL BAND: Wedding → Venue ── -->
+<div class="orn-band band-wedding-venue" aria-hidden="true">
+  <div class="orn-band-inner">
+    <span class="orn-line"></span>
+    <span class="orn-centre">
+      <svg width="80" height="32" viewBox="0 0 80 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="40" cy="16" rx="28" ry="10" fill="none" stroke="#C9922A" stroke-width="1" opacity="0.7"/>
+        <circle cx="40" cy="16" r="4" fill="#C9922A" opacity="0.9"/>
+        <circle cx="14" cy="16" r="2.5" fill="#C9922A" opacity="0.6"/>
+        <circle cx="66" cy="16" r="2.5" fill="#C9922A" opacity="0.6"/>
+        <path d="M6 16 Q18 8 30 16 Q18 24 6 16" fill="none" stroke="#C9922A" stroke-width="0.9" opacity="0.5"/>
+        <path d="M74 16 Q62 8 50 16 Q62 24 74 16" fill="none" stroke="#C9922A" stroke-width="0.9" opacity="0.5"/>
+      </svg>
+    </span>
+    <span class="orn-line"></span>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════
+     §4  VENUE
+     ═══════════════════════════ -->
+<section id="venue">
+  <!--
+    BG IMAGE: In style.css find  #venue { background:
+    Add:  background-image: url('venue-bg.jpg'); background-blend-mode:overlay;
+  -->
+  <span class="eyebrow eyebrow-pale">The Venue</span>
+  <div class="gold-bar gold-bar-blue" aria-hidden="true"></div>
+  <h1 class="sec-head sec-head-pale devanagari">विवाह स्थळ</h1>
+
+  <p class="venue-name devanagari reveal">श्री स्वामी कृपा हॉल</p>
+  <p class="venue-addr reveal">4, Karve Road, Mayur Colony, Kothrud, Pune.</p>
+
+  <div class="map-wrap reveal">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3783.5692695435523!2d73.8187434!3d18.5031598!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2bfeaae3f7cad%3A0x3cf4cb59ee98389a!2sShri%20Swami%20Krupa%20Hall!5e0!3m2!1sen!2sin!4v1773407180467!5m2!1sen!2sin"
+      title="Shree Swami Krupa Hall, Kothrud Pune"
+      allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </div>
+
+  <div style="text-align:center">
+    <a href="https://maps.google.com/?q=Shri+Swami+Krupa+Hall,Kothrud,Pune"
+       target="_blank" rel="noopener noreferrer" class="dir-btn reveal">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polygon points="3 11 22 2 13 21 11 13 3 11"/>
+      </svg>
+      Get Directions
+    </a>
+  </div>
+</section>
+<!-- ── TRANSITION: Peacock → Countdown ── -->
+<div class="orn-band band-peacock-countdown" aria-hidden="true">
+  <div class="orn-band-inner">
+    <span class="orn-line"></span>
+    <span class="orn-centre"></span>
+    <span class="orn-line"></span>
+  </div>
+</div>
+<!-- ═══════════════════════════
+     §5  COUNTDOWN
+     ═══════════════════════════ -->
+<section id="countdown">
+  <span class="eyebrow">Counting Down</span>
+  <div class="gold-bar" aria-hidden="true"></div>
+  <h2 class="sec-head cd-title">The Big Day Approaches</h2>
+
+  <div class="cd-row">
+    <div class="cd-box reveal d1"><span class="cd-num" id="cd-d">--</span><span class="cd-lbl devanagari">दिवस</span></div>
+    <div class="cd-box reveal d2"><span class="cd-num" id="cd-h">--</span><span class="cd-lbl devanagari">तास</span></div>
+    <div class="cd-box reveal d3"><span class="cd-num" id="cd-m">--</span><span class="cd-lbl devanagari">मिनिट</span></div>
+    <div class="cd-box reveal d4"><span class="cd-num" id="cd-s">--</span><span class="cd-lbl devanagari">सेकंद</span></div>
+  </div>
+  <p class="cd-sub devanagari reveal">विवाह सोहळा &nbsp;&middot;&nbsp; मंगळवार, २३ जून २०२६</p>
+</section>
+
+<!-- ── TRANSITION: Countdown → Peacock ── -->
+<div class="orn-band band-countdown-peacock" aria-hidden="true">
+  <div class="orn-band-inner">
+    <span class="orn-line"></span>
+    <span class="orn-centre"></span>
+    <span class="orn-line"></span>
+  </div>
+</div>
+<!-- ═══════════════════════════
+     PEACOCK DIVIDER — no names
+     ═══════════════════════════ -->
+<div class="peacock-band" aria-hidden="true">
+  <svg class="peacock-svg" viewBox="0 0 480 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Left tail feathers -->
+    <ellipse cx="136" cy="78" rx="7.5" ry="56" transform="rotate(-22,136,78)" fill="rgba(22,110,88,0.5)"  stroke="#1A9070" stroke-width="1.2"/>
+    <ellipse cx="109" cy="84" rx="7"   ry="50" transform="rotate(-38,109,84)" fill="rgba(15,85,115,0.44)" stroke="#0D6090" stroke-width="1.1"/>
+    <ellipse cx="87"  cy="89" rx="6.5" ry="43" transform="rotate(-53,87,89)"  fill="rgba(35,115,75,0.4)"  stroke="#228060" stroke-width="1"/>
+    <ellipse cx="68"  cy="93" rx="6"   ry="36" transform="rotate(-65,68,93)"  fill="rgba(150,70,35,0.34)" stroke="#905030" stroke-width="0.9"/>
+    <ellipse cx="52"  cy="96" rx="5.5" ry="29" transform="rotate(-75,52,96)"  fill="rgba(22,110,88,0.3)"  stroke="#1A9070" stroke-width="0.8"/>
+    <ellipse cx="38"  cy="99" rx="5"   ry="23" transform="rotate(-83,38,99)"  fill="rgba(95,50,130,0.28)" stroke="#704090" stroke-width="0.7"/>
+    <!-- Eye spots — left -->
+    <circle cx="128" cy="23" r="9"   fill="rgba(15,85,115,0.58)" stroke="#D4A040" stroke-width="1.2"/>
+    <circle cx="128" cy="23" r="6"   fill="rgba(18,48,88,0.82)"/>
+    <circle cx="128" cy="23" r="3"   fill="rgba(55,200,180,0.9)"/>
+    <circle cx="128" cy="23" r="1.1" fill="#EED068"/>
+    <circle cx="101" cy="35" r="7.5" fill="rgba(15,85,115,0.5)" stroke="#D4A040" stroke-width="1"/>
+    <circle cx="101" cy="35" r="4.8" fill="rgba(18,48,88,0.72)"/>
+    <circle cx="101" cy="35" r="2.4" fill="rgba(55,200,180,0.82)"/>
+    <circle cx="77"  cy="49" r="6.5" fill="rgba(15,85,115,0.44)" stroke="#D4A040" stroke-width="0.9"/>
+    <circle cx="77"  cy="49" r="4"   fill="rgba(18,48,88,0.64)"/>
+    <circle cx="77"  cy="49" r="2"   fill="rgba(55,200,180,0.75)"/>
+    <circle cx="57"  cy="63" r="5.5" fill="rgba(15,85,115,0.38)" stroke="#D4A040" stroke-width="0.8"/>
+    <circle cx="57"  cy="63" r="3.3" fill="rgba(18,48,88,0.56)"/>
+    <!-- Right tail (mirror) -->
+    <g transform="scale(-1,1) translate(-480,0)">
+      <ellipse cx="136" cy="78" rx="7.5" ry="56" transform="rotate(-22,136,78)" fill="rgba(22,110,88,0.5)"  stroke="#1A9070" stroke-width="1.2"/>
+      <ellipse cx="109" cy="84" rx="7"   ry="50" transform="rotate(-38,109,84)" fill="rgba(15,85,115,0.44)" stroke="#0D6090" stroke-width="1.1"/>
+      <ellipse cx="87"  cy="89" rx="6.5" ry="43" transform="rotate(-53,87,89)"  fill="rgba(35,115,75,0.4)"  stroke="#228060" stroke-width="1"/>
+      <ellipse cx="68"  cy="93" rx="6"   ry="36" transform="rotate(-65,68,93)"  fill="rgba(150,70,35,0.34)" stroke="#905030" stroke-width="0.9"/>
+      <ellipse cx="52"  cy="96" rx="5.5" ry="29" transform="rotate(-75,52,96)"  fill="rgba(22,110,88,0.3)"  stroke="#1A9070" stroke-width="0.8"/>
+      <ellipse cx="38"  cy="99" rx="5"   ry="23" transform="rotate(-83,38,99)"  fill="rgba(95,50,130,0.28)" stroke="#704090" stroke-width="0.7"/>
+      <circle cx="128" cy="23" r="9"   fill="rgba(15,85,115,0.58)" stroke="#D4A040" stroke-width="1.2"/>
+      <circle cx="128" cy="23" r="6"   fill="rgba(18,48,88,0.82)"/>
+      <circle cx="128" cy="23" r="3"   fill="rgba(55,200,180,0.9)"/>
+      <circle cx="128" cy="23" r="1.1" fill="#EED068"/>
+      <circle cx="101" cy="35" r="7.5" fill="rgba(15,85,115,0.5)" stroke="#D4A040" stroke-width="1"/>
+      <circle cx="101" cy="35" r="4.8" fill="rgba(18,48,88,0.72)"/>
+      <circle cx="101" cy="35" r="2.4" fill="rgba(55,200,180,0.82)"/>
+      <circle cx="77"  cy="49" r="6.5" fill="rgba(15,85,115,0.44)" stroke="#D4A040" stroke-width="0.9"/>
+      <circle cx="77"  cy="49" r="4"   fill="rgba(18,48,88,0.64)"/>
+      <circle cx="77"  cy="49" r="2"   fill="rgba(55,200,180,0.75)"/>
+      <circle cx="57"  cy="63" r="5.5" fill="rgba(15,85,115,0.38)" stroke="#D4A040" stroke-width="0.8"/>
+      <circle cx="57"  cy="63" r="3.3" fill="rgba(18,48,88,0.56)"/>
+    </g>
+    <!-- Body -->
+    <ellipse cx="240" cy="100" rx="25" ry="28" fill="rgba(22,110,88,0.62)" stroke="#1A9070" stroke-width="1.4"/>
+    <g fill="rgba(40,170,135,0.24)" stroke="#1A9070" stroke-width="0.55">
+      <ellipse cx="230" cy="90"  rx="8.5" ry="5.8"/>
+      <ellipse cx="250" cy="90"  rx="8.5" ry="5.8"/>
+      <ellipse cx="240" cy="100" rx="8.5" ry="5.8"/>
+    </g>
+    <!-- Neck -->
+    <path d="M237 74 Q229 54 240 38" stroke="#1A9070" stroke-width="12" stroke-linecap="round" fill="none"/>
+    <path d="M237 74 Q229 54 240 38" stroke="rgba(40,170,135,0.38)" stroke-width="8" stroke-linecap="round" fill="none"/>
+    <!-- Head -->
+    <circle cx="240" cy="32" r="16" fill="rgba(22,110,88,0.65)" stroke="#1A9070" stroke-width="1.4"/>
+    <!-- Crown -->
+    <line x1="233" y1="18" x2="227" y2="5"  stroke="#D4A040" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="236" y1="17" x2="232" y2="2"  stroke="#D4A040" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="240" y1="16" x2="240" y2="0"  stroke="#D4A040" stroke-width="1.8" stroke-linecap="round"/>
+    <line x1="244" y1="17" x2="248" y2="2"  stroke="#D4A040" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="247" y1="18" x2="253" y2="5"  stroke="#D4A040" stroke-width="1.5" stroke-linecap="round"/>
+    <circle cx="227" cy="4"  r="3.5" fill="#E07055"/>
+    <circle cx="232" cy="1"  r="3.5" fill="#E8A040"/>
+    <circle cx="240" cy="0"  r="4"   fill="#D4A040"/>
+    <circle cx="248" cy="1"  r="3.5" fill="#E8A040"/>
+    <circle cx="253" cy="4"  r="3.5" fill="#E07055"/>
+    <!-- Eye -->
+    <circle cx="250" cy="28" r="5.8" fill="rgba(16,42,72,0.92)" stroke="#D4A040" stroke-width="1"/>
+    <circle cx="250" cy="28" r="3.2" fill="rgba(16,72,100,0.85)"/>
+    <circle cx="250" cy="28" r="1.4" fill="#E8E080"/>
+    <!-- Beak -->
+    <path d="M255 31 L267 33 L255 35.5" fill="rgba(220,185,70,0.88)" stroke="#C0A028" stroke-width="0.7"/>
+    <!-- Legs -->
+    <line x1="232" y1="125" x2="227" y2="139" stroke="#1A9070" stroke-width="2.4" stroke-linecap="round"/>
+    <line x1="248" y1="125" x2="253" y2="139" stroke="#1A9070" stroke-width="2.4" stroke-linecap="round"/>
+    <line x1="227" y1="139" x2="219" y2="140" stroke="#1A9070" stroke-width="1.8" stroke-linecap="round"/>
+    <line x1="227" y1="139" x2="227" y2="140" stroke="#1A9070" stroke-width="1.8" stroke-linecap="round"/>
+    <line x1="253" y1="139" x2="261" y2="140" stroke="#1A9070" stroke-width="1.8" stroke-linecap="round"/>
+    <!-- NO names text near peacock -->
+  </svg>
+</div>
+<!-- ── TRANSITION: Countdown → Note ── -->
+<div class="orn-band band-countdown-note" aria-hidden="true">
+  <div class="orn-band-inner">
+    <span class="orn-line"></span>
+    <span class="orn-centre"></span>
+    <span class="orn-line"></span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════
+     §6  NOTE
+     ═══════════════════════════ -->
+<section id="note">
+  <!--
+    BG IMAGE: In style.css find  #note { background:
+    Add:  background-image: url('note-bg.jpg'); background-blend-mode:soft-light;
+  -->
+  <span class="eyebrow">A Personal Touch</span>
+  <div class="gold-bar" aria-hidden="true"></div>
+  <h2 class="sec-head">A Note from the Groom &amp; Bride</h2>
+
+  <div class="note-card reveal">
+    <div class="note-qm open">&ldquo;</div>
+    <!-- Edit note text here -->
+    <p class="note-mr devanagari">
+      आमच्या जीवनातील या अत्यंत आनंदाच्या क्षणी<br/>
+      आपणास सहभागी होण्याचे आमंत्रण देताना<br/>
+      आम्हाला अत्यानंद होत आहे.
+    </p>
+    <p class="note-en">
+      On this most joyous occasion of our lives, we feel truly blessed to share our happiness with you. Your presence, your smiles, and your blessings mean everything to us as we begin this beautiful journey together.
+    </p>
+    <div class="note-qm close">&rdquo;</div>
+    <div class="note-sep" aria-hidden="true">
+      <span class="nsep"></span>
+      <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+        <g fill="rgba(200,60,80,0.55)">
+          <ellipse cx="13" cy="13" rx="3" ry="10" transform="rotate(0,13,13)"/>
+          <ellipse cx="13" cy="13" rx="3" ry="10" transform="rotate(45,13,13)"/>
+          <ellipse cx="13" cy="13" rx="3" ry="10" transform="rotate(90,13,13)"/>
+          <ellipse cx="13" cy="13" rx="3" ry="10" transform="rotate(135,13,13)"/>
+        </g>
+        <circle cx="13" cy="13" r="3.8" fill="#C8401A"/>
+      </svg>
+      <span class="nsep"></span>
+    </div>
+    <!-- Uday & Unnati — Uday first -->
+    <p class="note-sig-mr devanagari">उदय &nbsp;&amp;&nbsp; उन्नती</p>
+    <p class="note-sig-en">Uday &amp; Unnati</p>
+  </div>
+</section>
+<!-- ── TRANSITION: Note → Footer ── -->
+<div class="orn-band band-note-footer" aria-hidden="true">
+  <div class="orn-band-inner">
+    <span class="orn-line"></span>
+    <span class="orn-centre"></span>
+    <span class="orn-line"></span>
+  </div>
+</div>
+<footer>
+  <div class="footer-inner">
+    <div class="footer-names">
+  <span class="footer-amp">✦ &nbsp; made with 🧡 by U.S.S &nbsp; ✦</span>
+</footer>
+
+
+<script>
+  /* Progress bar */
+  const bar = document.getElementById('progress-bar');
+  window.addEventListener('scroll', () => {
+    const s = document.documentElement;
+    bar.style.width = (s.scrollTop / (s.scrollHeight - s.clientHeight) * 100) + '%';
+  }, { passive: true });
+
+  /* Smooth reveal — generous threshold for browseable feel */
+  const ro = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); ro.unobserve(e.target); }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
+  /* Falling petals */
+  (function() {
+    const cv = document.getElementById('petal-canvas'); if (!cv) return;
+    const cols = ['#E8821A','#F5A623','#D4783A','#E86060','#F0A080','#D4B060','#FF80CC','#FFD700','#C8E0A0','#F0D0FF'];
+    for (let i = 0; i < 24; i++) {
+      const p = document.createElement('div'); p.className = 'petal';
+      const sz = 5 + Math.random()*9, dur = 9 + Math.random()*12, del = Math.random()*16;
+      p.style.cssText = `left:${Math.random()*100}%;width:${sz}px;height:${sz*1.9}px;background:${cols[Math.floor(Math.random()*cols.length)]};border-radius:${Math.random()>.5?'62% 0 62% 0':'0 62% 0 62%'};animation-duration:${dur}s;animation-delay:${del}s;opacity:0`;
+      cv.appendChild(p);
+    }
+  })();
+
+  /* Countdown */
+  const tgt = new Date('2026-06-23T12:30:00+05:30').getTime();
+  const els = ['cd-d','cd-h','cd-m','cd-s'].map(id => document.getElementById(id));
+  const pad = n => String(n).padStart(2,'0');
+  function tick() {
+    const d = tgt - Date.now(); if (d <= 0) { els.forEach(e => e&&(e.textContent='00')); return; }
+    if(els[0]) els[0].textContent=pad(Math.floor(d/86400000));
+    if(els[1]) els[1].textContent=pad(Math.floor(d%86400000/3600000));
+    if(els[2]) els[2].textContent=pad(Math.floor(d%3600000/60000));
+    if(els[3]) els[3].textContent=pad(Math.floor(d%60000/1000));
+  }
+  tick(); setInterval(tick, 1000);
+</script>
+
+  <script src="animate.js"></script>
+</body>
+</html>

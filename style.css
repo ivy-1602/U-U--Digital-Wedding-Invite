@@ -1,0 +1,2141 @@
+/* ═══════════════════════════════════════════════════════════
+   UNNATI & UDAY — WEDDING INVITATION STYLESHEET
+   Vibrant, colourful, festive — each section has its own palette
+
+   QUICK EDIT GUIDE:
+   • Hero background        → search  #hero { background:
+   • Blessings background   → search  #blessings { background:
+   • Ceremonies background  → search  #ceremonies { background:
+   • Venue background       → search  #venue { background:
+   • Countdown background   → search  #countdown { background:
+   • Note background        → search  #note { background:
+   • Closing background     → search  #closing { background:
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── GOOGLE FONTS loaded in HTML ── */
+
+/* ── CSS CUSTOM PROPERTIES ── */
+:root {
+  --gold:        #C8833A;
+  --gold-bright: #E0A840;
+  --gold-warm:   #F5C870;
+  --gold-pale:   #FEF2D4;
+  --cream:       #FDF8F2;
+
+  --wine:        #6A1E28;
+  --crimson:     #8B1A1A;
+  --orange:      #D05020;
+
+  --teal:        #0D3830;
+  --teal-bright: #4ECDC4;
+  --teal-aqua:   #7EECD8;
+
+  --royal-blue:  #0A1F5C;
+  --sapphire:    #1A2E80;
+  --cobalt:      #1E3FA0;
+
+  --rose:        #8B1A3A;
+  --blush:       #F5C8D0;
+
+  --txt:         #3A1A10;
+  --txt-mid:     #7A4030;
+  --txt-soft:    #A07060;
+}
+
+/* ── RESET ── */
+*,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; font-size:16px; }
+body {
+  background: var(--cream);
+  color: var(--txt);
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Film grain overlay */
+body::after {
+  content:''; position:fixed; inset:0; pointer-events:none; z-index:9990;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23g)' opacity='0.02'/%3E%3C/svg%3E");
+  opacity:.45;
+}
+
+/* Scroll progress bar */
+#progress-bar {
+  position:fixed; top:0; left:0; height:3px; width:0%;
+  background: linear-gradient(90deg, #8B1A1A, #E8781A, #E0A840, #4ECDC4);
+  z-index:9999; transition:width .08s linear;
+}
+
+/* ── UTILITIES ── */
+.devanagari { font-family:'Noto Serif Devanagari', serif; }
+
+/* Reveal on scroll */
+.reveal { opacity:0; transform:translateY(38px);
+  transition: opacity .85s cubic-bezier(.22,1,.36,1), transform .85s cubic-bezier(.22,1,.36,1); }
+.reveal.visible { opacity:1; transform:translateY(0); }
+.d1{transition-delay:.08s} .d2{transition-delay:.18s} .d3{transition-delay:.28s} .d4{transition-delay:.38s}
+
+/* Petals */
+.petal-canvas { position:fixed; inset:0; overflow:hidden; pointer-events:none; z-index:1; }
+.petal-canvas .petal { position:absolute; top:-30px; opacity:0; animation:petal-fall linear infinite; }
+@keyframes petal-fall {
+  0%   { transform:translateY(0) rotate(0deg) scale(1); opacity:.75; }
+  80%  { opacity:.3; }
+  100% { transform:translateY(112vh) rotate(550deg) scale(.12); opacity:0; }
+}
+
+/* ── SHARED TYPOGRAPHY ── */
+.eyebrow {
+  font-family:'Cinzel', serif;
+  font-size: clamp(.58rem,1.8vw,.75rem);
+  letter-spacing:.5em; color:var(--gold);
+  text-transform:uppercase; text-align:center; display:block; margin-bottom:.7rem;
+}
+.eyebrow-teal { color:#FF80CC; text-shadow:0 0 14px rgba(255,60,160,.5); }
+.eyebrow-pale { color:#FFE840; text-shadow:0 0 18px rgba(255,220,40,.65), 0 0 40px rgba(200,170,0,.3); }
+
+.gold-bar {
+  width:80px; height:1px; margin:.5rem auto 1.6rem;
+  background: linear-gradient(90deg, transparent, var(--gold-bright), transparent);
+}
+.gold-bar-teal { background: linear-gradient(90deg, transparent, rgba(255,100,180,.65), transparent); }
+.gold-bar-blue { background: linear-gradient(90deg, transparent, rgba(255,220,40,.75), transparent); }
+
+.sec-head {
+  font-family:'Noto Serif Devanagari', serif;
+  font-size: clamp(1.8rem,7vw,2.8rem);
+  font-weight:500; color:var(--wine); text-align:center; line-height:1.2; margin-bottom:.5rem;
+}
+.sec-head-teal {
+  color:#FFB0E0;
+  text-shadow:0 0 28px rgba(255,60,160,.6), 0 0 70px rgba(220,20,120,.3);
+}
+.sec-head-pale {
+  color:#FFE840;
+  text-shadow:
+    0 0 22px rgba(255,230,40,.78),
+    0 0 55px rgba(220,190,0,.42),
+    0 0 90px rgba(180,150,0,.2);
+}
+
+/* Name divider */
+.name-divider { display:flex; align-items:center; gap:.7rem; justify-content:center; margin:.7rem 0; }
+.ndl { flex:1; max-width:60px; height:1px; background:linear-gradient(90deg,transparent,rgba(240,200,120,.65),transparent); display:block; }
+
+/* Thin rule */
+.name-bar { width:50px; height:1px; margin:.9rem auto; background:linear-gradient(90deg,transparent,var(--gold),transparent); }
+
+
+/* ═══════════════════════════════════════════════════════════
+   §1  HERO — deep crimson → vivid orange
+   ═══════════════════════════════════════════════════════════
+   TO CHANGE BACKGROUND:
+     Replace the linear-gradient below with your own values,
+     or add background-image: url('hero-bg.jpg'); after it.
+   ═══════════════════════════════════════════════════════════ */
+#hero {
+  min-height: 100svh;
+  background: linear-gradient(175deg,
+    #4A0808 0%,
+    #6E1010 12%,
+    #8B1A1A 25%,
+    #A01C1C 38%,
+    #8B1A1A 52%,
+    #6E1010 68%,
+    #4A0808 82%,
+    #380606 100%
+  );
+  position:relative; overflow:hidden;
+  display:flex; flex-direction:column; align-items:center; justify-content:flex-start;
+  padding:3rem 1.5rem 5rem; text-align:center;
+}
+
+/* Warm centre glow */
+#hero::before {
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background:
+    radial-gradient(ellipse 78% 65% at 50% 45%, rgba(248,168,80,.24) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 38% at 16% 80%, rgba(180,48,48,.18) 0%, transparent 55%),
+    radial-gradient(ellipse 45% 32% at 84% 18%, rgba(210,120,40,.12) 0%, transparent 55%);
+}
+
+/* Sweeping shimmer */
+#hero::after {
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(128deg, transparent 28%, rgba(255,215,130,.07) 50%, transparent 72%);
+  animation:shimmer 10s ease-in-out infinite;
+}
+@keyframes shimmer { 0%,100%{transform:translateX(-80%) skewX(-14deg)} 50%{transform:translateX(180%) skewX(-14deg)} }
+
+/* ── SVG SWASTIKAS — corners ── */
+.sw {
+  position:absolute;
+  width: clamp(44px,11vw,62px);
+  height: clamp(44px,11vw,62px);
+  opacity:.55; z-index:2;
+  animation:sw-pulse 6s ease-in-out infinite;
+  filter:drop-shadow(0 0 10px rgba(240,200,100,.55));
+}
+.sw.tl { top:1rem;  left:1rem;  }
+.sw.tr { top:1rem;  right:1rem; animation-delay:1.5s; }
+.sw.bl { bottom:1.3rem; left:1rem;  animation-delay:3s;   }
+.sw.br { bottom:1.3rem; right:1rem; animation-delay:4.5s; }
+@keyframes sw-pulse {
+  0%,100% { opacity:.55; filter:drop-shadow(0 0 8px rgba(240,200,100,.45)); }
+  50%      { opacity:.82; filter:drop-shadow(0 0 20px rgba(240,200,100,.85));  }
+}
+.hero-centre-img {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hero-centre-icon {
+  width: clamp(40px, 10vw, 70px);
+  height: clamp(40px, 10vw, 70px);
+  object-fit: contain;
+  filter: drop-shadow(0 0 14px rgba(245,200,60,.75)) brightness(1.08);
+  animation: sw-centre-pulse 3s ease-in-out infinite;
+}
+.hero-centre-fallback {
+  width: clamp(36px, 9vw, 58px);
+  height: clamp(36px, 9vw, 58px);
+  filter: drop-shadow(0 0 14px rgba(245,200,60,.7));
+  animation: sw-centre-pulse 3s ease-in-out infinite;
+}
+
+/* ── GANPATI IMAGE ── */
+.ganpati-wrap {
+  position:relative; z-index:2; margin-bottom:1.3rem;
+  opacity:0; animation:fadeUp .9s .12s forwards; text-align:center;
+}
+.ganpati-img {
+  width: min(115px, 28vw);
+  display:block; margin:0 auto;
+  animation: ganpatiGlow 2.5s ease-in-out infinite;
+}
+@keyframes ganpatiGlow {
+  0%,100% {
+    filter:
+      drop-shadow(0 0 10px rgba(255,210,60,.8))
+      drop-shadow(0 0 25px rgba(255,160,20,.55))
+      drop-shadow(0 0 50px rgba(220,100,0,.3))
+      brightness(1.08);
+  }
+  50% {
+    filter:
+      drop-shadow(0 0 16px rgba(255,230,90,1))
+      drop-shadow(0 0 40px rgba(255,190,40,.75))
+      drop-shadow(0 0 70px rgba(240,130,0,.45))
+      brightness(1.18);
+  }
+}
+.ganpati-fallback {
+  display:none;
+  font-family:'Noto Serif Devanagari', serif;
+  font-size:.85rem; color:rgba(250,215,140,.75); letter-spacing:.25em;
+}
+
+/* Invocation */
+.hero-invocation {
+  position:relative; z-index:2;
+  font-size: clamp(.75rem,2.2vw,.92rem);
+  color:rgba(253,240,210,.62); letter-spacing:.3em;
+  margin-bottom:1.8rem;
+  opacity:0; animation:fadeUp .9s .32s forwards;
+}
+
+/* Name block — side by side */
+.hero-names {
+  position:relative; z-index:2;
+  opacity:0; animation:fadeUp 1s .52s forwards;
+  width:100%;
+}
+
+/* Side-by-side row */
+.hero-names-row {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap: clamp(.8rem,4vw,2.5rem);
+  margin-bottom:.6rem;
+}
+.hero-name-block {
+  display:flex; flex-direction:column; align-items:center;
+}
+.bride-name, .groom-name {
+  font-family:'Noto Serif Devanagari', serif;
+  font-size: clamp(3.2rem,16vw,7.5rem);
+  font-weight:600; color:#FFE580; line-height:1; display:block;
+  /* Rich gold shimmer effect */
+  text-shadow:
+    0 0 20px rgba(255,215,60,.9),
+    0 0 45px rgba(255,190,30,.65),
+    0 0 90px rgba(220,160,0,.4),
+    0 0 140px rgba(200,130,0,.2),
+    0 2px 6px rgba(0,0,0,.55);
+  animation: goldShine 3.5s ease-in-out infinite;
+}
+@keyframes goldShine {
+  0%,100% {
+    text-shadow:
+      0 0 20px rgba(255,215,60,.9),
+      0 0 45px rgba(255,190,30,.65),
+      0 0 90px rgba(220,160,0,.4),
+      0 2px 6px rgba(0,0,0,.55);
+  }
+  50% {
+    text-shadow:
+      0 0 30px rgba(255,240,100,1),
+      0 0 70px rgba(255,210,40,.85),
+      0 0 120px rgba(240,180,0,.55),
+      0 0 180px rgba(200,140,0,.3),
+      0 2px 6px rgba(0,0,0,.55);
+  }
+}
+
+.hero-name-en-sub {
+  font-family:'Cormorant Garamond', serif;
+  font-style:italic;
+  font-size: clamp(.8rem,2.2vw,1.1rem);
+  color:rgba(255,230,160,.6);
+  margin-top:.25rem;
+  letter-spacing:.1em;
+}
+
+/* Centre image between names */
+.hero-centre-img {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hero-centre-icon {
+  width: clamp(70px, 18vw, 130px);
+  height: clamp(70px, 18vw, 130px);
+  object-fit: contain;
+  filter: drop-shadow(0 0 14px rgba(245,200,60,.75)) brightness(1.08);
+  animation: candleFlicker 3s ease-in-out infinite;
+}
+.centre-sw-svg {
+  width: clamp(36px,9vw,56px);
+  height: clamp(36px,9vw,56px);
+  filter:drop-shadow(0 0 14px rgba(245,200,60,.85));
+  animation:sw-centre-pulse 3s ease-in-out infinite;
+}
+@keyframes sw-centre-pulse {
+  0%,100% { filter:drop-shadow(0 0 10px rgba(245,200,60,.7)); opacity:.85; }
+  50%      { filter:drop-shadow(0 0 26px rgba(255,220,80,1)); opacity:1; }
+}
+
+/* English names line */
+.hero-names-en {
+  font-family:'Playfair Display', serif;
+  font-size: clamp(1.4rem,5vw,2.4rem);
+  font-weight:600; font-style:italic;
+  color:rgba(255,230,160,.75);
+  display:block; margin-top:.5rem;
+  text-shadow:0 0 30px rgba(255,210,60,.4), 0 1px 4px rgba(0,0,0,.35);
+  line-height:1.1; letter-spacing:.05em;
+}
+.en-amp {
+  font-family:'Cormorant Garamond', serif;
+  font-style:italic; font-size:.9em;
+  color:rgba(255,190,80,.95);
+}
+
+/* ── ORNAMENTAL BORDER FRAME (like reference image) ── */
+.hero-ornament-frame {
+  position:absolute; inset:0; pointer-events:none; z-index:1;
+}
+.hof {
+  position:absolute;
+}
+.hof.top    { top:0; left:0; right:0; width:100%; height:28px; }
+.hof.bottom { bottom:0; left:0; right:0; width:100%; height:28px; }
+.hof.left   { top:0; bottom:0; left:0; width:28px; height:100%; }
+.hof.right  { top:0; bottom:0; right:0; width:28px; height:100%; }
+
+/* Live shimmer overlay on frame — moves light around border */
+.hero-ornament-frame::after {
+  content:'';
+  position:absolute; inset:0;
+  background:
+    linear-gradient(90deg, transparent 0%, rgba(255,220,80,.18) 20%, transparent 40%),
+    linear-gradient(180deg, transparent 0%, rgba(255,220,80,.12) 30%, transparent 60%);
+  animation:frame-shine 4s ease-in-out infinite;
+  pointer-events:none;
+}
+@keyframes frame-shine {
+  0%   { opacity:.4; transform:translateX(-20%) }
+  50%  { opacity:1;  transform:translateX(20%)  }
+  100% { opacity:.4; transform:translateX(-20%) }
+}
+
+/* Scroll cue */
+.scroll-cue {
+  position:absolute; bottom:2rem;
+  display:flex; flex-direction:column; align-items:center; gap:.5rem;
+  z-index:2; opacity:0; animation:fadeUp 1s 1.9s forwards;
+}
+.scroll-txt {
+  font-family:'Cinzel', serif;
+  font-size: .72rem;
+  letter-spacing: .6em;
+  color: rgba(255,225,160,.75);
+  text-shadow: 0 0 14px rgba(255,200,80,.5);
+}
+.scroll-line {
+  width: 2px;
+  height: 55px;
+  background: linear-gradient(to bottom,
+    rgba(255,210,100,.9),
+    rgba(255,180,60,.4),
+    transparent
+  );
+  animation: bob 2.8s ease-in-out infinite;
+  border-radius: 2px;
+  box-shadow: 0 0 8px rgba(255,200,80,.4);
+}
+@keyframes bob { 0%,100%{transform:scaleY(1);opacity:.8} 50%{transform:scaleY(.4);opacity:.2} }
+@keyframes fadeUp { from{opacity:0;transform:translateY(26px)} to{opacity:1;transform:translateY(0)} }
+
+
+/* ═══════════════════════════════════════════════════════════
+   §2  BLESSINGS — rich rose-gold, warm saffron
+   ═══════════════════════════════════════════════════════════
+   TO ADD BG IMAGE: add after the gradient below:
+     background-image: url('blessings-bg.jpg');
+     background-size: cover; background-position: center;
+   ═══════════════════════════════════════════════════════════ */
+#blessings {
+  background: linear-gradient(180deg,
+    #C8906A 0%,
+    #D8A878 12%,
+    #E0B888 24%,
+    #E8C898 38%,
+    #EDD0A8 52%,
+    #F0D4B4 68%,
+    #F0D8C0 82%,
+    #EAC8A8 100%
+  );
+  padding:5.5rem 1.5rem 5rem;
+  position:relative; overflow:hidden;
+  background-image: url('assets/bg_blessings.jpg');
+     background-size: cover; background-position: center;
+}
+/* Top accent stripe */
+#blessings::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:5px;
+  background:linear-gradient(90deg, #C4426B, #E8821A, #E0A840, #C4426B, #E8821A);
+}
+/* Background texture */
+#blessings::after {
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background:repeating-linear-gradient(-45deg,transparent,transparent 38px,rgba(180,80,40,.03) 38px,rgba(180,80,40,.03) 39px);
+}
+
+.bless-card {
+  max-width:460px; margin:2.5rem auto 0;
+  /* Card is ivory/cream — sits on the warm section bg */
+  background: linear-gradient(150deg, rgba(255,250,242,.97), rgba(255,242,224,.96));
+  border:2px solid rgba(180,80,40,.22); border-radius:10px;
+  padding:3rem 2.2rem;
+  box-shadow: 0 8px 48px rgba(140,40,20,.14), 0 2px 12px rgba(200,120,50,.12),
+              inset 0 1px 0 rgba(255,255,255,.95);
+  position:relative; text-align:center; z-index:1;
+}
+.bless-card::before { content:'❋'; position:absolute; top:.7rem; left:.9rem; color:var(--gold); opacity:.5; font-size:1rem; }
+.bless-card::after  { content:'❋'; position:absolute; bottom:.7rem; right:.9rem; color:var(--gold); opacity:.5; font-size:1rem; }
+
+.family-block { margin-bottom:.5rem; }
+
+.fam-label {
+  font-family:'Cinzel', serif;
+  font-size: clamp(.55rem,1.6vw,.68rem);
+  letter-spacing:.3em; color:var(--wine);
+  text-transform:uppercase; display:block; margin-bottom:1rem;
+  font-weight:600;
+}
+
+.fam-parents {
+  font-family:'Noto Serif Devanagari', serif;
+  font-size: clamp(1rem,3.2vw,1.15rem);
+  color:var(--txt-mid); line-height:2.1;
+}
+
+.c-name-mr {
+  font-family:'Noto Serif Devanagari', serif;
+  font-size: clamp(1.6rem,6.5vw,2.3rem);
+  font-weight:700; color:var(--wine); line-height:1.2; margin:.4rem 0;
+}
+
+/* English names in blessings card */
+.c-name-en {
+  font-family:'Cormorant Garamond', serif;
+  font-style:italic;
+  font-size: clamp(1.15rem,3.2vw,1.4rem);
+  color:var(--txt-soft); font-weight:400;
+}
+
+.fam-sep { display:flex; align-items:center; gap:.8rem; justify-content:center; margin:1.5rem 0; }
+.sep-line { flex:1; max-width:58px; height:1px; background:linear-gradient(90deg,transparent,rgba(180,80,40,.4),transparent); }
+
+.invite-text {
+  font-family:'Noto Serif Devanagari', serif;
+  font-size: clamp(1rem,3.2vw,1.18rem);
+  color:var(--wine); line-height:2.1; margin-top:1rem;
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   §3  CEREMONIES — Magenta · Hot Pink · Rosewood
+   ═══════════════════════════════════════════════════════════
+   TO ADD BG IMAGE:
+     background-image: url('ceremonies-bg.jpg');
+     background-blend-mode: multiply;
+   ═══════════════════════════════════════════════════════════ */
+#ceremonies {
+  background: linear-gradient(160deg,
+    #3A0820 0%,
+    #5A0E30 15%,
+    #780A40 30%,
+    #8E1050 45%,
+    #6A0A38 60%,
+    #4A0828 78%,
+    #2E0618 100%
+  );
+  padding:5.5rem 1.5rem 5rem;
+  position:relative; overflow:hidden;
+}
+/* Magenta + hot pink bloom glows */
+#ceremonies::before {
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background:
+    radial-gradient(ellipse 75% 60% at 50% 28%, rgba(255,60,160,.30) 0%, transparent 58%),
+    radial-gradient(ellipse 52% 40% at 8%  72%, rgba(220,20,120,.22) 0%, transparent 52%),
+    radial-gradient(ellipse 44% 35% at 92% 20%, rgba(255,0,140,.20)  0%, transparent 48%),
+    radial-gradient(ellipse 38% 30% at 78% 82%, rgba(180,10,80,.18)  0%, transparent 44%);
+}
+/* Hot-pink shimmer sweep */
+#ceremonies::after {
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(135deg,
+    transparent 22%,
+    rgba(255,80,180,.08) 50%,
+    transparent 78%
+  );
+  animation:cer-shimmer 12s ease-in-out infinite;
+}
+@keyframes cer-shimmer { 0%,100%{transform:translateX(-80%) skewX(-12deg)} 50%{transform:translateX(180%) skewX(-12deg)} }
+
+/* Date strip — hot pink */
+.date-strip {
+  display:flex; align-items:center; gap:1rem;
+  max-width:480px; margin:2.5rem auto 2rem;
+}
+.ds-line { flex:1; height:1px; background:linear-gradient(90deg,transparent,rgba(255,100,180,.6),transparent); }
+.ds-text {
+  font-family:'Cinzel', serif;
+  font-size: clamp(.65rem,1.7vw,.8rem);
+  letter-spacing:.35em; color:#FF80CC; white-space:nowrap;
+  text-shadow:0 0 14px rgba(255,80,180,.55);
+}
+
+/* Event card — deep rosewood with magenta border */
+.ev-card {
+  max-width:480px; margin:0 auto 1.8rem;
+  background: linear-gradient(150deg, rgba(70,8,32,.94), rgba(90,10,42,.94));
+  border:1.5px solid rgba(255,80,180,.38); border-radius:10px; overflow:hidden;
+  display:flex; flex-direction:column;
+  box-shadow:
+    0 4px 30px rgba(0,0,0,.5),
+    0 0 0 1px rgba(255,80,180,.1),
+    0 0 28px rgba(220,20,120,.1);
+  transform-style:preserve-3d;
+  transition:transform .4s cubic-bezier(.22,1,.36,1), box-shadow .4s ease;
+  will-change:transform;
+}
+.ev-card:hover {
+  box-shadow:
+    0 14px 52px rgba(0,0,0,.55),
+    0 0 45px rgba(255,60,160,.22),
+    0 0 0 1px rgba(255,100,180,.22);
+}
+
+/* Image column */
+.ev-img-col { position:relative; overflow:hidden; min-height:190px; flex-shrink:0; }
+
+/* ── EVENT PHOTO PLACEHOLDERS ──
+   Replace each .ev-ph div with:
+     <img src="yourphoto.jpg" class="ev-img" alt="…"/>
+   The .ev-img class is pre-styled below.                    */
+.ev-ph {
+  width:100%; height:210px;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.9rem;
+  border-bottom:1px solid rgba(255,80,180,.18);
+  position:relative;
+}
+.ev-ph::after {
+  content:''; position:absolute; inset:0;
+  background:repeating-linear-gradient(135deg,transparent,transparent 12px,rgba(255,80,180,.025) 12px,rgba(255,80,180,.025) 13px);
+  pointer-events:none;
+}
+
+/* Individual placeholder tints — rosewood/magenta jewel tones */
+.ring-ph    { background: linear-gradient(145deg, #5C0A28, #720C34); }
+.haldi-ph   { background: linear-gradient(145deg, #640830, #7A0A3C); }
+.sangeet-ph { background: linear-gradient(145deg, #48063C, #600848); }
+.wedding-ph { background: linear-gradient(145deg, #3A0820, #500A2C); }
+
+.ph-text {
+  font-family:'Cinzel', serif; font-size:.58rem;
+  letter-spacing:.28em; color:rgba(255,140,200,.65);
+  text-transform:uppercase; text-align:center; z-index:1;
+  text-shadow:0 0 10px rgba(255,80,180,.4);
+}
+
+/* Actual photo once added */
+.ev-img { width:100%; height:220px; object-fit:cover; display:block; }
+
+/* Info panel */
+.ev-info { padding:1.9rem 1.8rem; flex:1; }
+.order-a { order:1; }
+.order-b { order:2; }
+
+/* Tag — hot pink */
+.ev-tag {
+  font-family:'Cinzel', serif;
+  font-size:.62rem; letter-spacing:.34em;
+  color:#FF80CC;
+  border:1px solid rgba(255,100,180,.4);
+  padding:.22rem .95rem; border-radius:2px;
+  display:inline-block; margin-bottom:.9rem; text-transform:uppercase;
+  text-shadow:0 0 10px rgba(255,60,160,.45);
+}
+.ev-tag-gold { color:#F5C840; border-color:rgba(245,200,64,.45); text-shadow:0 0 12px rgba(245,200,60,.4); }
+
+/* Event Marathi title — vivid hot-pink white */
+.ev-title-mr {
+  font-family:'Noto Serif Devanagari', serif;
+  font-size: clamp(2rem,9vw,2.8rem);
+  font-weight:600;
+  color:#FFB0E0;
+  line-height:1.05;
+  text-shadow:
+    0 0 22px rgba(255,60,160,.65),
+    0 0 55px rgba(220,20,120,.35),
+    0 1px 4px rgba(0,0,0,.6);
+}
+.ev-title-gold { color:#F5C840; text-shadow:0 0 20px rgba(245,200,60,.5), 0 1px 4px rgba(0,0,0,.5); }
+
+/* English event title — magenta-rose italic */
+.ev-title-en {
+  font-family:'Cormorant Garamond', serif;
+  font-style:italic;
+  font-size: clamp(1.2rem,3.2vw,1.45rem);
+  color:rgba(255,160,210,.85); margin:.2rem 0 1rem;
+  text-shadow:0 0 12px rgba(255,80,160,.3);
+}
+.ev-title-en-gold { color:rgba(245,200,64,.85); text-shadow:0 0 12px rgba(245,200,60,.3); }
+
+.ev-row { display:flex; align-items:flex-start; gap:.65rem; margin-top:.55rem; color:#E060A8; opacity:.95; }
+.ev-row svg { flex-shrink:0; margin-top:.18rem; }
+
+/* Meta text — bright warm pink-white */
+.ev-meta {
+  font-family:'Cormorant Garamond', serif;
+  font-size: clamp(1.05rem,2.8vw,1.22rem);
+  color:rgba(255,200,230,.9); line-height:1.6; opacity:1;
+}
+.ev-meta.devanagari { font-family:'Noto Serif Devanagari', serif; }
+
+/* Wedding card — gold accent on rosewood */
+.wedding-card { border-color:rgba(245,200,64,.42); }
+.wedding-card .ev-row { color:#C8A840; }
+
+/* Alternating layout on wider screens */
+@media (min-width:600px) {
+  .ev-card { flex-direction:row; }
+  .ev-img-col { width:44%; min-height:230px; }
+  .ev-ph { height:100%; }
+  .ev-card-flip .order-a { order:1; }
+  .ev-card-flip .order-b { order:2; }
+  .ev-card:not(.ev-card-flip) .ev-img-col { border-right:1px solid rgba(255,80,180,.15); border-bottom:none; }
+  .ev-card.ev-card-flip    .ev-img-col { border-left:1px solid rgba(255,80,180,.15); border-bottom:none; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   §4  VENUE — Emerald & Gold (rich, royal, festive)
+   TO ADD BG IMAGE:  background-image: url('venue-bg.jpg');
+   ═══════════════════════════════════════════════════════════ */
+#venue {
+  background: linear-gradient(180deg,
+    #0C4228 0%,
+    #0E4A30 20%,
+    #104C30 45%,
+    #0C4028 68%,
+    #062E1A 85%,
+    #031608 100%
+  );
+  padding:5.5rem 1.5rem 5rem;
+  text-align:center; position:relative; overflow:hidden;
+}
+
+/* Emerald + gold radial glows */
+#venue::before {
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background:
+    radial-gradient(ellipse 80% 65% at 50% 38%, rgba(30,180,90,.30)  0%, transparent 58%),
+    radial-gradient(ellipse 55% 42% at 8%  72%, rgba(20,140,60,.22)  0%, transparent 52%),
+    radial-gradient(ellipse 45% 36% at 92% 20%, rgba(200,170,40,.22) 0%, transparent 50%),
+    radial-gradient(ellipse 38% 30% at 72% 82%, rgba(10,100,40,.18)  0%, transparent 44%);
+}
+
+/* Gold shimmer sweep */
+#venue::after {
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background: linear-gradient(135deg, transparent 22%, rgba(200,170,40,.10) 50%, transparent 78%);
+  animation: venue-shimmer 9s ease-in-out infinite;
+}
+@keyframes venue-shimmer {
+  0%,100% { transform:translateX(-80%) skewX(-12deg); }
+  50%      { transform:translateX(180%) skewX(-12deg); }
+}
+#venue .sec-head-pale::after { content: none; }
+
+.venue-name {
+  font-family:'Noto Serif Devanagari', serif;
+  font-size: clamp(2.2rem,8vw,3.6rem);
+  color: #FFFFFF;
+  text-shadow:
+    0 0 22px rgba(255,210,60,.75),
+    0 0 55px rgba(40,180,90,.35),
+    0 2px 8px rgba(0,0,0,.55);
+  margin:1.2rem 0 .4rem;
+  position:relative; z-index:2;
+  text-shadow:
+    0 0 22px rgba(220,180,40,.75),
+    0 0 55px rgba(160,130,0,.4),
+    0 2px 6px rgba(0,0,0,.65);
+}
+.venue-addr {
+  font-family:'Cormorant Garamond', serif; font-style:italic;
+  font-size: clamp(1.2rem,3.2vw,1.5rem);
+  color: rgba(220,255,230,.88);
+  text-shadow: 0 1px 6px rgba(0,0,0,.4);
+  margin-bottom:2rem;
+  letter-spacing: .04em;
+  position:relative; z-index:2;
+}
+.map-wrap {
+  max-width:480px; margin:0 auto;
+  border:2px solid rgba(160,140,40,.55); border-radius:10px; overflow:hidden;
+  box-shadow:
+    0 12px 60px rgba(0,0,0,.65),
+    0 0 45px rgba(20,140,60,.22),
+    0 0 0 1px rgba(180,150,40,.18);
+  position:relative; z-index:2;
+}
+.map-wrap iframe { width:100%; aspect-ratio:4/3; border:0; display:block; }
+
+.dir-btn {
+  display:inline-flex; align-items:center; gap:.65rem;
+  margin-top:1.8rem; padding:1rem 3rem;
+  border:2px solid rgba(255,220,80,.7); color:#FFFFFF;
+  font-size:.72rem; letter-spacing:.38em;
+  text-shadow: 0 0 14px rgba(255,220,80,.5);
+  box-shadow: 0 0 24px rgba(40,180,90,.2), 0 0 0 1px rgba(255,220,80,.15);
+  background: rgba(20,100,50,.18);
+  font-family:'Cinzel', serif; font-size:.66rem;
+  letter-spacing:.32em; text-decoration:none; border-radius:4px;
+  transition:background .3s, color .3s, border-color .3s, box-shadow .3s;
+  position:relative; z-index:2;
+  background:rgba(20,120,50,.15);
+  text-shadow:0 0 14px rgba(200,170,40,.4);
+  box-shadow:0 0 18px rgba(20,120,50,.2);
+}
+.dir-btn:hover,.dir-btn:focus {
+  background:rgba(30,160,70,.28); color:#FFE890;
+  border-color:rgba(180,160,50,.9);
+  box-shadow:0 0 36px rgba(30,160,70,.38);
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   §5  COUNTDOWN — sage/mint green
+   ═══════════════════════════════════════════════════════════ */
+#countdown {
+  background: linear-gradient(180deg, #E8F4E4 0%, #F0F8EC 40%, #E4F0E0 100%);
+  padding:5.5rem 1.5rem 5rem;
+  text-align:center; position:relative; overflow:hidden;
+}
+#countdown::before,#countdown::after {
+  content:''; position:absolute; border-radius:50%;
+  border:1px solid rgba(100,160,100,.14); pointer-events:none;
+  animation:ring-pulse 11s ease-in-out infinite;
+}
+#countdown::before { width:300px; height:300px; top:-90px; right:-80px; }
+#countdown::after  { width:200px; height:200px; bottom:-60px; left:-60px; animation-delay:4.5s; }
+@keyframes ring-pulse { 0%,100%{transform:scale(1) rotate(0);opacity:.45} 50%{transform:scale(1.07) rotate(10deg);opacity:.9} }
+
+.cd-row {
+  display:flex; justify-content:center;
+  gap: clamp(.6rem,3vw,1.4rem);
+  flex-wrap:wrap; margin-top:2.5rem; position:relative; z-index:2;
+}
+.cd-box {
+  background:linear-gradient(150deg, #FFFFFF, #F4FBF2);
+  border:1.5px solid rgba(90,148,90,.28); border-radius:10px;
+  padding: clamp(1rem,3vw,1.4rem) clamp(.8rem,3vw,1.2rem);
+  min-width: clamp(66px,18vw,92px);
+  box-shadow:0 4px 22px rgba(30,90,30,.08);
+  display:flex; flex-direction:column; align-items:center; gap:.3rem;
+  transition:transform .3s ease;
+}
+.cd-box:hover { transform:translateY(-5px); }
+.cd-num {
+  font-family:'Cinzel', serif;
+  font-size: clamp(2rem,10vw,3.2rem);
+  color:#3A7A38; line-height:1; display:block;
+  text-shadow:0 2px 8px rgba(58,122,56,.22);
+}
+.cd-lbl {
+  font-family:'Noto Serif Devanagari', serif;
+  font-size:.68rem; color:#7A9070; letter-spacing:.08em; display:block;
+}
+.cd-sub {
+  font-family:'Noto Serif Devanagari', serif;
+  font-size: clamp(.88rem,2.5vw,1rem);
+  color:#7A9070; margin-top:1.6rem; position:relative; z-index:2;
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   PEACOCK DIVIDER BAND
+   ═══════════════════════════════════════════════════════════ */
+.peacock-band {
+  background:linear-gradient(160deg,#0A1610,#121E14,#1A2C1A,#0A1612);
+  padding:3.8rem 1.5rem; display:flex; align-items:center; justify-content:center;
+  overflow:hidden; position:relative;
+}
+.peacock-band::before {
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background:
+    radial-gradient(ellipse 62% 62% at 50% 50%, rgba(30,165,135,.16) 0%, transparent 65%),
+    radial-gradient(ellipse 30% 30% at 16% 50%, rgba(18,95,168,.1) 0%, transparent 55%),
+    radial-gradient(ellipse 30% 30% at 84% 50%, rgba(105,42,148,.09) 0%, transparent 55%);
+}
+.peacock-svg {
+  max-width:480px; width:100%; position:relative; z-index:2;
+  animation:pk-breathe 8s ease-in-out infinite;
+}
+@keyframes pk-breathe { 0%,100%{transform:scale(1);opacity:.82} 50%{transform:scale(1.02);opacity:1} }
+
+
+/* ═══════════════════════════════════════════════════════════
+   §6  NOTE — warm blush rose
+   ═══════════════════════════════════════════════════════════
+   TO ADD BG IMAGE:
+     background-image: url('note-bg.jpg');
+     background-blend-mode: soft-light;
+   ═══════════════════════════════════════════════════════════ */
+#note {
+  background: linear-gradient(160deg,
+    #F8E4E8 0%,
+    #F2D0D8 28%,
+    #ECC0CC 55%,
+    #F4D4DA 78%,
+    #F8E6E8 100%
+  );
+  padding:5.5rem 1.5rem 5rem; position:relative; overflow:hidden;
+}
+#note::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:5px;
+  background:linear-gradient(90deg, #C8401A, #E8781A, #E0A840, var(--rose), #C8401A);
+}
+
+.note-card {
+  max-width:460px; margin:2.5rem auto 0;
+  background:linear-gradient(150deg, rgba(255,250,248,.98), rgba(255,240,245,.96));
+  border:2px solid rgba(180,60,80,.2); border-radius:10px;
+  padding:3rem 2.2rem 2.5rem;
+  box-shadow:0 8px 48px rgba(140,30,50,.1), inset 0 1px 0 rgba(255,255,255,.95);
+  text-align:center; position:relative;
+}
+.note-qm {
+  font-family:'Playfair Display', serif;
+  font-size:4.5rem; color:rgba(200,80,100,.4);
+  line-height:1; height:2.8rem; display:block; margin-bottom:.4rem;
+}
+.note-qm.close { margin-top:.4rem; margin-bottom:0; }
+.note-mr {
+  font-family:'Noto Serif Devanagari', serif;
+  font-size: clamp(1rem,3.2vw,1.18rem);
+  color:var(--wine); line-height:2.1; margin-bottom:1rem;
+}
+/* English note text */
+.note-en {
+  font-family:'Cormorant Garamond', serif; font-style:italic;
+  font-size: clamp(1.12rem,3.2vw,1.32rem);
+  color:var(--txt-mid); line-height:1.9;
+}
+.note-sep { display:flex; align-items:center; gap:.9rem; justify-content:center; margin:1.5rem 0 1.2rem; }
+.nsep { flex:1; max-width:72px; height:1px; background:linear-gradient(90deg,transparent,rgba(180,60,80,.35),transparent); }
+.note-sig-mr {
+  font-family:'Noto Serif Devanagari', serif;
+  font-size: clamp(1.5rem,6vw,2.1rem); font-weight:700; color:var(--wine);
+}
+/* English signature */
+.note-sig-en {
+  font-family:'Playfair Display', serif; font-style:italic;
+  font-size: clamp(1.12rem,3vw,1.38rem);
+  color:var(--txt-soft); margin-top:.3rem;
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   §7  CLOSING — deep crimson (mirrors hero)
+   ═══════════════════════════════════════════════════════════
+   TO ADD BG IMAGE:
+     background-image: url('closing-bg.jpg');
+     background-blend-mode: multiply;
+   ═══════════════════════════════════════════════════════════ */
+#closing {
+  background: linear-gradient(180deg,
+    #8B1A1A 0%,
+    #6A1212 35%,
+    #4A0C0C 70%,
+    #300808 100%
+  );
+  padding:6rem 1.5rem 4.5rem;
+  text-align:center; position:relative; overflow:hidden;
+}
+#closing::before {
+  content:''; position:absolute; bottom:0; left:0; right:0; height:240px;
+  background:linear-gradient(to top, rgba(200,110,40,.14), transparent); pointer-events:none;
+}
+#closing::after {
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background: radial-gradient(ellipse 70% 50% at 50% 52%, rgba(210,100,40,.15) 0%, transparent 65%);
+}
+.closing-inner { position:relative; z-index:2; }
+.closing-om {
+  font-family:'Noto Serif Devanagari', serif;
+  font-size: clamp(.8rem,2vw,.95rem);
+  color:rgba(253,240,210,.52); letter-spacing:.28em; margin-bottom:1.5rem;
+}
+.closing-bride,.closing-groom {
+  font-family:'Noto Serif Devanagari', serif;
+  font-size: clamp(2.8rem,14vw,5.5rem);
+  font-weight:400; color:var(--gold-pale); display:block; line-height:1.1;
+  text-shadow:0 0 60px rgba(248,200,120,.3), 0 2px 8px rgba(0,0,0,.4);
+}
+.closing-msg {
+  font-family:'Noto Serif Devanagari', serif;
+  font-size: clamp(1rem,3.2vw,1.18rem);
+  color:rgba(253,240,210,.58); max-width:310px; margin:1.8rem auto 0; line-height:2.1;
+}
+.closing-dates { margin-top:2.2rem; }
+.cdate {
+  font-family:'Noto Serif Devanagari', serif;
+  font-size: clamp(.75rem,2vw,.9rem);
+  letter-spacing:.2em; color:var(--gold-warm); opacity:.68;
+  display:block; margin:.35rem 0;
+}
+
+
+/* ── FOOTER ── */
+footer {
+  background:rgba(0,0,0,.4); padding:1.3rem; text-align:center;
+  border-top:1px solid rgba(200,131,58,.12);
+}
+footer p {
+  font-family:'Cinzel', serif; font-size:.5rem;
+  letter-spacing:.45em; color:rgba(253,240,210,.15);
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   MOBILE OVERRIDES
+   ═══════════════════════════════════════════════════════════ */
+@media (max-width:400px) {
+  .bride-name,.groom-name { font-size:4.2rem; }
+  .hero-names-en { font-size:2.1rem; }
+  .bless-card { padding:2rem 1.3rem; }
+  .ev-info { padding:1.5rem 1.2rem; }
+  .cd-box { min-width:60px; padding:.9rem .65rem; }
+  .note-card { padding:2rem 1.3rem; }
+  .sw { width:30px; height:30px; }
+}
+@media (min-width:768px) {
+  .cd-row { gap:1.6rem; }
+  .cd-box { min-width:104px; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   INDIVIDUAL CEREMONY SECTIONS — 4 distinct palettes
+   ═══════════════════════════════════════════════════════════ */
+
+/* Shared layout */
+.ev-section {
+  padding: 5.5rem 1.5rem 6rem;
+  position: relative; overflow: hidden;
+}
+.ev-section-inner {
+  max-width: 540px; margin: 0 auto; text-align: center;
+}
+.ev-eyebrow {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(.72rem,2vw,.88rem);   /* bigger */
+  letter-spacing: .42em; text-transform: uppercase;
+  display: block; margin-bottom: .8rem;
+  color: #C8D8FF;
+}
+.ev-rule { width: 80px; height: 1px; margin: .5rem auto 2rem; }
+
+/* Card */
+.ev-full-card {
+  background: rgba(0,0,0,.22);
+  backdrop-filter: blur(6px);
+  border-radius: 14px; overflow: hidden;
+  box-shadow: 0 10px 50px rgba(0,0,0,.45);
+  transition: transform .5s cubic-bezier(.22,1,.36,1), box-shadow .5s ease;
+}
+.ev-full-card:hover { transform: translateY(-6px); }
+
+.ev-full-ph {
+  width: 100%; height: 230px;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 1rem;
+}
+.ev-full-img { width:100%; height:270px; object-fit:cover; display:block; }
+
+.ev-full-info { padding: 2.2rem 2rem 2.6rem; text-align: left; }
+
+/* Ceremony Marathi title — bigger */
+.ev-name-mr {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: clamp(2.6rem,11vw,3.8rem);   /* increased */
+  font-weight: 700; line-height: 1.05; display: block;
+  margin-bottom: .2rem;
+}
+/* English ceremony name — bigger */
+.ev-name-en {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(1.3rem,3.5vw,1.65rem);   /* increased */
+  margin: .2rem 0 1.4rem; display: block;
+  font-weight: 400;
+}
+.ev-ph-label {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(.6rem,1.6vw,.72rem);   /* bigger */
+  letter-spacing: .22em; text-transform: uppercase; text-align: center;
+}
+/* Detail rows — bigger and more readable */
+.ev-detail-row {
+  display: flex; align-items: flex-start; gap: .8rem;
+  margin-top: .75rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.15rem,3.2vw,1.38rem);   /* noticeably bigger */
+  line-height: 1.65;
+  opacity: 1;
+}
+.ev-detail-row svg { flex-shrink: 0; margin-top: .22rem; width:17px; height:17px; }
+.ev-detail-row .devanagari { font-family: 'Noto Serif Devanagari', serif; }
+
+/* ── §3a RING CEREMONY — Royal Blue · Silver ── */
+#ev-ring {
+  background: linear-gradient(180deg,
+    #1A2E88 0%,
+    #122268 25%,
+    #1A2E88 50%,
+    #142470 72%,
+    #0E1A58 100%
+  );
+}
+#ev-ring::before {
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background:
+    radial-gradient(ellipse 78% 65% at 50% 32%, rgba(160,200,255,.32) 0%, transparent 58%),
+    radial-gradient(ellipse 50% 40% at 8% 70%,  rgba(120,170,255,.22) 0%, transparent 52%),
+    radial-gradient(ellipse 44% 32% at 92% 22%,  rgba(180,220,255,.2)  0%, transparent 48%),
+    radial-gradient(ellipse 35% 28% at 50% 80%,  rgba(100,150,255,.15) 0%, transparent 44%);
+}
+.ev-rule-ring { background: linear-gradient(90deg, transparent, rgba(180,215,255,.7), transparent); }
+.ev-eyebrow   { color: #B0CCFF; }
+#ev-ring .ev-full-card { border: 1.5px solid rgba(160,200,255,.45); }
+.ev-name-ring {
+  color: #F0F4FF;
+  text-shadow:
+    0 0 20px rgba(255,255,255,.9),
+    0 0 45px rgba(200,220,255,.7),
+    0 0 90px rgba(160,190,255,.4),
+    0 1px 3px rgba(0,0,0,.5);
+}
+.ev-en-ring   {
+  color: rgba(220,232,255,.88);
+  text-shadow: 0 0 14px rgba(200,215,255,.5);
+  font-style: italic;
+}
+.ev-eyebrow {
+  color: #C8D8FF;
+  text-shadow: 0 0 12px rgba(180,210,255,.6), 0 0 30px rgba(140,180,255,.3);
+  letter-spacing: .5em;
+}
+.ev-row-ring  {
+  color: rgba(210,228,255,.95);
+  text-shadow: 0 0 8px rgba(180,210,255,.3);
+}
+.ev-rule-ring {
+  background: linear-gradient(90deg,
+    transparent,
+    rgba(220,235,255,.9),
+    rgba(255,255,255,1),
+    rgba(220,235,255,.9),
+    transparent
+  );
+  height: 1.5px;
+}
+#ev-ring .ev-full-card {
+  border: 1.5px solid rgba(220,235,255,.55);
+  box-shadow:
+    0 10px 50px rgba(0,0,0,.45),
+    0 0 40px rgba(160,200,255,.15),
+    inset 0 1px 0 rgba(255,255,255,.12);
+}
+.ring-ph { background: linear-gradient(145deg, #0E2060, #162880); }
+
+/* ── §3b HALDI — pure yellow gold orange, zero green ── */
+#ev-haldi {
+  background: linear-gradient(160deg,
+    #3A1800 0%,
+    #6A2E00 16%,
+    #9A4400 32%,
+    #C05800 48%,
+    #9A4400 64%,
+    #5A2800 80%,
+    #2A1200 100%
+  );
+}
+#ev-haldi::before {
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background:
+    radial-gradient(ellipse 82% 70% at 50% 38%, rgba(255,180,0,.55)  0%, transparent 55%),
+    radial-gradient(ellipse 56% 44% at 8%  70%, rgba(255,140,0,.40)  0%, transparent 52%),
+    radial-gradient(ellipse 50% 38% at 92% 22%, rgba(255,160,20,.38) 0%, transparent 48%),
+    radial-gradient(ellipse 42% 32% at 50% 88%, rgba(220,100,0,.30)  0%, transparent 44%);
+}
+/* Golden shimmer sweep */
+#ev-haldi::after {
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(135deg, transparent 18%, rgba(255,160,0,.18) 50%, transparent 82%);
+  animation:ev-shimmer 8s ease-in-out infinite;
+}
+.ev-eyebrow-haldi {
+  color: #FFFFFF;
+  text-shadow: 0 0 12px rgba(255,200,80,.6), 0 1px 4px rgba(0,0,0,.5);
+  letter-spacing: .5em;
+}
+.ev-rule-haldi {
+  background: linear-gradient(90deg,
+    transparent,
+    rgba(255,220,100,.9),
+    rgba(255,255,255,1),
+    rgba(255,220,100,.9),
+    transparent
+  );
+  height: 1.5px;
+}
+#ev-haldi .ev-full-card {
+  border: 2px solid rgba(255,200,60,.55);
+  box-shadow:
+    0 10px 50px rgba(0,0,0,.4),
+    0 0 40px rgba(220,140,0,.25),
+    inset 0 1px 0 rgba(255,255,255,.1);
+}
+.ev-name-haldi {
+  color: #FFFFFF;
+  text-shadow:
+    0 0 20px rgba(255,220,80,.8),
+    0 0 50px rgba(255,180,0,.5),
+    0 2px 6px rgba(0,0,0,.6);
+}
+.ev-en-haldi  {
+  color: rgba(255,240,200,.95);
+  text-shadow: 0 1px 4px rgba(0,0,0,.4);
+}
+.ev-ph-haldi  { color: rgba(255,230,150,.85); }
+.ev-row-haldi {
+  color: rgba(255,240,200,.98);
+  text-shadow: 0 1px 3px rgba(0,0,0,.4);
+}
+.haldi-ph { background: linear-gradient(145deg, #4A2200, #6E3400); }
+/* ── HALDI info panel — warm amber, no dark ── */
+#ev-haldi .ev-full-info {
+  background: linear-gradient(180deg,
+    rgba(160, 70, 0, 0.30) 0%,
+    rgba(180, 90, 0, 0.20) 100%
+  );
+}
+
+/* ── §3c SANGEET — Pink · Magenta · Rose ── */
+#ev-sangeet {
+  background: linear-gradient(180deg,
+    #440818 0%,
+    #440818 8%,
+    #600A2C 25%,
+    #780E36 45%,
+    #540A26 68%,
+    #220410 100%
+  );
+}
+#ev-sangeet::before {
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background:
+    radial-gradient(ellipse 78% 65% at 50% 32%, rgba(255,60,160,.38) 0%, transparent 58%),
+    radial-gradient(ellipse 52% 40% at 8%  70%, rgba(220,20,120,.28) 0%, transparent 52%),
+    radial-gradient(ellipse 44% 34% at 92% 22%, rgba(255,0,140,.25)  0%, transparent 48%),
+    radial-gradient(ellipse 38% 28% at 50% 85%, rgba(180,0,100,.2)   0%, transparent 44%);
+}
+.ev-eyebrow-sangeet {
+  color: #FFFFFF;
+  text-shadow: 0 0 12px rgba(255,150,210,.6), 0 1px 4px rgba(0,0,0,.5);
+  letter-spacing: .5em;
+}
+.ev-rule-sangeet {
+  background: linear-gradient(90deg,
+    transparent,
+    rgba(255,180,230,.9),
+    rgba(255,255,255,1),
+    rgba(255,180,230,.9),
+    transparent
+  );
+  height: 1.5px;
+}
+#ev-sangeet .ev-full-card {
+  border: 1.5px solid rgba(255,150,200,.45);
+  box-shadow:
+    0 10px 50px rgba(0,0,0,.4),
+    0 0 40px rgba(200,40,120,.2),
+    inset 0 1px 0 rgba(255,255,255,.1);
+}
+.ev-name-sangeet {
+  color: #FFFFFF;
+  text-shadow:
+    0 0 20px rgba(255,160,220,.8),
+    0 0 50px rgba(220,60,140,.4),
+    0 2px 6px rgba(0,0,0,.6);
+}
+.ev-en-sangeet  {
+  color: rgba(255,220,240,.95);
+  text-shadow: 0 1px 4px rgba(0,0,0,.4);
+}
+.ev-ph-sangeet  { color: rgba(255,210,235,.85); }
+.ev-row-sangeet {
+  color: rgba(255,225,242,.98);
+  text-shadow: 0 1px 3px rgba(0,0,0,.4);
+}
+.sangeet-ph { background: linear-gradient(145deg, #600A30, #780C3E); }
+
+/* ── §3d WEDDING — Royal Red · Gold ── */
+#ev-wedding {
+  background: linear-gradient(180deg,
+    #300808 0%,
+    #300808 8%,
+    #4E0A0A 25%,
+    #700C0C 45%,
+    #5E0A0A 68%,
+    #240606 100%
+  );
+}
+#ev-wedding::before {
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background:
+    radial-gradient(ellipse 80% 65% at 50% 36%, rgba(255,210,40,.32) 0%, transparent 58%),
+    radial-gradient(ellipse 52% 40% at 8%  72%, rgba(220,40,40,.30)  0%, transparent 52%),
+    radial-gradient(ellipse 46% 36% at 92% 20%, rgba(255,170,20,.26)  0%, transparent 48%),
+    radial-gradient(ellipse 38% 28% at 50% 85%, rgba(180,20,20,.22)  0%, transparent 44%);
+}
+.ev-eyebrow-wedding { color: #FFD468; text-shadow: 0 0 16px rgba(255,200,40,.6); }
+.ev-rule-wedding { background: linear-gradient(90deg, transparent, rgba(255,210,40,.75), transparent); }
+#ev-wedding .ev-full-card { border: 2px solid rgba(255,200,40,.48); box-shadow: 0 10px 50px rgba(0,0,0,.45), 0 0 40px rgba(200,80,0,.18); }
+.ev-name-wedding {
+  color: #FFD468;
+  text-shadow:
+    0 0 24px rgba(255,210,40,.85),
+    0 0 65px rgba(200,120,0,.5),
+    0 0 110px rgba(160,80,0,.28);
+}
+.ev-en-wedding   { color: rgba(255,220,130,.95); }
+.ev-ph-wedding   { color: rgba(255,205,60,.72); }
+.ev-row-wedding  { color: rgba(255,215,110,.98); }
+.wedding-ph { background: linear-gradient(145deg, #4E0A0A, #640C0C); }
+
+/* Shared section shimmer */
+.ev-section::after {
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(135deg, transparent 22%, rgba(255,255,255,.055) 50%, transparent 78%);
+  animation:ev-shimmer 14s ease-in-out infinite;
+}
+@keyframes ev-shimmer { 0%,100%{transform:translateX(-80%) skewX(-12deg)} 50%{transform:translateX(180%) skewX(-12deg)} }
+
+/* ── NATURAL DIVIDERS ── */
+.natural-divider { height: 60px; overflow: hidden; line-height: 0; }
+.natural-divider svg { display: block; width: 100%; height: 100%; }
+
+
+
+
+/* Smooth scroll */
+html { scroll-behavior: smooth; }
+
+/* Countdown title */
+.cd-title {
+  font-family:'Cinzel', serif !important;
+  font-size:clamp(1rem,3.5vw,1.4rem) !important;
+  letter-spacing:.12em; color: var(--wine) !important;
+}
+
+/* Mobile: side-by-side names stack on very small screens */
+@media (max-width:360px) {
+  .hero-names-row { flex-direction:column; gap:.4rem; }
+  .bride-name,.groom-name { font-size:3.8rem; }
+  .hero-names-en { font-size:1.2rem; }
+}
+
+/* ============================================================
+   ANIMATE.JS COMPANION STYLES
+   ============================================================ */
+
+/* ── Fairy lights strip ── */
+.fairy-lights {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 52px;
+  pointer-events: none;
+  z-index: 8;
+  overflow: hidden;
+}
+/* Catenary wire */
+.fairy-lights::before {
+  content: '';
+  position: absolute;
+  top: 8px; left: 0; right: 0;
+  height: 1px;
+  background: rgba(180, 120, 20, 0.35);
+  /* Simulate droop with mask */
+  clip-path: polygon(0 60%, 10% 30%, 20% 50%, 30% 20%, 40% 40%, 50% 10%, 60% 40%, 70% 20%, 80% 50%, 90% 30%, 100% 60%, 100% 100%, 0 100%);
+}
+.fl-wire {
+  position: absolute;
+  top: 6px;
+  width: 1px;
+  height: 14px;
+  background: rgba(160, 100, 20, 0.4);
+  transform: translateX(-50%);
+}
+.fl-bulb {
+  position: absolute;
+  top: 18px;
+  border-radius: 50% 50% 60% 60%;
+  transform: translateX(-50%);
+  animation: bulb-flicker ease-in-out infinite;
+  box-shadow: 0 0 8px currentColor, 0 0 16px currentColor;
+  opacity: 0.85;
+}
+@keyframes bulb-flicker {
+  0%,100% { opacity: .85; filter: brightness(1); }
+  45%      { opacity: .95; filter: brightness(1.3); }
+  50%      { opacity: .6;  filter: brightness(.7); }
+  55%      { opacity: .9;  filter: brightness(1.1); }
+}
+
+/* ── Section transitions ── */
+.section-transition {
+  position: relative;
+  overflow: hidden;
+  line-height: 0;
+  margin: -2px 0; /* overlap to avoid gaps */
+}
+.section-transition svg {
+  display: block;
+  width: 100%;
+}
+.trans-hero-bless  { height: 80px;  }
+.trans-bless-ring  { height: 100px; }
+.trans-wedding-venue { height: 100px; }
+
+/* ── Photo frame aesthetic borders ── */
+.photo-frame {
+  position: relative;
+}
+/* Ornate corner overlays */
+.photo-frame::before,
+.photo-frame::after {
+  content: '';
+  position: absolute;
+  width: 44px; height: 44px;
+  pointer-events: none;
+  z-index: 3;
+  border-color: rgba(201, 146, 42, 0.7);
+  border-style: solid;
+}
+.photo-frame::before {
+  top: 10px; left: 10px;
+  border-width: 2px 0 0 2px;
+  border-radius: 6px 0 0 0;
+}
+.photo-frame::after {
+  bottom: 10px; right: 10px;
+  border-width: 0 2px 2px 0;
+  border-radius: 0 0 6px 0;
+}
+
+/* JS-injected sparkle corners */
+.frame-sparkle {
+  position: absolute;
+  width: 44px; height: 44px;
+  pointer-events: none;
+  z-index: 4;
+  border-color: rgba(201, 146, 42, 0.55);
+  border-style: solid;
+}
+.frame-sparkle-tl { top: 10px; left: 10px;  border-width: 0 2px 2px 0; border-radius: 0 0 6px 0; }
+.frame-sparkle-tr { top: 10px; right: 10px; border-width: 0 0 2px 2px; border-radius: 0 0 0 6px; }
+.frame-sparkle-bl { bottom: 10px; left: 10px;  border-width: 2px 2px 0 0; border-radius: 0 6px 0 0; }
+.frame-sparkle-br { bottom: 10px; right: 10px; border-width: 2px 0 0 2px; border-radius: 6px 0 0 0; }
+
+/* Shimmer on photo frame hover */
+.photo-frame:hover::before,
+.photo-frame:hover::after,
+.photo-frame:hover .frame-sparkle {
+  border-color: rgba(255, 220, 80, 0.9);
+  transition: border-color .4s ease;
+}
+
+/* ── Blessings section — gradient fade, no bg-color override ── */
+#blessings {
+  /* base handled by gradient above */
+  background-size: cover;
+  background-position: center;
+}
+/* Remove the old ::before dark scrim, replace with subtle vignette only */
+#blessings::before {
+  content: '';
+  position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 50%, transparent 40%, rgba(0,0,0,0.28) 100%);
+}
+#blessings::after {
+  content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background: linear-gradient(135deg, transparent 25%, rgba(255,200,80,.06) 50%, transparent 75%);
+  animation: bless-shimmer 9s ease-in-out infinite;
+}
+@keyframes bless-shimmer {
+  0%,100% { transform: translateX(-80%) skewX(-12deg); }
+  50%      { transform: translateX(180%) skewX(-12deg); }
+}
+
+/* Blessings eyebrow — glowing warm white */
+.bless-eyebrow {
+  position: relative; z-index: 2;
+  color: rgba(255, 240, 200, 0.92) !important;
+  text-shadow: 0 0 16px rgba(255, 200, 80, .45), 0 1px 4px rgba(0,0,0,.5);
+}
+/* Blessings heading — bright cream white, readable over any image */
+#blessings .sec-head {
+  position: relative; z-index: 2;
+  color: #FFF8EC !important;
+  text-shadow:
+    0 0 20px rgba(201, 146, 42, .55),
+    0 0 50px rgba(255, 200, 80, .25),
+    0 2px 8px rgba(0, 0, 0, .6);
+}
+#blessings .gold-bar { position: relative; z-index: 2; }
+
+/* Bless card — pure transparent glass, background shows through fully */
+.bless-card {
+  background: rgba(255, 245, 230, 0.10) !important;
+  backdrop-filter: blur(20px) saturate(1.5) brightness(1.06) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(1.5) brightness(1.06) !important;
+  border: 1.5px solid rgba(255, 210, 140, 0.32) !important;
+  box-shadow:
+    0 8px 50px rgba(0, 0, 0, 0.30),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.12) !important;
+}
+
+/* Text inside bless card — crisp, readable on any bg */
+.fam-label {
+  color: #F5C840 !important;
+  text-shadow: 0 1px 6px rgba(0,0,0,.55), 0 0 14px rgba(245,200,60,.3) !important;
+}
+.fam-parents {
+  color: rgba(255, 238, 210, 0.88) !important;
+  text-shadow: 0 1px 4px rgba(0,0,0,.5);
+}
+.c-name-mr {
+  color: #FFE580 !important;
+  text-shadow:
+    0 0 16px rgba(255, 215, 60, .75),
+    0 0 40px rgba(200, 150, 0, .35),
+    0 2px 6px rgba(0,0,0,.55) !important;
+}
+.c-name-en {
+  color: rgba(255, 230, 190, 0.78) !important;
+}
+.invite-text {
+  color: #FFFFFF !important;
+  text-shadow:
+    0 0 12px rgba(255, 255, 255, 0.40),
+    0 1px 5px rgba(0, 0, 0, 0.65) !important;
+}
+.invite-text strong {
+  color: #FFE580 !important;
+  text-shadow: 0 0 14px rgba(255,215,60,.6) !important;
+}
+.name-bar {
+  background: linear-gradient(90deg, transparent, rgba(255,200,80,.5), transparent) !important;
+}
+
+/* ── Scroll-progress bar (now handled by animate.js) ── */
+#progress-bar { transition: width .05s linear; }
+
+/* ── Rich canvas petals sit on top of CSS petal canvas ── */
+#petal-canvas-2d { pointer-events: none; }
+/* Hide old CSS petal canvas when 2D canvas is active */
+.petal-canvas { opacity: 0.4; }
+
+
+/* ============================================================
+   ANIMATE.JS v2 COMPANION STYLES
+   ============================================================ */
+
+/* Remove fairy lights entirely */
+.fairy-lights { display: none !important; }
+
+/* Glitter canvas (hero section) */
+#glitter-canvas { position:absolute; inset:0; pointer-events:none; z-index:3; }
+
+/* Shubh Vivah text below ganpati */
+.hero-shubh {
+  position: relative; z-index: 2;
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: clamp(.9rem, 2.8vw, 1.15rem);
+  color: rgba(255, 235, 160, 0.78);
+  letter-spacing: .22em;
+  margin: -.4rem 0 1.6rem;
+  opacity: 0;
+  animation: fadeUp .9s .55s forwards;
+  text-shadow: 0 0 18px rgba(255,200,60,.45), 0 1px 4px rgba(0,0,0,.4);
+}
+
+/* Swastika — thinner arms, keep proportional */
+.sw rect,
+.centre-sw-svg rect {
+  /* Arms are drawn by HTML rects — thinning done in HTML */
+}
+/* Extra visual thinness via scale */
+.sw {
+  transform-origin: center;
+  /* Slightly reduce visual weight */
+  filter: drop-shadow(0 0 8px rgba(240,200,100,.5));
+}
+
+/* ── HALDI — warm amber-orange gold, rich like turmeric ── */
+#ev-haldi {
+  background: linear-gradient(160deg,
+    #2A1200 0%,
+    #4A2200 15%,
+    #703200 30%,
+    #904000 45%,
+    #703200 62%,
+    #3C1E00 80%,
+    #1E1000 100%
+  ) !important;
+}
+#ev-haldi::before {
+  background:
+    radial-gradient(ellipse 84% 72% at 50% 38%, rgba(255,160,20,.55) 0%, transparent 55%),
+    radial-gradient(ellipse 56% 44% at 8%  70%, rgba(255,130,10,.40)  0%, transparent 52%),
+    radial-gradient(ellipse 50% 38% at 92% 22%, rgba(255,170,30,.38)  0%, transparent 48%),
+    radial-gradient(ellipse 42% 32% at 50% 88%, rgba(220,110,0,.30)   0%, transparent 44%)
+    !important;
+}
+#ev-haldi::after {
+  background: linear-gradient(135deg, transparent 18%, rgba(255,150,20,.18) 50%, transparent 82%) !important;
+  animation: ev-shimmer 8s ease-in-out infinite !important;
+}
+.haldi-ph {
+  background: linear-gradient(145deg, #3C2000, #5A3000) !important;
+}
+
+/* Photo frame corner decorations (JS-injected) */
+.frame-corner {
+  position: absolute;
+  width: 32px; height: 32px;
+  border-color: rgba(201, 146, 42, 0.75);
+  border-style: solid;
+  pointer-events: none;
+  z-index: 4;
+  transition: border-color .4s;
+}
+.fc-tl { top:10px;    left:10px;    border-width:2px 0 0 2px; border-radius:5px 0 0 0; }
+.fc-tr { top:10px;    right:10px;   border-width:2px 2px 0 0; border-radius:0 5px 0 0; }
+.fc-bl { bottom:10px; left:10px;    border-width:0 0 2px 2px; border-radius:0 0 0 5px; }
+.fc-br { bottom:10px; right:10px;   border-width:0 2px 2px 0; border-radius:0 0 5px 0; }
+
+.photo-frame:hover .frame-corner {
+  border-color: rgba(255, 220, 60, 0.95);
+}
+
+/* Soften the old CSS petal canvas — JS canvas handles it now */
+.petal-canvas { display: none; }
+
+/* Blessings heading: positioned above card, clean */
+#blessings .sec-head {
+  position: relative; z-index: 2;
+  font-size: clamp(1.6rem, 6vw, 2.4rem);
+  color: #FFF8EC !important;
+  text-shadow:
+    0 0 22px rgba(201,146,42,.5),
+    0 0 55px rgba(255,200,80,.22),
+    0 2px 10px rgba(0,0,0,.65) !important;
+}
+
+
+/* ============================================================
+   ORNAMENTAL BANDS — replace thin wave transitions
+   ============================================================ */
+
+/* Remove old section-transition styles */
+.section-transition { display: none !important; }
+
+/* Ornamental band — the new transition between sections */
+.orn-band {
+  position: relative;
+  z-index: 10;
+  padding: 1.6rem 1.5rem;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+
+/* Each band has its own bg colour bridging the two sections */
+.band-hero-bless {
+  background: linear-gradient(180deg,
+    #8C1414 0%,
+    #A83020 20%,
+    #C05828 40%,
+    #C87840 60%,
+    #C89060 80%,
+    #C8A078 100%
+  );
+  padding: 2.8rem 1.5rem;
+}
+.band-bless-ring {
+  position: relative;
+  height: 160px;
+  overflow: hidden;
+  margin: 0 0 -2px 0;
+  padding: 0;
+  z-index: 5;
+  background: transparent;
+}
+.band-bless-ring::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 160' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='wg' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%23F2C0C8'/%3E%3Cstop offset='38%25' stop-color='%23904828'/%3E%3Cstop offset='65%25' stop-color='%23301858'/%3E%3Cstop offset='100%25' stop-color='%231A2E88'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1440' height='160' fill='url(%23wg)'/%3E%3Cpath d='M0 0 C360 80 720 0 1080 60 C1260 90 1380 40 1440 50 L1440 0Z' fill='%23F2C0C8' opacity='0.55'/%3E%3Cpath d='M0 160 C300 80 600 140 900 90 C1140 50 1320 120 1440 100 L1440 160Z' fill='%231A2E88' opacity='1'/%3E%3Cline x1='0' y1='80' x2='580' y2='80' stroke='rgba(201,146,42,0.35)' stroke-width='1'/%3E%3Cellipse cx='720' cy='80' rx='32' ry='12' fill='none' stroke='rgba(201,146,42,0.7)' stroke-width='1'/%3E%3Ccircle cx='720' cy='80' r='4' fill='rgba(201,146,42,0.9)'/%3E%3Ccircle cx='688' cy='80' r='2.5' fill='rgba(201,146,42,0.6)'/%3E%3Ccircle cx='752' cy='80' r='2.5' fill='rgba(201,146,42,0.6)'/%3E%3Cline x1='860' y1='80' x2='1440' y2='80' stroke='rgba(201,146,42,0.35)' stroke-width='1'/%3E%3C/svg%3E") center/cover no-repeat;
+  pointer-events: none;
+}
+.band-bless-ring .orn-band-inner { display: none; }
+
+#ev-ring {
+  background: linear-gradient(180deg,
+    #1A2E88 0%,
+    #1A2E88 8%,
+    #122268 30%,
+    #142470 60%,
+    #0E1A58 100%
+  ) !important;
+  margin-top: 0;
+}
+
+/* Ring section — starts at exactly the same blue the band ends at */
+#ev-ring {
+  background: linear-gradient(180deg,
+    #1A2E88 0%,
+    #1A2E88 8%,
+    #122268 30%,
+    #142470 60%,
+    #0E1A58 100%
+  ) !important;
+  margin-top: 0;
+}
+.band-wedding-venue {
+  background: linear-gradient(180deg,
+    #700C0C 0%,
+    #581008 15%,
+    #3C140C 30%,
+    #281A08 50%,
+    #183010 65%,
+    #0E3C1E 80%,
+    #0C4228 100%
+  );
+  padding: 3.2rem 1.5rem;
+}
+
+/* Horizontal lines + centre ornament */
+.orn-band-inner {
+  display: flex; align-items: center;
+  gap: 1.2rem; width: 100%; max-width: 500px;
+}
+.orn-line {
+  flex: 1; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,146,42,.55), transparent);
+  display: block;
+}
+.orn-centre {
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* Glow on the centre ornament */
+.orn-centre svg {
+  filter: drop-shadow(0 0 6px rgba(201,146,42,.5));
+  animation: orn-pulse 4s ease-in-out infinite;
+}
+@keyframes orn-pulse {
+  0%,100% { filter: drop-shadow(0 0 5px rgba(201,146,42,.4)); opacity:.85; }
+  50%      { filter: drop-shadow(0 0 14px rgba(201,146,42,.85)); opacity:1; }
+}
+
+/* Remove glitter canvas from non-hero */
+#glitter-canvas { pointer-events: none; }
+
+
+/* ── Haldi → Sangeet wave transition ── */
+.band-haldi-sangeet {
+  position: relative;
+  height: 160px;
+  overflow: hidden;
+  margin: 0 0 -2px 0;
+  padding: 0;
+  z-index: 5;
+  background: transparent;
+}
+.band-haldi-sangeet::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 160' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='hsg' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%23904000'/%3E%3Cstop offset='35%25' stop-color='%23702808'/%3E%3Cstop offset='65%25' stop-color='%238E1040'/%3E%3Cstop offset='100%25' stop-color='%23440818'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1440' height='160' fill='url(%23hsg)'/%3E%3Cpath d='M0 0 C400 70 800 10 1100 55 C1280 80 1380 30 1440 45 L1440 0Z' fill='%23A06000' opacity='0.55'/%3E%3Cpath d='M0 160 C280 90 560 150 860 95 C1100 55 1300 130 1440 105 L1440 160Z' fill='%23440818' opacity='1'/%3E%3Cline x1='0' y1='80' x2='580' y2='80' stroke='rgba(201,146,42,0.35)' stroke-width='1'/%3E%3Cellipse cx='720' cy='80' rx='32' ry='12' fill='none' stroke='rgba(201,146,42,0.7)' stroke-width='1'/%3E%3Ccircle cx='720' cy='80' r='4' fill='rgba(201,146,42,0.9)'/%3E%3Ccircle cx='688' cy='80' r='2.5' fill='rgba(201,146,42,0.6)'/%3E%3Ccircle cx='752' cy='80' r='2.5' fill='rgba(201,146,42,0.6)'/%3E%3Cline x1='860' y1='80' x2='1440' y2='80' stroke='rgba(201,146,42,0.35)' stroke-width='1'/%3E%3C/svg%3E") center/cover no-repeat;
+  pointer-events: none;
+}
+.band-haldi-sangeet .orn-band-inner { display: none; }
+
+/* ── Sangeet → Wedding wave transition ── */
+.band-sangeet-wedding {
+  position: relative;
+  height: 160px;
+  overflow: hidden;
+  margin: 0 0 -2px 0;
+  padding: 0;
+  z-index: 5;
+  background: transparent;
+}
+.band-sangeet-wedding::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 160' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='swg' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%23440818'/%3E%3Cstop offset='35%25' stop-color='%23601030'/%3E%3Cstop offset='65%25' stop-color='%23700C0C'/%3E%3Cstop offset='100%25' stop-color='%23300808'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1440' height='160' fill='url(%23swg)'/%3E%3Cpath d='M0 0 C360 75 720 5 1080 60 C1280 90 1390 35 1440 50 L1440 0Z' fill='%23880A30' opacity='0.5'/%3E%3Cpath d='M0 160 C320 85 640 145 940 88 C1160 48 1320 125 1440 100 L1440 160Z' fill='%23300808' opacity='1'/%3E%3Cline x1='0' y1='80' x2='580' y2='80' stroke='rgba(201,146,42,0.35)' stroke-width='1'/%3E%3Cellipse cx='720' cy='80' rx='32' ry='12' fill='none' stroke='rgba(201,146,42,0.7)' stroke-width='1'/%3E%3Ccircle cx='720' cy='80' r='4' fill='rgba(201,146,42,0.9)'/%3E%3Ccircle cx='688' cy='80' r='2.5' fill='rgba(201,146,42,0.6)'/%3E%3Ccircle cx='752' cy='80' r='2.5' fill='rgba(201,146,42,0.6)'/%3E%3Cline x1='860' y1='80' x2='1440' y2='80' stroke='rgba(201,146,42,0.35)' stroke-width='1'/%3E%3C/svg%3E") center/cover no-repeat;
+  pointer-events: none;
+}
+.band-sangeet-wedding .orn-band-inner { display: none; }
+/* ── Ring → Haldi wave transition ── */
+.band-ring-haldi {
+  position: relative;
+  height: 160px;
+  overflow: hidden;
+  margin: 0 0 -2px 0;
+  padding: 0;
+  z-index: 5;
+  background: transparent;
+}
+.band-ring-haldi::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 160' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='rhg' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%231A2E88'/%3E%3Cstop offset='35%25' stop-color='%23402060'/%3E%3Cstop offset='65%25' stop-color='%23703010'/%3E%3Cstop offset='100%25' stop-color='%23904000'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1440' height='160' fill='url(%23rhg)'/%3E%3Cpath d='M0 0 C360 70 720 10 1080 55 C1280 85 1390 30 1440 48 L1440 0Z' fill='%231A2E88' opacity='0.6'/%3E%3Cpath d='M0 160 C300 85 600 145 900 90 C1140 48 1320 128 1440 102 L1440 160Z' fill='%23904000' opacity='1'/%3E%3Cline x1='0' y1='80' x2='580' y2='80' stroke='rgba(201,146,42,0.35)' stroke-width='1'/%3E%3Cellipse cx='720' cy='80' rx='32' ry='12' fill='none' stroke='rgba(201,146,42,0.7)' stroke-width='1'/%3E%3Ccircle cx='720' cy='80' r='4' fill='rgba(201,146,42,0.9)'/%3E%3Ccircle cx='688' cy='80' r='2.5' fill='rgba(201,146,42,0.6)'/%3E%3Ccircle cx='752' cy='80' r='2.5' fill='rgba(201,146,42,0.6)'/%3E%3Cline x1='860' y1='80' x2='1440' y2='80' stroke='rgba(201,146,42,0.35)' stroke-width='1'/%3E%3C/svg%3E") center/cover no-repeat;
+  pointer-events: none;
+}
+.band-ring-haldi .orn-band-inner { display: none; }
+
+/* Haldi starts at exact colour the band ends at — no gap */
+#ev-haldi {
+  background: linear-gradient(180deg,
+    #904000 0%,
+    #904000 6%,
+    #7C4A00 20%,
+    #A06000 40%,
+    #785200 65%,
+    #342400 100%
+  ) !important;
+  margin-top: 0;
+}
+/* ── Peacock → Countdown wave transition ── */
+.band-peacock-countdown {
+  position: relative;
+  height: 160px;
+  overflow: hidden;
+  margin: 0 0 -2px 0;
+  padding: 0;
+  z-index: 5;
+  background: transparent;
+}
+.band-peacock-countdown::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 160' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='pcg' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%230A1610'/%3E%3Cstop offset='40%25' stop-color='%231A3020'/%3E%3Cstop offset='70%25' stop-color='%23A0B890'/%3E%3Cstop offset='100%25' stop-color='%23E8F4E4'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1440' height='160' fill='url(%23pcg)'/%3E%3Cpath d='M0 0 C360 65 720 8 1080 52 C1280 82 1390 28 1440 45 L1440 0Z' fill='%230A1610' opacity='0.7'/%3E%3Cpath d='M0 160 C300 88 600 148 900 92 C1140 50 1320 130 1440 105 L1440 160Z' fill='%23E8F4E4' opacity='1'/%3E%3Cline x1='0' y1='80' x2='580' y2='80' stroke='rgba(201,146,42,0.35)' stroke-width='1'/%3E%3Cellipse cx='720' cy='80' rx='32' ry='12' fill='none' stroke='rgba(201,146,42,0.7)' stroke-width='1'/%3E%3Ccircle cx='720' cy='80' r='4' fill='rgba(201,146,42,0.9)'/%3E%3Ccircle cx='688' cy='80' r='2.5' fill='rgba(201,146,42,0.6)'/%3E%3Ccircle cx='752' cy='80' r='2.5' fill='rgba(201,146,42,0.6)'/%3E%3Cline x1='860' y1='80' x2='1440' y2='80' stroke='rgba(201,146,42,0.35)' stroke-width='1'/%3E%3C/svg%3E") center/cover no-repeat;
+  pointer-events: none;
+}
+.band-peacock-countdown .orn-band-inner { display: none; }
+
+/* Countdown starts at exact colour the band ends at */
+#countdown {
+  background: linear-gradient(180deg,
+    #E8F4E4 0%,
+    #F0F8EC 40%,
+    #E4F0E0 100%
+  ) !important;
+  margin-top: 0;
+}
+/* ── Countdown → Note wave transition ── */
+.band-countdown-note {
+  display: block !important;
+  position: relative !important;
+  height: 120px !important;
+  overflow: hidden !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  z-index: 5 !important;
+  background: linear-gradient(180deg, #E4F0E0 0%, #F8E4E8 100%) !important;
+}
+.band-countdown-note .orn-band-inner { display: none !important; }
+.band-countdown-note::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 120'%3E%3C!-- Garland rope --%3E%3Cpath d='M0 55 Q50 75 100 55 Q150 35 200 55 Q250 75 300 55 Q350 35 400 55 Q450 75 500 55 Q550 35 600 55 Q650 75 700 55 Q750 35 800 55' fill='none' stroke='rgba(180,120,40,0.5)' stroke-width='1.5'/%3E%3C!-- Flowers along garland --%3E%3Ccircle cx='100' cy='55' r='10' fill='rgba(255,180,180,0.7)'/%3E%3Ccircle cx='100' cy='55' r='5' fill='rgba(255,220,80,0.9)'/%3E%3Ccircle cx='200' cy='55' r='10' fill='rgba(255,200,100,0.7)'/%3E%3Ccircle cx='200' cy='55' r='5' fill='rgba(255,255,180,0.9)'/%3E%3Ccircle cx='300' cy='55' r='10' fill='rgba(255,150,180,0.7)'/%3E%3Ccircle cx='300' cy='55' r='5' fill='rgba(255,200,80,0.9)'/%3E%3Ccircle cx='400' cy='55' r='12' fill='rgba(255,160,160,0.8)'/%3E%3Ccircle cx='400' cy='55' r='6' fill='rgba(255,220,60,0.95)'/%3E%3Ccircle cx='500' cy='55' r='10' fill='rgba(255,180,100,0.7)'/%3E%3Ccircle cx='500' cy='55' r='5' fill='rgba(255,240,150,0.9)'/%3E%3Ccircle cx='600' cy='55' r='10' fill='rgba(220,160,200,0.7)'/%3E%3Ccircle cx='600' cy='55' r='5' fill='rgba(255,200,80,0.9)'/%3E%3Ccircle cx='700' cy='55' r='10' fill='rgba(255,180,160,0.7)'/%3E%3Ccircle cx='700' cy='55' r='5' fill='rgba(255,220,80,0.9)'/%3E%3C!-- Leaves --%3E%3Cellipse cx='150' cy='52' rx='8' ry='4' transform='rotate(-30,150,52)' fill='rgba(80,160,80,0.45)'/%3E%3Cellipse cx='250' cy='58' rx='8' ry='4' transform='rotate(25,250,58)' fill='rgba(80,160,80,0.45)'/%3E%3Cellipse cx='350' cy='52' rx='8' ry='4' transform='rotate(-20,350,52)' fill='rgba(80,160,80,0.45)'/%3E%3Cellipse cx='450' cy='58' rx='8' ry='4' transform='rotate(30,450,58)' fill='rgba(80,160,80,0.45)'/%3E%3Cellipse cx='550' cy='52' rx='8' ry='4' transform='rotate(-25,550,52)' fill='rgba(80,160,80,0.45)'/%3E%3Cellipse cx='650' cy='58' rx='8' ry='4' transform='rotate(20,650,58)' fill='rgba(80,160,80,0.45)'/%3E%3C!-- Gold line top and bottom --%3E%3Cline x1='0' y1='20' x2='800' y2='20' stroke='rgba(201,146,42,0.25)' stroke-width='1'/%3E%3Cline x1='0' y1='100' x2='800' y2='100' stroke='rgba(201,146,42,0.25)' stroke-width='1'/%3E%3C/svg%3E") center/cover repeat-x !important;
+  pointer-events: none !important;
+}
+#note {
+  background: linear-gradient(160deg,
+    #F8E4E8 0%, #F2D0D8 28%,
+    #ECC0CC 55%, #F4D4DA 78%,
+    #F8E6E8 100%
+  ) !important;
+  margin-top: 0 !important;
+}
+.band-countdown-note::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 160' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='cng' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%23E4F0E0'/%3E%3Cstop offset='35%25' stop-color='%23C8D8B8'/%3E%3Cstop offset='65%25' stop-color='%23D4A8B0'/%3E%3Cstop offset='100%25' stop-color='%23F8E4E8'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1440' height='160' fill='url(%23cng)'/%3E%3Cpath d='M0 0 C360 65 720 8 1080 52 C1280 82 1390 28 1440 45 L1440 0Z' fill='%23E4F0E0' opacity='0.7'/%3E%3Cpath d='M0 160 C300 88 600 148 900 92 C1140 50 1320 130 1440 105 L1440 160Z' fill='%23F8E4E8' opacity='1'/%3E%3Cline x1='0' y1='80' x2='580' y2='80' stroke='rgba(180,100,120,0.35)' stroke-width='1'/%3E%3Cellipse cx='720' cy='80' rx='32' ry='12' fill='none' stroke='rgba(180,100,120,0.6)' stroke-width='1'/%3E%3Ccircle cx='720' cy='80' r='4' fill='rgba(200,80,100,0.8)'/%3E%3Ccircle cx='688' cy='80' r='2.5' fill='rgba(200,80,100,0.5)'/%3E%3Ccircle cx='752' cy='80' r='2.5' fill='rgba(200,80,100,0.5)'/%3E%3Cline x1='860' y1='80' x2='1440' y2='80' stroke='rgba(180,100,120,0.35)' stroke-width='1'/%3E%3C/svg%3E") center/cover no-repeat;
+  pointer-events: none;
+}
+.band-countdown-note .orn-band-inner { display: none; }
+
+/* Note starts at exact colour the band ends at */
+#note {
+  background: linear-gradient(160deg,
+    #F8E4E8 0%,
+    #F2D0D8 28%,
+    #ECC0CC 55%,
+    #F4D4DA 78%,
+    #F8E6E8 100%
+  ) !important;
+  margin-top: 0;
+}
+/* ── Note → Closing wave transition ── */
+.band-note-closing {
+  position: relative;
+  height: 160px;
+  overflow: hidden;
+  margin: 0 0 -2px 0;
+  padding: 0;
+  z-index: 5;
+  background: transparent;
+}
+.band-note-closing::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 160' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='ncg' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%23F8E4E8'/%3E%3Cstop offset='30%25' stop-color='%23D4A0A8'/%3E%3Cstop offset='60%25' stop-color='%238B2828'/%3E%3Cstop offset='100%25' stop-color='%236A1212'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1440' height='160' fill='url(%23ncg)'/%3E%3Cpath d='M0 0 C360 65 720 8 1080 52 C1280 82 1390 28 1440 45 L1440 0Z' fill='%23F8E4E8' opacity='0.6'/%3E%3Cpath d='M0 160 C300 88 600 148 900 92 C1140 50 1320 130 1440 105 L1440 160Z' fill='%236A1212' opacity='1'/%3E%3Cline x1='0' y1='80' x2='580' y2='80' stroke='rgba(201,146,42,0.4)' stroke-width='1'/%3E%3Cellipse cx='720' cy='80' rx='32' ry='12' fill='none' stroke='rgba(201,146,42,0.75)' stroke-width='1'/%3E%3Ccircle cx='720' cy='80' r='4' fill='rgba(201,146,42,0.95)'/%3E%3Ccircle cx='688' cy='80' r='2.5' fill='rgba(201,146,42,0.6)'/%3E%3Ccircle cx='752' cy='80' r='2.5' fill='rgba(201,146,42,0.6)'/%3E%3Cline x1='860' y1='80' x2='1440' y2='80' stroke='rgba(201,146,42,0.4)' stroke-width='1'/%3E%3C/svg%3E") center/cover no-repeat;
+  pointer-events: none;
+}
+.band-note-closing .orn-band-inner { display: none; }
+
+/* Closing starts at exact colour the band ends at */
+#closing {
+  background: linear-gradient(180deg,
+    #6A1212 0%,
+    #6A1212 5%,
+    #7A1A1A 20%,
+    #5A1010 50%,
+    #400C0C 75%,
+    #300808 100%
+  ) !important;
+  margin-top: 0;
+}
+/* ── BLESSINGS CARD — light glass, no dark tint ── */
+.bless-card {
+  background: rgba(255, 248, 235, 0.22) !important;
+  backdrop-filter: blur(28px) brightness(1.05) !important;
+  -webkit-backdrop-filter: blur(28px) brightness(1.05) !important;
+  border: 1.5px solid rgba(255, 210, 130, 0.40) !important;
+  box-shadow:
+    0 8px 50px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.30) !important;
+}
+
+/* Family label */
+.fam-label {
+  color: #8B2020 !important;
+  text-shadow: none !important;
+  font-weight: 700 !important;
+}
+
+/* Parents text */
+.fam-parents {
+  color: rgba(50, 18, 5, 0.90) !important;
+  text-shadow: none !important;
+}
+
+/* Couple name Marathi */
+.c-name-mr {
+  color: #7A1A10 !important;
+  text-shadow: 0 1px 6px rgba(180,60,0,.15) !important;
+}
+
+/* English couple name */
+.c-name-en {
+  color: rgba(100, 40, 15, 0.75) !important;
+  text-shadow: none !important;
+}
+
+/* Separator */
+.sep-line {
+  background: linear-gradient(90deg, transparent, rgba(180,80,40,.4), transparent) !important;
+}
+
+/* Invite text */
+.invite-text {
+  color: rgba(60, 18, 8, 0.95) !important;
+  text-shadow: none !important;
+}
+
+.invite-text strong {
+  color: #7A1A10 !important;
+  text-shadow: none !important;
+}
+/* ── Countdown → Peacock wave transition ── */
+.band-countdown-peacock {
+  display: block !important;
+  position: relative !important;
+  height: 160px !important;
+  overflow: hidden !important;
+  margin: 0 0 -2px 0 !important;
+  padding: 0 !important;
+  z-index: 5 !important;
+  background: transparent !important;
+}
+.band-countdown-peacock .orn-band-inner { display: none !important; }
+.band-countdown-peacock::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 160' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='cpg' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%23E4F0E0'/%3E%3Cstop offset='40%25' stop-color='%23607858'/%3E%3Cstop offset='70%25' stop-color='%23182C18'/%3E%3Cstop offset='100%25' stop-color='%230A1610'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1440' height='160' fill='url(%23cpg)'/%3E%3Cpath d='M0 0 C360 65 720 8 1080 52 C1280 82 1390 28 1440 45 L1440 0Z' fill='%23E4F0E0' opacity='0.7'/%3E%3Cpath d='M0 160 C300 88 600 148 900 92 C1140 50 1320 130 1440 105 L1440 160Z' fill='%230A1610' opacity='1'/%3E%3Cline x1='0' y1='80' x2='580' y2='80' stroke='rgba(201,146,42,0.35)' stroke-width='1'/%3E%3Cellipse cx='720' cy='80' rx='32' ry='12' fill='none' stroke='rgba(201,146,42,0.7)' stroke-width='1'/%3E%3Ccircle cx='720' cy='80' r='4' fill='rgba(201,146,42,0.9)'/%3E%3Ccircle cx='688' cy='80' r='2.5' fill='rgba(201,146,42,0.6)'/%3E%3Ccircle cx='752' cy='80' r='2.5' fill='rgba(201,146,42,0.6)'/%3E%3Cline x1='860' y1='80' x2='1440' y2='80' stroke='rgba(201,146,42,0.35)' stroke-width='1'/%3E%3C/svg%3E") center/cover no-repeat !important;
+  pointer-events: none !important;
+}
+/* ── FOOTER — bomb ── */
+  footer {
+  background: #1A0404 !important;
+  padding: 3rem 1.5rem 2.5rem !important;
+  text-align: center !important;
+  border-top: none !important;
+  position: relative;
+  overflow: hidden;
+}
+footer::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255,200,60,.12) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 40% at 20% 100%, rgba(200,60,40,.1) 0%, transparent 55%),
+    radial-gradient(ellipse 40% 40% at 80% 100%, rgba(200,60,40,.1) 0%, transparent 55%);
+  pointer-events: none;
+}
+/* Top gold line */
+footer::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 10%; right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent,
+    rgba(201,146,42,.4),
+    rgba(255,220,80,.9),
+    rgba(255,255,200,1),
+    rgba(255,220,80,.9),
+    rgba(201,146,42,.4),
+    transparent
+  );
+}
+.footer-inner {
+  position: relative; z-index: 2;
+}
+.footer-names {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+  margin-bottom: .6rem;
+}
+.footer-uday, .footer-unnati {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(1.6rem, 7vw, 2.8rem);
+  font-weight: 600;
+  color: #FFE580;
+  letter-spacing: .18em;
+  text-shadow:
+    0 0 20px rgba(255,220,60,.8),
+    0 0 50px rgba(200,140,0,.4),
+    0 2px 6px rgba(0,0,0,.6);
+  animation: goldShine 3.5s ease-in-out infinite;
+}
+.footer-amp {
+  font-size: clamp(1rem, 3vw, 1.4rem);
+  color: rgba(255,200,80,.7);
+  animation: goldShine 3.5s ease-in-out infinite;
+  animation-delay: .8s;
+}
+.footer-date {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(.65rem, 2vw, .85rem);
+  letter-spacing: .55em;
+  color: rgba(255,220,160,.45);
+  margin-bottom: 1.4rem;
+}
+.footer-love {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(.85rem, 2.2vw, 1.05rem);
+  color: rgba(255,200,180,.38);
+  letter-spacing: .12em;
+}
+.closing-name-candle {
+  font-family: 'Noto Serif Devanagari', serif !important;
+  font-size: clamp(2.8rem, 14vw, 5.5rem) !important;
+  font-weight: 400 !important;
+  color: #FFF8E0 !important;
+  opacity: 1 !important;
+  text-shadow:
+    0 -1px 4px rgba(255,255,255,.9),
+    0 0 8px rgba(255,240,160,.95),
+    0 0 18px rgba(255,200,40,.85),
+    0 0 35px rgba(255,140,0,.7),
+    0 0 65px rgba(220,80,0,.45),
+    0 0 100px rgba(180,40,0,.2) !important;
+  animation: candleFlicker 3s ease-in-out infinite !important;
+  display: block !important;
+  line-height: 1.1 !important;
+}
+
+/* Offset animation so Unnati flickers slightly differently to Uday */
+.closing-bride.closing-name-candle {
+  animation-delay: .6s !important;
+}
+/* ── Candle flicker keyframe — standalone ── */
+@keyframes candleFlicker {
+  0%,100% {
+    text-shadow:
+      0 -1px 4px rgba(255,255,255,.9),
+      0 0 8px rgba(255,240,160,.95),
+      0 0 18px rgba(255,200,40,.85),
+      0 0 35px rgba(255,140,0,.7),
+      0 0 65px rgba(220,80,0,.45),
+      0 0 100px rgba(180,40,0,.2);
+    filter: brightness(1);
+  }
+  25% {
+    text-shadow:
+      0 -1px 4px rgba(255,255,255,.7),
+      0 0 5px rgba(255,230,120,.85),
+      0 0 12px rgba(255,180,20,.75),
+      0 0 24px rgba(255,110,0,.6),
+      0 0 48px rgba(190,50,0,.35),
+      0 0 80px rgba(150,20,0,.15);
+    filter: brightness(.85);
+  }
+  50% {
+    text-shadow:
+      0 -1px 6px rgba(255,255,255,1),
+      0 0 12px rgba(255,248,200,1),
+      0 0 26px rgba(255,215,70,.95),
+      0 0 50px rgba(255,170,0,.8),
+      0 0 85px rgba(240,100,0,.55),
+      0 0 120px rgba(200,55,0,.28);
+    filter: brightness(1.15);
+  }
+  75% {
+    text-shadow:
+      0 -1px 3px rgba(255,255,255,.8),
+      0 0 6px rgba(255,232,130,.88),
+      0 0 14px rgba(255,188,28,.78),
+      0 0 27px rgba(255,118,0,.63),
+      0 0 52px rgba(200,62,0,.38),
+      0 0 88px rgba(158,28,0,.18);
+    filter: brightness(.93);
+  }
+}
+
+/* ── Note → Footer wave transition ── */
+.band-note-footer {
+  display: block !important;
+  position: relative !important;
+  height: 60px !important;
+  overflow: hidden !important;
+  margin: 0 0 -2px 0 !important;
+  padding: 0 !important;
+  z-index: 5 !important;
+  background: transparent !important;
+}
+.band-note-footer .orn-band-inner { display: none !important; }
+.band-note-footer::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 160' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='nfg' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%23F8E4E8'/%3E%3Cstop offset='35%25' stop-color='%23D4A0A8'/%3E%3Cstop offset='65%25' stop-color='%238B2020'/%3E%3Cstop offset='100%25' stop-color='%231A0404'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1440' height='160' fill='url(%23nfg)'/%3E%3Cpath d='M0 0 C360 65 720 8 1080 52 C1280 82 1390 28 1440 45 L1440 0Z' fill='%23F8E4E8' opacity='0.6'/%3E%3Cpath d='M0 160 C300 88 600 148 900 92 C1140 50 1320 130 1440 105 L1440 160Z' fill='%231A0404' opacity='1'/%3E%3Cline x1='0' y1='80' x2='580' y2='80' stroke='rgba(201,146,42,0.4)' stroke-width='1'/%3E%3Cellipse cx='720' cy='80' rx='32' ry='12' fill='none' stroke='rgba(201,146,42,0.75)' stroke-width='1'/%3E%3Ccircle cx='720' cy='80' r='4' fill='rgba(201,146,42,0.95)'/%3E%3Ccircle cx='688' cy='80' r='2.5' fill='rgba(201,146,42,0.6)'/%3E%3Ccircle cx='752' cy='80' r='2.5' fill='rgba(201,146,42,0.6)'/%3E%3Cline x1='860' y1='80' x2='1440' y2='80' stroke='rgba(201,146,42,0.4)' stroke-width='1'/%3E%3C/svg%3E") center/cover no-repeat !important;
+  pointer-events: none !important;
+}
+
+
+footer {
+  padding: 0.4rem 0.3rem 0.3rem !important;
+}
+/* ── Hero → Blessings wave transition ── */
+.band-hero-bless {
+  display: block !important;
+  position: relative !important;
+  height: 100px !important;
+  overflow: hidden !important;
+  margin: 0 0 -2px 0 !important;
+  padding: 0 !important;
+  z-index: 5 !important;
+  background: transparent !important;
+}
+.band-hero-bless::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 100' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='hbg' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%234A0808'/%3E%3Cstop offset='50%25' stop-color='%23782010'/%3E%3Cstop offset='100%25' stop-color='%23F2C0C8'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1440' height='100' fill='url(%23hbg)'/%3E%3Cpath d='M0 0 C360 60 720 10 1080 45 C1280 68 1390 22 1440 35 L1440 0Z' fill='%234A0808' opacity='0.6'/%3E%3Cpath d='M0 100 C300 55 600 92 900 58 C1140 30 1320 82 1440 65 L1440 100Z' fill='%23F2C0C8' opacity='1'/%3E%3Cline x1='0' y1='50' x2='580' y2='50' stroke='rgba(201,146,42,0.35)' stroke-width='1'/%3E%3Cellipse cx='720' cy='50' rx='28' ry='10' fill='none' stroke='rgba(201,146,42,0.7)' stroke-width='1'/%3E%3Ccircle cx='720' cy='50' r='3.5' fill='rgba(201,146,42,0.9)'/%3E%3Cline x1='860' y1='50' x2='1440' y2='50' stroke='rgba(201,146,42,0.35)' stroke-width='1'/%3E%3C/svg%3E") center/cover no-repeat !important;
+  pointer-events: none !important;
+}
