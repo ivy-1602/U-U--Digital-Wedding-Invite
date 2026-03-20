@@ -151,22 +151,12 @@ body::after {
   padding:3rem 1.5rem 5rem; text-align:center;
 }
 
-/* Warm centre glow */
-#hero::before {
-  content:''; position:absolute; inset:0; pointer-events:none;
-  background:
-    radial-gradient(ellipse 78% 65% at 50% 45%, rgba(248,168,80,.24) 0%, transparent 65%),
-    radial-gradient(ellipse 50% 38% at 16% 80%, rgba(180,48,48,.18) 0%, transparent 55%),
-    radial-gradient(ellipse 45% 32% at 84% 18%, rgba(210,120,40,.12) 0%, transparent 55%);
-}
+/* Warm centre glow — no vertical streaks */
 
-/* Sweeping shimmer */
+/* Diagonal shimmer only — no vertical */
 #hero::after {
   content:''; position:absolute; inset:0; pointer-events:none;
-  background:linear-gradient(128deg, transparent 28%, rgba(255,215,130,.07) 50%, transparent 72%);
-  animation:shimmer 10s ease-in-out infinite;
 }
-@keyframes shimmer { 0%,100%{transform:translateX(-80%) skewX(-14deg)} 50%{transform:translateX(180%) skewX(-14deg)} }
 
 /* ── SVG SWASTIKAS — corners ── */
 .sw {
@@ -359,18 +349,7 @@ body::after {
 
 /* Live shimmer overlay on frame — moves light around border */
 .hero-ornament-frame::after {
-  content:'';
-  position:absolute; inset:0;
-  background:
-    linear-gradient(90deg, transparent 0%, rgba(255,220,80,.18) 20%, transparent 40%),
-    linear-gradient(180deg, transparent 0%, rgba(255,220,80,.12) 30%, transparent 60%);
-  animation:frame-shine 4s ease-in-out infinite;
-  pointer-events:none;
-}
-@keyframes frame-shine {
-  0%   { opacity:.4; transform:translateX(-20%) }
-  50%  { opacity:1;  transform:translateX(20%)  }
-  100% { opacity:.4; transform:translateX(-20%) }
+  display: none;
 }
 
 /* Scroll cue */
@@ -437,7 +416,7 @@ body::after {
 }
 
 .bless-card {
-  max-width:460px; margin:2.5rem auto 0;
+  max-width:460px; margin:0.8rem auto 0;
   /* Card is ivory/cream — sits on the warm section bg */
   background: linear-gradient(150deg, rgba(255,250,242,.97), rgba(255,242,224,.96));
   border:2px solid rgba(180,80,40,.22); border-radius:10px;
@@ -680,7 +659,7 @@ body::after {
     #062E1A 85%,
     #031608 100%
   );
-  padding:5.5rem 1.5rem 5rem;
+  padding: 2rem 1.5rem 5rem;
   text-align:center; position:relative; overflow:hidden;
 }
 
@@ -808,8 +787,12 @@ body::after {
 }
 .cd-sub {
   font-family:'Noto Serif Devanagari', serif;
-  font-size: clamp(.88rem,2.5vw,1rem);
-  color:#7A9070; margin-top:1.6rem; position:relative; z-index:2;
+  font-size: clamp(1.5rem, 3.5vw, 1.45rem) !important;
+  color: #3A7A38 !important;
+  font-weight: 600 !important;
+  margin-top: 1.6rem;
+  position: relative; z-index: 2;
+  text-shadow: 0 1px 4px rgba(0,0,0,.08);
 }
 
 
@@ -981,7 +964,7 @@ footer p {
 
 /* Shared layout */
 .ev-section {
-  padding: 5.5rem 1.5rem 6rem;
+  padding: 2.5rem 1.5rem 4rem;
   position: relative; overflow: hidden;
 }
 .ev-section-inner {
@@ -1013,7 +996,7 @@ footer p {
 }
 .ev-full-img { width:100%; height:270px; object-fit:cover; display:block; }
 
-.ev-full-info { padding: 2.2rem 2rem 2.6rem; text-align: left; }
+.ev-full-info { padding: 3.2rem 2rem 2.6rem; text-align: left; }
 
 /* Ceremony Marathi title — bigger */
 .ev-name-mr {
@@ -1260,7 +1243,15 @@ footer p {
     radial-gradient(ellipse 46% 36% at 92% 20%, rgba(255,170,20,.26)  0%, transparent 48%),
     radial-gradient(ellipse 38% 28% at 50% 85%, rgba(180,20,20,.22)  0%, transparent 44%);
 }
-.ev-eyebrow-wedding { color: #FFD468; text-shadow: 0 0 16px rgba(255,200,40,.6); }
+.ev-eyebrow-wedding {
+  color: #FFFFFF !important;
+  font-size: clamp(.85rem, 2.5vw, 1.05rem) !important;
+  letter-spacing: .35em !important;
+  text-shadow:
+    0 0 14px rgba(255,210,60,.7),
+    0 1px 5px rgba(0,0,0,.6) !important;
+  font-weight: 600 !important;
+}
 .ev-rule-wedding { background: linear-gradient(90deg, transparent, rgba(255,210,40,.75), transparent); }
 #ev-wedding .ev-full-card { border: 2px solid rgba(255,200,40,.48); box-shadow: 0 10px 50px rgba(0,0,0,.45), 0 0 40px rgba(200,80,0,.18); }
 .ev-name-wedding {
@@ -1296,8 +1287,10 @@ html { scroll-behavior: smooth; }
 /* Countdown title */
 .cd-title {
   font-family:'Cinzel', serif !important;
-  font-size:clamp(1rem,3.5vw,1.4rem) !important;
-  letter-spacing:.12em; color: var(--wine) !important;
+  font-size: clamp(1.4rem, 5vw, 2.2rem) !important;
+  letter-spacing: .12em;
+  color: var(--wine) !important;
+  font-weight: 600 !important;
 }
 
 /* Mobile: side-by-side names stack on very small screens */
@@ -1443,8 +1436,8 @@ html { scroll-behavior: smooth; }
 /* Blessings eyebrow — glowing warm white */
 .bless-eyebrow {
   position: relative; z-index: 2;
-  color: rgba(255, 240, 200, 0.92) !important;
-  text-shadow: 0 0 16px rgba(255, 200, 80, .45), 0 1px 4px rgba(0,0,0,.5);
+  color: #FFB0E0 !important;
+  text-shadow: 0 0 16px rgba(255,60,160,.5), 0 1px 4px rgba(0,0,0,.4) !important;
 }
 /* Blessings heading — bright cream white, readable over any image */
 #blessings .sec-head {
@@ -1600,11 +1593,15 @@ html { scroll-behavior: smooth; }
 #blessings .sec-head {
   position: relative; z-index: 2;
   font-size: clamp(1.6rem, 6vw, 2.4rem);
-  color: #FFF8EC !important;
+  color: #ff73c7 !important;
   text-shadow:
-    0 0 22px rgba(201,146,42,.5),
-    0 0 55px rgba(255,200,80,.22),
-    0 2px 10px rgba(0,0,0,.65) !important;
+    0 0 22px rgba(159, 70, 116, 0.811),
+    0 0 55px rgba(220,20,120,.35),
+    0 2px 8px rgb(255, 255, 255) !important;
+  text-shadow:
+    0 0 22px rgb(255, 200, 97),
+    0 0 55px rgb(255, 191, 52),
+    0 2px 10px rgba(255, 255, 255, 0.853) !important;
 }
 
 
@@ -1717,68 +1714,30 @@ html { scroll-behavior: smooth; }
 #glitter-canvas { pointer-events: none; }
 
 
-/* ── Haldi → Sangeet wave transition ── */
+/* Sangeet → Haldi */
 .band-haldi-sangeet {
-  position: relative;
-  height: 160px;
-  overflow: hidden;
-  margin: 0 0 -2px 0;
-  padding: 0;
-  z-index: 5;
-  background: transparent;
+  position: relative !important;
+  height: 80px !important;
+  overflow: hidden !important;
+  margin: 0 0 -2px 0 !important;
+  padding: 0 !important;
+  z-index: 5 !important;
+  background: transparent !important;
+  display: block !important;
 }
 .band-haldi-sangeet::before {
-  content: '';
-  position: absolute; inset: 0;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 160' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='hsg' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%23904000'/%3E%3Cstop offset='35%25' stop-color='%23702808'/%3E%3Cstop offset='65%25' stop-color='%238E1040'/%3E%3Cstop offset='100%25' stop-color='%23440818'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1440' height='160' fill='url(%23hsg)'/%3E%3Cpath d='M0 0 C400 70 800 10 1100 55 C1280 80 1380 30 1440 45 L1440 0Z' fill='%23A06000' opacity='0.55'/%3E%3Cpath d='M0 160 C280 90 560 150 860 95 C1100 55 1300 130 1440 105 L1440 160Z' fill='%23440818' opacity='1'/%3E%3Cline x1='0' y1='80' x2='580' y2='80' stroke='rgba(201,146,42,0.35)' stroke-width='1'/%3E%3Cellipse cx='720' cy='80' rx='32' ry='12' fill='none' stroke='rgba(201,146,42,0.7)' stroke-width='1'/%3E%3Ccircle cx='720' cy='80' r='4' fill='rgba(201,146,42,0.9)'/%3E%3Ccircle cx='688' cy='80' r='2.5' fill='rgba(201,146,42,0.6)'/%3E%3Ccircle cx='752' cy='80' r='2.5' fill='rgba(201,146,42,0.6)'/%3E%3Cline x1='860' y1='80' x2='1440' y2='80' stroke='rgba(201,146,42,0.35)' stroke-width='1'/%3E%3C/svg%3E") center/cover no-repeat;
-  pointer-events: none;
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 160' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='shg' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%23440818'/%3E%3Cstop offset='35%25' stop-color='%23701030'/%3E%3Cstop offset='65%25' stop-color='%23904000'/%3E%3Cstop offset='100%25' stop-color='%239A4400'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1440' height='160' fill='url(%23shg)'/%3E%3Cpath d='M0 0 C400 70 800 10 1100 55 C1280 80 1380 30 1440 45 L1440 0Z' fill='%23440818' opacity='0.6'/%3E%3Cpath d='M0 160 C280 90 560 150 860 95 C1100 55 1300 130 1440 105 L1440 160Z' fill='%239A4400' opacity='1'/%3E%3Cline x1='0' y1='80' x2='580' y2='80' stroke='rgba(201,146,42,0.35)' stroke-width='1'/%3E%3Cellipse cx='720' cy='80' rx='32' ry='12' fill='none' stroke='rgba(201,146,42,0.7)' stroke-width='1'/%3E%3Ccircle cx='720' cy='80' r='4' fill='rgba(201,146,42,0.9)'/%3E%3Ccircle cx='688' cy='80' r='2.5' fill='rgba(201,146,42,0.6)'/%3E%3Ccircle cx='752' cy='80' r='2.5' fill='rgba(201,146,42,0.6)'/%3E%3Cline x1='860' y1='80' x2='1440' y2='80' stroke='rgba(201,146,42,0.35)' stroke-width='1'/%3E%3C/svg%3E") center/cover no-repeat !important;
+  pointer-events: none !important;
 }
-.band-haldi-sangeet .orn-band-inner { display: none; }
-
-/* ── Sangeet → Wedding wave transition ── */
-.band-sangeet-wedding {
-  position: relative;
-  height: 160px;
-  overflow: hidden;
-  margin: 0 0 -2px 0;
-  padding: 0;
-  z-index: 5;
-  background: transparent;
-}
-.band-sangeet-wedding::before {
-  content: '';
-  position: absolute; inset: 0;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 160' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='swg' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%23440818'/%3E%3Cstop offset='35%25' stop-color='%23601030'/%3E%3Cstop offset='65%25' stop-color='%23700C0C'/%3E%3Cstop offset='100%25' stop-color='%23300808'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1440' height='160' fill='url(%23swg)'/%3E%3Cpath d='M0 0 C360 75 720 5 1080 60 C1280 90 1390 35 1440 50 L1440 0Z' fill='%23880A30' opacity='0.5'/%3E%3Cpath d='M0 160 C320 85 640 145 940 88 C1160 48 1320 125 1440 100 L1440 160Z' fill='%23300808' opacity='1'/%3E%3Cline x1='0' y1='80' x2='580' y2='80' stroke='rgba(201,146,42,0.35)' stroke-width='1'/%3E%3Cellipse cx='720' cy='80' rx='32' ry='12' fill='none' stroke='rgba(201,146,42,0.7)' stroke-width='1'/%3E%3Ccircle cx='720' cy='80' r='4' fill='rgba(201,146,42,0.9)'/%3E%3Ccircle cx='688' cy='80' r='2.5' fill='rgba(201,146,42,0.6)'/%3E%3Ccircle cx='752' cy='80' r='2.5' fill='rgba(201,146,42,0.6)'/%3E%3Cline x1='860' y1='80' x2='1440' y2='80' stroke='rgba(201,146,42,0.35)' stroke-width='1'/%3E%3C/svg%3E") center/cover no-repeat;
-  pointer-events: none;
-}
-.band-sangeet-wedding .orn-band-inner { display: none; }
-/* ── Ring → Haldi wave transition ── */
-.band-ring-haldi {
-  position: relative;
-  height: 160px;
-  overflow: hidden;
-  margin: 0 0 -2px 0;
-  padding: 0;
-  z-index: 5;
-  background: transparent;
-}
-.band-ring-haldi::before {
-  content: '';
-  position: absolute; inset: 0;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 160' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='rhg' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%231A2E88'/%3E%3Cstop offset='35%25' stop-color='%23402060'/%3E%3Cstop offset='65%25' stop-color='%23703010'/%3E%3Cstop offset='100%25' stop-color='%23904000'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1440' height='160' fill='url(%23rhg)'/%3E%3Cpath d='M0 0 C360 70 720 10 1080 55 C1280 85 1390 30 1440 48 L1440 0Z' fill='%231A2E88' opacity='0.6'/%3E%3Cpath d='M0 160 C300 85 600 145 900 90 C1140 48 1320 128 1440 102 L1440 160Z' fill='%23904000' opacity='1'/%3E%3Cline x1='0' y1='80' x2='580' y2='80' stroke='rgba(201,146,42,0.35)' stroke-width='1'/%3E%3Cellipse cx='720' cy='80' rx='32' ry='12' fill='none' stroke='rgba(201,146,42,0.7)' stroke-width='1'/%3E%3Ccircle cx='720' cy='80' r='4' fill='rgba(201,146,42,0.9)'/%3E%3Ccircle cx='688' cy='80' r='2.5' fill='rgba(201,146,42,0.6)'/%3E%3Ccircle cx='752' cy='80' r='2.5' fill='rgba(201,146,42,0.6)'/%3E%3Cline x1='860' y1='80' x2='1440' y2='80' stroke='rgba(201,146,42,0.35)' stroke-width='1'/%3E%3C/svg%3E") center/cover no-repeat;
-  pointer-events: none;
-}
-.band-ring-haldi .orn-band-inner { display: none; }
-
-/* Haldi starts at exact colour the band ends at — no gap */
+.band-haldi-sangeet .orn-band-inner { display: none !important; }
 #ev-haldi {
   background: linear-gradient(180deg,
-    #904000 0%,
-    #904000 6%,
-    #7C4A00 20%,
-    #A06000 40%,
-    #785200 65%,
-    #342400 100%
+    #9A4400 0%, #9A4400 6%,
+    #7C4A00 20%, #A06000 40%,
+    #785200 65%, #342400 100%
   ) !important;
   margin-top: 0;
 }
@@ -2138,4 +2097,138 @@ footer {
   inset: 0 !important;
   background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 100' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='hbg' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%234A0808'/%3E%3Cstop offset='50%25' stop-color='%23782010'/%3E%3Cstop offset='100%25' stop-color='%23F2C0C8'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1440' height='100' fill='url(%23hbg)'/%3E%3Cpath d='M0 0 C360 60 720 10 1080 45 C1280 68 1390 22 1440 35 L1440 0Z' fill='%234A0808' opacity='0.6'/%3E%3Cpath d='M0 100 C300 55 600 92 900 58 C1140 30 1320 82 1440 65 L1440 100Z' fill='%23F2C0C8' opacity='1'/%3E%3Cline x1='0' y1='50' x2='580' y2='50' stroke='rgba(201,146,42,0.35)' stroke-width='1'/%3E%3Cellipse cx='720' cy='50' rx='28' ry='10' fill='none' stroke='rgba(201,146,42,0.7)' stroke-width='1'/%3E%3Ccircle cx='720' cy='50' r='3.5' fill='rgba(201,146,42,0.9)'/%3E%3Cline x1='860' y1='50' x2='1440' y2='50' stroke='rgba(201,146,42,0.35)' stroke-width='1'/%3E%3C/svg%3E") center/cover no-repeat !important;
   pointer-events: none !important;
+}
+#hero::before,
+#hero::after {
+  display: none !important;
+}
+/* Ring → Sangeet: blue to pink */
+#ev-sangeet {
+  margin-top: 0 !important;
+}
+
+/* Haldi → Wedding: amber to red */
+#ev-wedding {
+  margin-top: 0 !important;
+}
+/* Haldi → Wedding wave — amber to royal red */
+.band-sangeet-wedding::before {
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 160' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='hwg' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%239A4400'/%3E%3Cstop offset='35%25' stop-color='%23702808'/%3E%3Cstop offset='65%25' stop-color='%23600C0C'/%3E%3Cstop offset='100%25' stop-color='%23300808'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1440' height='160' fill='url(%23hwg)'/%3E%3Cpath d='M0 0 C360 75 720 5 1080 60 C1280 90 1390 35 1440 50 L1440 0Z' fill='%239A4400' opacity='0.5'/%3E%3Cpath d='M0 160 C320 85 640 145 940 88 C1160 48 1320 125 1440 100 L1440 160Z' fill='%23300808' opacity='1'/%3E%3Cline x1='0' y1='80' x2='580' y2='80' stroke='rgba(201,146,42,0.35)' stroke-width='1'/%3E%3Cellipse cx='720' cy='80' rx='32' ry='12' fill='none' stroke='rgba(201,146,42,0.7)' stroke-width='1'/%3E%3Ccircle cx='720' cy='80' r='4' fill='rgba(201,146,42,0.9)'/%3E%3Ccircle cx='688' cy='80' r='2.5' fill='rgba(201,146,42,0.6)'/%3E%3Ccircle cx='752' cy='80' r='2.5' fill='rgba(201,146,42,0.6)'/%3E%3Cline x1='860' y1='80' x2='1440' y2='80' stroke='rgba(201,146,42,0.35)' stroke-width='1'/%3E%3C/svg%3E") center/cover no-repeat !important;
+}
+/* ── Force show Ring→Sangeet and Haldi→Wedding waves ── */
+.band-ring-haldi {
+  display: block !important;
+  position: relative !important;
+  height: 160px !important;
+  overflow: hidden !important;
+  margin: 0 0 -2px 0 !important;
+  padding: 0 !important;
+  z-index: 5 !important;
+  background: transparent !important;
+}
+.band-ring-haldi .orn-band-inner { display: none !important; }
+.band-ring-haldi::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 160' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='rsg2' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%231A2E88'/%3E%3Cstop offset='35%25' stop-color='%23402060'/%3E%3Cstop offset='65%25' stop-color='%23780A30'/%3E%3Cstop offset='100%25' stop-color='%23440818'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1440' height='160' fill='url(%23rsg2)'/%3E%3Cpath d='M0 0 C360 70 720 10 1080 55 C1280 85 1390 30 1440 48 L1440 0Z' fill='%231A2E88' opacity='0.6'/%3E%3Cpath d='M0 160 C300 85 600 145 900 90 C1140 48 1320 128 1440 102 L1440 160Z' fill='%23440818' opacity='1'/%3E%3Cline x1='0' y1='80' x2='580' y2='80' stroke='rgba(201,146,42,0.35)' stroke-width='1'/%3E%3Cellipse cx='720' cy='80' rx='32' ry='12' fill='none' stroke='rgba(201,146,42,0.7)' stroke-width='1'/%3E%3Ccircle cx='720' cy='80' r='4' fill='rgba(201,146,42,0.9)'/%3E%3Ccircle cx='688' cy='80' r='2.5' fill='rgba(201,146,42,0.6)'/%3E%3Ccircle cx='752' cy='80' r='2.5' fill='rgba(201,146,42,0.6)'/%3E%3Cline x1='860' y1='80' x2='1440' y2='80' stroke='rgba(201,146,42,0.35)' stroke-width='1'/%3E%3C/svg%3E") center/cover no-repeat !important;
+  pointer-events: none !important;
+}
+
+.band-sangeet-wedding {
+  display: block !important;
+  position: relative !important;
+  height: 160px !important;
+  overflow: hidden !important;
+  margin: 0 0 -2px 0 !important;
+  padding: 0 !important;
+  z-index: 5 !important;
+  background: transparent !important;
+}
+.band-sangeet-wedding .orn-band-inner { display: none !important; }
+.band-sangeet-wedding::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 160' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='hwg2' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%239A4400'/%3E%3Cstop offset='35%25' stop-color='%23702808'/%3E%3Cstop offset='65%25' stop-color='%23600C0C'/%3E%3Cstop offset='100%25' stop-color='%23300808'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1440' height='160' fill='url(%23hwg2)'/%3E%3Cpath d='M0 0 C360 75 720 5 1080 60 C1280 90 1390 35 1440 50 L1440 0Z' fill='%239A4400' opacity='0.5'/%3E%3Cpath d='M0 160 C320 85 640 145 940 88 C1160 48 1320 125 1440 100 L1440 160Z' fill='%23300808' opacity='1'/%3E%3Cline x1='0' y1='80' x2='580' y2='80' stroke='rgba(201,146,42,0.35)' stroke-width='1'/%3E%3Cellipse cx='720' cy='80' rx='32' ry='12' fill='none' stroke='rgba(201,146,42,0.7)' stroke-width='1'/%3E%3Ccircle cx='720' cy='80' r='4' fill='rgba(201,146,42,0.9)'/%3E%3Ccircle cx='688' cy='80' r='2.5' fill='rgba(201,146,42,0.6)'/%3E%3Ccircle cx='752' cy='80' r='2.5' fill='rgba(201,146,42,0.6)'/%3E%3Cline x1='860' y1='80' x2='1440' y2='80' stroke='rgba(201,146,42,0.35)' stroke-width='1'/%3E%3C/svg%3E") center/cover no-repeat !important;
+  pointer-events: none !important;
+}
+/* ── Invite dates block ── */
+.invite-dates {
+  margin-top: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+}
+.invite-date-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .7rem;
+  flex-wrap: wrap;
+}
+.invite-date-label {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: clamp(.9rem, 2.8vw, 1.05rem);
+  color: #FFE580;
+  text-shadow:
+    0 0 12px rgba(255,215,60,.7),
+    0 1px 4px rgba(0,0,0,.55);
+  font-weight: 600;
+  letter-spacing: .04em;
+}
+.invite-date-sep {
+  color: rgba(255,200,80,.5);
+  font-size: .7rem;
+}
+.invite-date-val {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: clamp(.9rem, 2.8vw, 1.05rem);
+  color: rgba(255, 240, 210, 0.92);
+  text-shadow: 0 1px 4px rgba(0,0,0,.5);
+  letter-spacing: .02em;
+}/* ── Invite text — dark rich readable over any bg ── */
+.invite-text {
+  font-size: clamp(1.2rem, 3.8vw, 1.45rem) !important;
+  color: #3A1000 !important;
+  text-shadow: 0 1px 3px rgba(255,255,255,.4) !important;
+  line-height: 2.3 !important;
+}
+.invite-text strong {
+  color: #8B2800 !important;
+  font-weight: 800 !important;
+  text-shadow: none !important;
+}
+.invite-date-label {
+  font-size: clamp(1.1rem, 3.5vw, 1.35rem) !important;
+  color: #7A2000 !important;
+  text-shadow: none !important;
+  font-weight: 800 !important;
+}
+.invite-date-sep {
+  color: #B05010 !important;
+  font-size: .9rem !important;
+}
+.invite-date-val {
+  font-size: clamp(1.05rem, 3.2vw, 1.28rem) !important;
+  color: #4A1800 !important;
+  text-shadow: none !important;
+  font-weight: 600 !important;
+}
+/* ── Small decoration icons above ceremony title ── */
+.ev-deco-imgs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .5rem;
+  margin-bottom: 0.9rem;
+}
+.ev-deco-img {
+  width: 90px !important;
+  height: 90px !important;
+  max-width: 90px !important;
+  max-height: 90px !important;
+  object-fit: contain;
+  filter: drop-shadow(0 0 6px rgba(255,200,60,.5));
+  display: inline-block !important;
 }
