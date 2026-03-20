@@ -2233,3 +2233,6 @@ footer {
   filter: drop-shadow(0 0 6px rgba(255,200,60,.5));
   display: inline-block !important;
 }
+.bride-name, .groom-name {
+  font-size: clamp(4.5rem, 20vw, 8rem) !important;
+}
