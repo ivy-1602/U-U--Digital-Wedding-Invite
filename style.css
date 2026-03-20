@@ -248,15 +248,17 @@ body::after {
   display:flex;
   align-items:center;
   justify-content:center;
-  gap: clamp(.8rem,4vw,2.5rem);
+  gap: clamp(.4rem,2vw,2.5rem);
   margin-bottom:.6rem;
+  flex-wrap: nowrap;
+  width: 100%;
 }
 .hero-name-block {
   display:flex; flex-direction:column; align-items:center;
 }
 .bride-name, .groom-name {
   font-family:'Noto Serif Devanagari', serif;
-  font-size: clamp(3.2rem,16vw,7.5rem);
+  font-size: clamp(2.2rem,10vw,7.5rem);
   font-weight:600; color:#FFE580; line-height:1; display:block;
   /* Rich gold shimmer effect */
   text-shadow:
@@ -1295,9 +1297,8 @@ html { scroll-behavior: smooth; }
 
 /* Mobile: side-by-side names stack on very small screens */
 @media (max-width:360px) {
-  .hero-names-row { flex-direction:column; gap:.4rem; }
-  .bride-name,.groom-name { font-size:3.8rem; }
-  .hero-names-en { font-size:1.2rem; }
+  .bride-name,.groom-name { font-size:2rem; }
+  .hero-names-en { font-size:1.1rem; }
 }
 
 /* ============================================================
