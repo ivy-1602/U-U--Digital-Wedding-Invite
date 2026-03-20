@@ -2249,3 +2249,10 @@ footer {
   white-space: nowrap !important;
   flex-shrink: 1 !important;
 }
+.hero-name-block,
+.hero-names,
+.hero-names-row,
+.hero-centre-img {
+  background: none !important;
+  background-color: transparent !important;
+}
