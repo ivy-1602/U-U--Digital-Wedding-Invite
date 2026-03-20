@@ -2234,5 +2234,5 @@ footer {
   display: inline-block !important;
 }
 .bride-name, .groom-name {
-  font-size: clamp(4.5rem, 20vw, 8rem) !important;
+  font-size: clamp(4rem, 20vw, 8rem) !important;
 }
