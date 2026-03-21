@@ -20,6 +20,30 @@
   <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
+  <!-- Background audio — autoplay on first interaction -->
+<audio id="bg-audio" loop preload="auto">
+  <source src="assets/Sukh Kalale Piano Version.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+  // Auto-play on first user interaction (browser policy requires this)
+  const audio = document.getElementById('bg-audio');
+  audio.volume = 0.35;
+
+  // Try immediate autoplay first
+  audio.play().catch(() => {
+    // If blocked, play on first touch/click anywhere
+    const unlock = () => {
+      audio.play();
+      document.removeEventListener('click', unlock);
+      document.removeEventListener('touchstart', unlock);
+      document.removeEventListener('scroll', unlock);
+    };
+    document.addEventListener('click', unlock, { once: true });
+    document.addEventListener('touchstart', unlock, { once: true });
+    document.addEventListener('scroll', unlock, { once: true });
+  });
+</script>
 
 <div id="progress-bar"></div>
 <canvas id="petal-canvas-2d" style="position:fixed;inset:0;pointer-events:none;z-index:2;"></canvas>
