@@ -21,22 +21,25 @@
 <body>
 
 <audio id="bg-audio" loop preload="auto">
-  <source src="assets/Sukh Kalale Piano Version.mp3" type="audio/mpeg">
+  <source src="assets/sukh-kalale.mp3" type="audio/mpeg">
 </audio>
 <script>
   const audio = document.getElementById('bg-audio');
   audio.volume = 0.35;
-  audio.play().catch(() => {
-    const unlock = () => {
-      audio.play();
-      document.removeEventListener('click', unlock);
-      document.removeEventListener('touchstart', unlock);
-      document.removeEventListener('scroll', unlock);
-    };
-    document.addEventListener('click', unlock, { once: true });
-    document.addEventListener('touchstart', unlock, { once: true });
-    document.addEventListener('scroll', unlock, { once: true });
-  });
+
+  function tryPlay() {
+    audio.play().catch(() => {});
+  }
+
+  // Try every possible interaction event
+  ['click','touchstart','touchend','scroll','keydown','mousemove','pointerdown']
+    .forEach(evt => document.addEventListener(evt, function handler() {
+      tryPlay();
+      document.removeEventListener(evt, handler);
+    }, { once: true, passive: true }));
+
+  // Also try after 1 second in case autoplay is allowed
+  setTimeout(tryPlay, 1000);
 </script>
 
 <div id="progress-bar"></div>
