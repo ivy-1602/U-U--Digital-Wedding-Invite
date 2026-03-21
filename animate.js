@@ -3,7 +3,6 @@
    Motion & Life Layer — v3 Professional
    ============================================================ */
 'use strict';
-
 /* ── CONSTANTS ─────────────────────────────────────────── */
 const SECTION_COLOURS = {
   'hero':       [74,  8,   8  ],
@@ -64,6 +63,125 @@ function initGlowConfetti() {
       r: c[0], g: c[1], b: c[2],
     };
   }
+  /* ══════════════════════════════════════════════════════════
+   SPLASH CONFETTI — same flower confetti on splash screen
+   ══════════════════════════════════════════════════════════ */
+function initSplashConfetti() {
+  const splash = document.getElementById('splash');
+  if (!splash) return;
+
+  const canvas = document.createElement('canvas');
+  canvas.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;';
+  splash.appendChild(canvas);
+
+  const ctx = canvas.getContext('2d');
+  let W, H;
+
+  function resize() {
+    W = canvas.width  = splash.offsetWidth  || window.innerWidth;
+    H = canvas.height = splash.offsetHeight || window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize, { passive: true });
+
+  const SPLASH_COLOURS = [
+    [255, 200, 60 ],   // gold
+    [232, 130, 40 ],   // marigold
+    [220, 80,  100],   // rose
+    [255, 150, 80 ],   // saffron
+    [200, 100, 180],   // magenta
+    [255, 180, 180],   // blush
+    [255, 210, 100],   // amber
+  ];
+
+  function spawnPetal(randomY = false) {
+    const c      = SPLASH_COLOURS[Math.floor(Math.random() * SPLASH_COLOURS.length)];
+    const nPetal = [4, 5, 6, 8][Math.floor(Math.random() * 4)];
+    const size   = 5 + Math.random() * 9;
+    return {
+      x:       Math.random() * (W || 400),
+      y:       randomY ? Math.random() * (H || 800) : -30,
+      size,
+      petals:  nPetal,
+      rot:     Math.random() * Math.PI * 2,
+      spinV:   0.008 + Math.random() * 0.018,
+      vx:      (Math.random() - 0.5) * 0.45,
+      vy:      0.55 + Math.random() * 0.85,
+      wobble:  Math.random() * Math.PI * 2,
+      wobbleS: 0.012 + Math.random() * 0.016,
+      alpha:   0.55 + Math.random() * 0.35,
+      glowT:   Math.random() * Math.PI * 2,
+      glowS:   0.018 + Math.random() * 0.012,
+      r: c[0], g: c[1], b: c[2],
+    };
+  }
+
+  const pieces = Array.from({ length: 26 }, () => spawnPetal(true));
+
+  function drawFlowerPetal(r, g, b, size, petals, alpha) {
+    const step     = (Math.PI * 2) / petals;
+    const petalLen = size;
+    const petalW   = size * 0.38;
+
+    for (let i = 0; i < petals; i++) {
+      ctx.save();
+      ctx.rotate(i * step);
+      const grd = ctx.createRadialGradient(0, petalLen * 0.35, 0, 0, petalLen * 0.35, petalLen * 0.7);
+      grd.addColorStop(0,   `rgba(${r},${g},${b},${alpha})`);
+      grd.addColorStop(0.6, `rgba(${r},${g},${b},${alpha * 0.5})`);
+      grd.addColorStop(1,   `rgba(${r},${g},${b},0)`);
+      ctx.beginPath();
+      ctx.ellipse(0, petalLen * 0.42, petalW * 0.45, petalLen * 0.45, 0, 0, Math.PI * 2);
+      ctx.fillStyle = grd;
+      ctx.fill();
+      ctx.restore();
+    }
+
+    const cg = ctx.createRadialGradient(0, 0, 0, 0, 0, size * 0.22);
+    cg.addColorStop(0,   `rgba(255,240,180,${alpha * 0.9})`);
+    cg.addColorStop(1,   `rgba(${r},${g},${b},0)`);
+    ctx.beginPath();
+    ctx.arc(0, 0, size * 0.22, 0, Math.PI * 2);
+    ctx.fillStyle = cg;
+    ctx.fill();
+  }
+
+  let animId;
+  function drawFrame() {
+    ctx.clearRect(0, 0, W, H);
+
+    for (const p of pieces) {
+      p.wobble += p.wobbleS;
+      p.glowT  += p.glowS;
+      p.rot    += p.spinV;
+      p.x += p.vx + Math.sin(p.wobble) * 0.3;
+      p.y += p.vy;
+
+      if (p.y > H + 40) Object.assign(p, spawnPetal(false));
+
+      const pulse = p.alpha * (0.7 + 0.3 * Math.sin(p.glowT));
+
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rot);
+      drawFlowerPetal(p.r, p.g, p.b, p.size, p.petals, pulse);
+      ctx.restore();
+    }
+
+    animId = requestAnimationFrame(drawFrame);
+  }
+
+  drawFrame();
+
+  // Stop animation when splash is removed
+  const observer = new MutationObserver(() => {
+    if (!document.getElementById('splash')) {
+      cancelAnimationFrame(animId);
+      observer.disconnect();
+    }
+  });
+  observer.observe(document.body, { childList: true });
+}
 
   // Only 14 petals — calm and sincere
   const petals = Array.from({ length: 25 }, () => spawnPetal(true));
@@ -724,6 +842,9 @@ function initCountdownPulse() {
    BOOT — initialise everything on DOM ready
    ══════════════════════════════════════════════════════════ */
 document.addEventListener('DOMContentLoaded', () => {
+  initSplashConfetti();
+  initGlowConfetti();
+  initHeroSparkles();
   initGlowConfetti();
   initHeroSparkles();
   initWeddingFlowers();
