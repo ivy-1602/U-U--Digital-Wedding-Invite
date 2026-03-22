@@ -833,7 +833,7 @@ body::after {
     #F4D4DA 78%,
     #F8E6E8 100%
   );
-  padding:5.5rem 1.5rem 5rem; position:relative; overflow:hidden;
+  padding:5.5rem 1.5rem 5rem; position:relative; overflow:visible;
 }
 #note::before {
   content:''; position:absolute; top:0; left:0; right:0; height:5px;
