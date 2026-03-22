@@ -842,9 +842,6 @@ function initCountdownPulse() {
    BOOT — initialise everything on DOM ready
    ══════════════════════════════════════════════════════════ */
 document.addEventListener('DOMContentLoaded', () => {
-  initSplashConfetti();
-  initGlowConfetti();
-  initHeroSparkles();
   initGlowConfetti();
   initHeroSparkles();
   initWeddingFlowers();
