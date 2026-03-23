@@ -19,78 +19,54 @@
   </script>
 </head>
 <body>
-<!-- Splash screen -->
+
+<!-- ── SPLASH SCREEN ── -->
 <div id="splash" style="
-  position:fixed; inset:0; z-index:99999;
-  background-color: #4A0808;
-  background-image: url('assets/splash-bg.jpg');
-  background-size: cover;
-  background-position: center 20%;
-  display:flex; flex-direction:column;
-  align-items:center; justify-content:center;
-  cursor:pointer;
-  overflow:hidden;
+  position:fixed;inset:0;z-index:99999;
+  background-color:#4A0808;
+  background-image:url('assets/splash-bg.jpg');
+  background-size:cover;background-position:center 20%;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  cursor:pointer;overflow:hidden;
 ">
+  <canvas id="splash-canvas" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;"></canvas>
   <div style="
-    position:relative; z-index:2;
-    text-align:center; padding:2.5rem 2rem 2rem;
-    margin-top:-10vh;
-    background: rgba(255,248,240,0.12);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border-radius: 20px;
-    border: 1px solid rgba(180,100,30,.18);
-    box-shadow: 0 8px 32px rgba(80,20,0,.08);
-    max-width: 88vw;
-    width: 360px;
+    position:relative;z-index:2;text-align:center;
+    padding:2.5rem 2rem 2rem;margin-top:-10vh;
+    background:rgba(255,248,240,.12);
+    backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+    border-radius:20px;border:1px solid rgba(180,100,30,.18);
+    box-shadow:0 8px 32px rgba(80,20,0,.08);
+    max-width:88vw;width:360px;
   ">
     <p style="font-family:'Noto Serif Devanagari',serif;color:#8B4000;font-size:clamp(.72rem,2vw,.88rem);letter-spacing:.35em;margin-bottom:.8rem;">॥ श्री गणेशाय नमः ॥</p>
-    <p style="font-family:'Noto Serif Devanagari',serif;color:#5A1200;font-size:clamp(2.4rem,11vw,5rem);font-weight:700;line-height:1.1;text-shadow:0 2px 6px rgba(0,0,0,.12);margin-bottom:.3rem;">उदय & उन्नती</p>
-    <p style="font-family:'Playfair Display',serif;font-style:italic;color:#7A3A10;font-size:clamp(1rem,3.5vw,1.6rem);margin-bottom:.8rem;">Uday & Unnati</p>
+    <p style="font-family:'Noto Serif Devanagari',serif;color:#5A1200;font-size:clamp(2.4rem,11vw,5rem);font-weight:700;line-height:1.1;text-shadow:0 2px 6px rgba(0,0,0,.12);margin-bottom:.3rem;">उदय &amp; उन्नती</p>
+    <p style="font-family:'Playfair Display',serif;font-style:italic;color:#7A3A10;font-size:clamp(1rem,3.5vw,1.6rem);margin-bottom:.8rem;">Uday &amp; Unnati</p>
     <p style="font-family:'Cinzel',serif;color:#9A5010;font-size:clamp(.65rem,1.8vw,.82rem);letter-spacing:.28em;margin-bottom:.5rem;">WEDDING INVITATION</p>
     <p style="font-family:'Noto Serif Devanagari',serif;color:#7A3A10;font-size:clamp(.78rem,2vw,.95rem);letter-spacing:.1em;margin-bottom:1.8rem;">२३ जून २०२६ &nbsp;·&nbsp; कोथरूड, पुणे</p>
-
     <div style="
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:.5rem;
-      padding:1rem 1.8rem;
-      border-radius:50px;
-      background: linear-gradient(135deg, #8B2200, #C04010, #8B2200);
-      border: 2px solid rgba(255,180,80,.7);
-      font-family:'Cinzel',serif;
-      font-size:clamp(.7rem,2.2vw,.88rem);
-      letter-spacing:.12em;
-      color:#FFE580;
-      font-weight:700;
-      white-space:nowrap;
-      cursor:pointer;
-      max-width:85vw;
-      box-sizing:border-box;
-      box-shadow:
-        0 0 20px rgba(255,120,40,.5),
-        0 0 50px rgba(200,60,0,.3),
-        0 4px 20px rgba(0,0,0,.4),
-        inset 0 1px 0 rgba(255,200,100,.3);
-      text-shadow:
-        0 0 14px rgba(255,200,60,.8),
-        0 1px 3px rgba(0,0,0,.5);
-      animation: splash-btn-pulse 1.8s ease-in-out infinite;
+      display:inline-flex;align-items:center;justify-content:center;
+      gap:.5rem;padding:1rem 1.8rem;border-radius:50px;
+      background:linear-gradient(135deg,#8B2200,#C04010,#8B2200);
+      border:2px solid rgba(255,180,80,.7);
+      font-family:'Cinzel',serif;font-size:clamp(.7rem,2.2vw,.88rem);
+      letter-spacing:.12em;color:#FFE580;font-weight:700;
+      white-space:nowrap;cursor:pointer;max-width:85vw;box-sizing:border-box;
+      box-shadow:0 0 20px rgba(255,120,40,.5),0 0 50px rgba(200,60,0,.3),0 4px 20px rgba(0,0,0,.4);
+      text-shadow:0 0 14px rgba(255,200,60,.8),0 1px 3px rgba(0,0,0,.5);
+      animation:splash-btn-pulse 1.8s ease-in-out infinite;
     ">
-      <span>✦</span>
-      <span>OPEN INVITATION</span>
-      <span>✦</span>
+      <span>✦</span><span>OPEN INVITATION</span><span>✦</span>
     </div>
   </div>
 </div>
 
 <style>
-@keyframes splash-pulse {
-  0%,100% { box-shadow:0 0 0 rgba(120,60,10,0); border-color:rgba(120,50,10,.45); }
-  50%      { box-shadow:0 0 22px rgba(180,90,20,.35); border-color:rgba(180,90,20,.75); }
+@keyframes splash-btn-pulse {
+  0%,100% { box-shadow:0 0 20px rgba(255,120,40,.5),0 4px 20px rgba(0,0,0,.4); }
+  50%      { box-shadow:0 0 35px rgba(255,160,60,.8),0 4px 28px rgba(0,0,0,.5); }
 }
-body.splash-hidden { opacity:0 !important; }
 </style>
 
 <audio id="bg-audio" loop preload="auto">
@@ -98,79 +74,102 @@ body.splash-hidden { opacity:0 !important; }
 </audio>
 
 <script>
-  // Splash confetti
-  (function() {
-    const splash = document.getElementById('splash');
-    if (!splash) return;
-    const canvas = document.createElement('canvas');
-    canvas.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;';
-    splash.appendChild(canvas);
-    const ctx = canvas.getContext('2d');
-    let W = canvas.width  = splash.offsetWidth  || window.innerWidth;
-    let H = canvas.height = splash.offsetHeight || window.innerHeight;
-    window.addEventListener('resize', () => {
-      W = canvas.width  = splash.offsetWidth  || window.innerWidth;
-      H = canvas.height = splash.offsetHeight || window.innerHeight;
-    }, { passive: true });
-    const COLS = [[255,200,60],[232,130,40],[220,80,100],[255,150,80],[200,100,180],[255,180,180],[255,210,100]];
-    function spawn(randY) {
-      const c = COLS[Math.floor(Math.random()*COLS.length)];
-      return { x:Math.random()*(W||400), y:randY?Math.random()*(H||800):-30,
-        size:5+Math.random()*18, petals:[4,5,6,8][Math.floor(Math.random()*4)],
-        rot:Math.random()*Math.PI*2, spinV:0.008+Math.random()*0.03,
-        vx:(Math.random()-0.5)*0.45, vy:0.55+Math.random()*1.4,
-        wobble:Math.random()*Math.PI*2, wobbleS:0.012+Math.random()*0.02,
-        alpha:0.55+Math.random()*0.25, glowT:Math.random()*Math.PI*2,
-        glowS:0.018+Math.random()*0.012, r:c[0], g:c[1], b:c[2] };
-    }
-    const pieces = Array.from({length:26}, () => spawn(true));
-    let animId;
-    function draw() {
-      ctx.clearRect(0,0,W,H);
-      for (const p of pieces) {
-        p.wobble+=p.wobbleS; p.glowT+=p.glowS; p.rot+=p.spinV;
-        p.x+=p.vx+Math.sin(p.wobble)*0.3; p.y+=p.vy;
-        if (p.y>H+40) Object.assign(p,spawn(false));
-        const pulse=p.alpha*(0.7+0.3*Math.sin(p.glowT));
-        const step=(Math.PI*2)/p.petals;
-        ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot);
-        for (let i=0;i<p.petals;i++) {
-          ctx.save(); ctx.rotate(i*step);
-          const g=ctx.createRadialGradient(0,p.size*0.35,0,0,p.size*0.35,p.size*0.7);
-          g.addColorStop(0,`rgba(${p.r},${p.g},${p.b},${pulse})`);
-          g.addColorStop(0.4,`rgba(${p.r},${p.g},${p.b},${pulse*0.6})`);
-          g.addColorStop(1,`rgba(${p.r},${p.g},${p.b},0)`);
-          ctx.beginPath(); ctx.ellipse(0,p.size*0.42,p.size*0.17,p.size*0.45,0,0,Math.PI*2);
-          ctx.fillStyle=g; ctx.fill(); ctx.restore();
-        }
-        const cg=ctx.createRadialGradient(0,0,0,0,0,p.size*0.22);
-        cg.addColorStop(0,`rgba(255,255,220,1)`);
-        cg.addColorStop(0.3,`rgba(255,240,120,${pulse*0.8})`);
-        cg.addColorStop(1,`rgba(${p.r},${p.g},${p.b},0)`);
-        ctx.beginPath(); ctx.arc(0,0,p.size*0.22,0,Math.PI*2);
-        ctx.fillStyle=cg; ctx.fill(); ctx.restore();
-      }
-      animId=requestAnimationFrame(draw);
-    }
-    draw();
-    // Stop when splash removed
-    document.addEventListener('click', () => cancelAnimationFrame(animId), {once:true});
-  })();
+/* Splash flower confetti */
+(function() {
+  const canvas = document.getElementById('splash-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const splash = document.getElementById('splash');
+  let W = canvas.width  = splash.offsetWidth  || window.innerWidth;
+  let H = canvas.height = splash.offsetHeight || window.innerHeight;
+  window.addEventListener('resize', () => {
+    W = canvas.width  = splash.offsetWidth  || window.innerWidth;
+    H = canvas.height = splash.offsetHeight || window.innerHeight;
+  }, { passive: true });
 
-  // Splash click to open
-  document.addEventListener('click', function() {
-    const splash = document.getElementById('splash');
-    if (!splash) return;
-    document.getElementById('bg-audio').play().catch(()=>{});
-    splash.style.transition = 'opacity 1.2s ease';
-    splash.style.opacity = '0';
-    setTimeout(() => splash.remove(), 1200);
-  }, { once: true });
+  const COLS = [[255,200,60],[232,130,40],[220,80,100],[255,150,80],[200,100,180],[255,180,180],[255,210,100]];
+  function spawn(randY) {
+    const c = COLS[Math.floor(Math.random() * COLS.length)];
+    const nPetals = [4,5,6,8][Math.floor(Math.random() * 4)];
+    const size = 5 + Math.random() * 18;
+    return {
+      x: Math.random() * (W || 400),
+      y: randY ? Math.random() * (H || 800) : -30,
+      size, petals: nPetals,
+      rot: Math.random() * Math.PI * 2,
+      spinV: 0.008 + Math.random() * 0.03,
+      vx: (Math.random() - 0.5) * 0.45,
+      vy: 0.55 + Math.random() * 1.4,
+      wobble: Math.random() * Math.PI * 2,
+      wobbleS: 0.012 + Math.random() * 0.02,
+      alpha: 0.55 + Math.random() * 0.25,
+      glowT: Math.random() * Math.PI * 2,
+      glowS: 0.018 + Math.random() * 0.012,
+      r: c[0], g: c[1], b: c[2]
+    };
+  }
+
+  const pieces = Array.from({ length: 26 }, () => spawn(true));
+  let animId;
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    for (const p of pieces) {
+      p.wobble += p.wobbleS; p.glowT += p.glowS;
+      p.rot += p.spinV;
+      p.x += p.vx + Math.sin(p.wobble) * 0.3;
+      p.y += p.vy;
+      if (p.y > H + 40) Object.assign(p, spawn(false));
+
+      const pulse = p.alpha * (0.7 + 0.3 * Math.sin(p.glowT));
+      const step  = (Math.PI * 2) / p.petals;
+
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rot);
+
+      for (let i = 0; i < p.petals; i++) {
+        ctx.save();
+        ctx.rotate(i * step);
+        const g = ctx.createRadialGradient(0, p.size*0.35, 0, 0, p.size*0.35, p.size*0.7);
+        g.addColorStop(0,   `rgba(${p.r},${p.g},${p.b},${pulse})`);
+        g.addColorStop(0.4, `rgba(${p.r},${p.g},${p.b},${pulse*0.6})`);
+        g.addColorStop(1,   `rgba(${p.r},${p.g},${p.b},0)`);
+        ctx.beginPath();
+        ctx.ellipse(0, p.size*0.42, p.size*0.17, p.size*0.45, 0, 0, Math.PI*2);
+        ctx.fillStyle = g; ctx.fill();
+        ctx.restore();
+      }
+      const cg = ctx.createRadialGradient(0, 0, 0, 0, 0, p.size*0.22);
+      cg.addColorStop(0,   'rgba(255,255,220,1)');
+      cg.addColorStop(0.3, `rgba(255,240,120,${pulse*0.8})`);
+      cg.addColorStop(1,   `rgba(${p.r},${p.g},${p.b},0)`);
+      ctx.beginPath();
+      ctx.arc(0, 0, p.size*0.22, 0, Math.PI*2);
+      ctx.fillStyle = cg; ctx.fill();
+      ctx.restore();
+    }
+    animId = requestAnimationFrame(draw);
+  }
+  draw();
+
+  document.addEventListener('click', () => cancelAnimationFrame(animId), { once: true });
+})();
+
+/* Splash dismiss */
+document.addEventListener('click', function() {
+  const splash = document.getElementById('splash');
+  if (!splash) return;
+  document.getElementById('bg-audio').play().catch(() => {});
+  splash.style.transition = 'opacity 1.2s ease';
+  splash.style.opacity = '0';
+  setTimeout(() => splash.remove(), 1200);
+}, { once: true });
 </script>
+
 
 <div id="progress-bar"></div>
 <canvas id="petal-canvas-2d" style="position:fixed;inset:0;pointer-events:none;z-index:2;"></canvas>
-<div class="fairy-lights" aria-hidden="true"></div>
 <div class="petal-canvas" id="petal-canvas" aria-hidden="true"></div>
 
 
@@ -179,21 +178,19 @@ body.splash-hidden { opacity:0 !important; }
      ═══════════════════════════ -->
 <section id="hero">
 
-  <!-- SVG Swastikas — four corners, right-facing Hindu swastika -->
-<svg class="sw tl" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-  <path fill="#F0C878" d="M26 8h8v18h18v8H34v18h-8V34H8v-8h18V8z M34 8h18v8H34z M44 34h8v18h-8z M8 44h18v8H8z M8 8h8v18H8z"/>
-</svg>
-<svg class="sw tr" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-  <path fill="#F0C878" d="M26 8h8v18h18v8H34v18h-8V34H8v-8h18V8z M34 8h18v8H34z M44 34h8v18h-8z M8 44h18v8H8z M8 8h8v18H8z"/>
-</svg>
-<svg class="sw bl" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-  <path fill="#F0C878" d="M26 8h8v18h18v8H34v18h-8V34H8v-8h18V8z M34 8h18v8H34z M44 34h8v18h-8z M8 44h18v8H8z M8 8h8v18H8z"/>
-</svg>
-<svg class="sw br" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-  <path fill="#F0C878" d="M26 8h8v18h18v8H34v18h-8V34H8v-8h18V8z M34 8h18v8H34z M44 34h8v18h-8z M8 44h18v8H8z M8 8h8v18H8z"/>
-</svg>
+  <svg class="sw tl" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path fill="#F0C878" d="M26 8h8v18h18v8H34v18h-8V34H8v-8h18V8z M34 8h18v8H34z M44 34h8v18h-8z M8 44h18v8H8z M8 8h8v18H8z"/>
+  </svg>
+  <svg class="sw tr" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path fill="#F0C878" d="M26 8h8v18h18v8H34v18h-8V34H8v-8h18V8z M34 8h18v8H34z M44 34h8v18h-8z M8 44h18v8H8z M8 8h8v18H8z"/>
+  </svg>
+  <svg class="sw bl" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path fill="#F0C878" d="M26 8h8v18h18v8H34v18h-8V34H8v-8h18V8z M34 8h18v8H34z M44 34h8v18h-8z M8 44h18v8H8z M8 8h8v18H8z"/>
+  </svg>
+  <svg class="sw br" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path fill="#F0C878" d="M26 8h8v18h18v8H34v18h-8V34H8v-8h18V8z M34 8h18v8H34z M44 34h8v18h-8z M8 44h18v8H8z M8 8h8v18H8z"/>
+  </svg>
 
-  <!-- GANPATI LOGO — place ganpati.png in same folder -->
   <div class="ganpati-wrap">
     <img src="assets/ganpati.png" alt="Ganpati Bappa" class="ganpati-img"
          onerror="this.style.display='none';document.getElementById('ganpati-fallback').style.display='block';"/>
@@ -203,62 +200,43 @@ body.splash-hidden { opacity:0 !important; }
   <p class="hero-invocation devanagari">॥ श्री गणेशाय नमः ॥</p>
   <h1><p class="hero-shubh devanagari">शुभ विवाह</p></h1>
 
-  <!-- COUPLE NAMES — side by side, swastika in centre -->
   <div class="hero-names">
-
     <div class="hero-names-row">
-      <!-- Uday — left -->
       <div class="hero-name-block">
         <h1 class="groom-name devanagari">उदय</h1>
       </div>
 
-      <!-- Centre image between names -->
-<div class="C:\Users\udays\Downloads\1.png" aria-hidden="false">
-  <!--
-    REPLACE THIS PLACEHOLDER with any image you like:
-    e.g. a flower, diya, ganpati, couple illustration, mandala etc.
-    Recommended size: square PNG with transparent bg, ~120×120px
-    Just change src="your-image.png" below
-  -->
-  <img
-    src="assets/1.png"
-    alt=""
-    class="hero-centre-icon"
-    onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
-  />
+      <div class="hero-centre-img">
+        <img
+          src="assets/1.png"
+          alt=""
+          class="hero-centre-icon"
+          onerror="this.style.display='none';"
+        />
+      </div>
 
-</div>
-
-      <!-- Unnati — right -->
       <div class="hero-name-block">
         <h1 class="bride-name devanagari">उन्नती</h1>
       </div>
     </div>
 
-    <!-- English names below -->
     <p class="hero-names-en">Unnati <em class="en-amp">weds</em> Uday</p>
   </div>
 
-  <!-- Ornamental border frame (like reference image) -->
   <div class="hero-ornament-frame" aria-hidden="true">
-    <!-- Top bar -->
     <svg class="hof top" viewBox="0 0 360 28" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
       <line x1="0" y1="14" x2="360" y2="14" stroke="#C9922A" stroke-width="1" opacity="0.5"/>
       <line x1="0" y1="10" x2="360" y2="10" stroke="#C9922A" stroke-width="0.5" opacity="0.3"/>
       <line x1="0" y1="18" x2="360" y2="18" stroke="#C9922A" stroke-width="0.5" opacity="0.3"/>
-      <!-- Centre ornament -->
       <ellipse cx="180" cy="14" rx="22" ry="8" fill="none" stroke="#C9922A" stroke-width="0.8" opacity="0.6"/>
       <circle cx="180" cy="14" r="3" fill="#C9922A" opacity="0.7"/>
       <circle cx="150" cy="14" r="2" fill="#C9922A" opacity="0.5"/>
       <circle cx="210" cy="14" r="2" fill="#C9922A" opacity="0.5"/>
-      <!-- Left scrolls -->
       <path d="M10 14 Q30 6 50 14 Q30 22 10 14" fill="none" stroke="#C9922A" stroke-width="0.8" opacity="0.55"/>
       <path d="M60 14 Q75 8 90 14 Q75 20 60 14" fill="none" stroke="#C9922A" stroke-width="0.7" opacity="0.45"/>
-      <!-- Right scrolls (mirror) -->
       <path d="M350 14 Q330 6 310 14 Q330 22 350 14" fill="none" stroke="#C9922A" stroke-width="0.8" opacity="0.55"/>
       <path d="M300 14 Q285 8 270 14 Q285 20 300 14" fill="none" stroke="#C9922A" stroke-width="0.7" opacity="0.45"/>
     </svg>
-    <!-- Bottom bar -->
     <svg class="hof bottom" viewBox="0 0 360 28" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
       <line x1="0" y1="14" x2="360" y2="14" stroke="#C9922A" stroke-width="1" opacity="0.5"/>
       <line x1="0" y1="10" x2="360" y2="10" stroke="#C9922A" stroke-width="0.5" opacity="0.3"/>
@@ -272,21 +250,17 @@ body.splash-hidden { opacity:0 !important; }
       <path d="M350 14 Q330 6 310 14 Q330 22 350 14" fill="none" stroke="#C9922A" stroke-width="0.8" opacity="0.55"/>
       <path d="M300 14 Q285 8 270 14 Q285 20 300 14" fill="none" stroke="#C9922A" stroke-width="0.7" opacity="0.45"/>
     </svg>
-    <!-- Left bar -->
     <svg class="hof left" viewBox="0 0 28 500" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
       <line x1="14" y1="0" x2="14" y2="500" stroke="#C9922A" stroke-width="1" opacity="0.5"/>
       <line x1="10" y1="0" x2="10" y2="500" stroke="#C9922A" stroke-width="0.5" opacity="0.3"/>
       <line x1="18" y1="0" x2="18" y2="500" stroke="#C9922A" stroke-width="0.5" opacity="0.3"/>
-      <!-- Dot accents -->
       <circle cx="14" cy="100" r="2.5" fill="#C9922A" opacity="0.5"/>
       <circle cx="14" cy="200" r="2.5" fill="#C9922A" opacity="0.5"/>
       <circle cx="14" cy="300" r="2.5" fill="#C9922A" opacity="0.5"/>
       <circle cx="14" cy="400" r="2.5" fill="#C9922A" opacity="0.5"/>
-      <!-- Corner flourish bottom-left -->
       <path d="M14 440 Q6 460 14 480" fill="none" stroke="#C9922A" stroke-width="1" opacity="0.6"/>
       <path d="M14 60 Q6 40 14 20" fill="none" stroke="#C9922A" stroke-width="1" opacity="0.6"/>
     </svg>
-    <!-- Right bar -->
     <svg class="hof right" viewBox="0 0 28 500" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
       <line x1="14" y1="0" x2="14" y2="500" stroke="#C9922A" stroke-width="1" opacity="0.5"/>
       <line x1="10" y1="0" x2="10" y2="500" stroke="#C9922A" stroke-width="0.5" opacity="0.3"/>
@@ -316,15 +290,10 @@ body.splash-hidden { opacity:0 !important; }
      §2  BLESSINGS
      ═══════════════════════════ -->
 <section id="blessings" data-parallax="0.2">
-  <!--
-    BG IMAGE: In style.css find  #blessings { background:
-    Add:  background-image: url('blessings-bg.jpg'); background-size:cover;
-  -->
   <h2 class="sec-head devanagari">॥ सहप्रेम निमंत्रण ॥</h2>
 
   <div class="bless-card reveal">
 
-    <!-- GROOM'S FAMILY first (Uday above) -->
     <div class="family-block">
       <span class="fam-label">वराचे कुटुंब &nbsp;&middot;&nbsp; Groom's Family</span>
       <p class="fam-parents devanagari">
@@ -349,7 +318,6 @@ body.splash-hidden { opacity:0 !important; }
       <span class="sep-line"></span>
     </div>
 
-    <!-- BRIDE'S FAMILY second (Unnati below) -->
     <div class="family-block">
       <span class="fam-label">वधूचे कुटुंब &nbsp;&middot;&nbsp; Bride's Family</span>
       <p class="fam-parents devanagari">
@@ -363,62 +331,40 @@ body.splash-hidden { opacity:0 !important; }
 
     <div class="name-bar" style="margin-top:1.8rem"></div>
 
-<p class="invite-text devanagari">
-  यांच्या <strong>साखरपुडा व शुभविवाह सोहळ्यास</strong><br/>
-  आपण सपरिवार उपस्थित राहावे
-</p>
+    <p class="invite-text devanagari">
+      यांच्या <strong>साखरपुडा व शुभविवाह सोहळ्यास</strong><br/>
+      आपण सपरिवार उपस्थित राहावे
+    </p>
 
-<div class="invite-dates">
-  <div class="invite-date-row">
-    <span class="invite-date-label devanagari">साखरपुडा</span>
-    <span class="invite-date-sep">✦</span>
-    <span class="invite-date-val devanagari">२२ जून २०२६ &nbsp;·&nbsp; सोमवार</span>
-  </div>
-  <div class="invite-date-row">
-    <span class="invite-date-label devanagari">शुभविवाह</span>
-    <span class="invite-date-sep">✦</span>
-    <span class="invite-date-val devanagari">२३ जून २०२६ &nbsp;·&nbsp; मंगळवार</span>
-  </div>
-
+    <div class="invite-dates">
+      <div class="invite-date-row">
+        <span class="invite-date-label devanagari">साखरपुडा</span>
+        <span class="invite-date-sep">✦</span>
+        <span class="invite-date-val devanagari">२२ जून २०२६ &nbsp;·&nbsp; सोमवार</span>
+      </div>
+      <div class="invite-date-row">
+        <span class="invite-date-label devanagari">शुभविवाह</span>
+        <span class="invite-date-sep">✦</span>
+        <span class="invite-date-val devanagari">२३ जून २०२६ &nbsp;·&nbsp; मंगळवार</span>
+      </div>
+    </div>
   </div>
 </section>
 
 
-<!-- ── ORNAMENTAL BAND: Blessings → Ring Ceremony ── -->
-<div class="orn-band band-bless-ring" aria-hidden="true">
-  <div class="orn-band-inner">
-    <span class="orn-line"></span>
-    <span class="orn-centre">
-      <svg width="80" height="32" viewBox="0 0 80 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <ellipse cx="40" cy="16" rx="28" ry="10" fill="none" stroke="#C9922A" stroke-width="1" opacity="0.7"/>
-        <circle cx="40" cy="16" r="4" fill="#C9922A" opacity="0.9"/>
-        <circle cx="14" cy="16" r="2.5" fill="#C9922A" opacity="0.6"/>
-        <circle cx="66" cy="16" r="2.5" fill="#C9922A" opacity="0.6"/>
-        <path d="M6 16 Q18 8 30 16 Q18 24 6 16" fill="none" stroke="#C9922A" stroke-width="0.9" opacity="0.5"/>
-        <path d="M74 16 Q62 8 50 16 Q62 24 74 16" fill="none" stroke="#C9922A" stroke-width="0.9" opacity="0.5"/>
-      </svg>
-    </span>
-    <span class="orn-line"></span>
-  </div>
-</div>
+<!-- ── TRANSITION: Blessings → Ring ── -->
+<div class="orn-band band-bless-ring" aria-hidden="true"></div>
 
 
 <!-- ═══════════════════════════
      §3a  RING CEREMONY
-     Blue · Silver · Royal
      ═══════════════════════════ -->
 <section id="ev-ring" class="ev-section">
-  <!--
-    BG IMAGE: In style.css find  #ev-ring { background:
-    Add:  background-image: url('ring-ceremony-bg.jpg'); background-blend-mode:multiply;
-  -->
   <div class="ev-section-inner">
     <span class="ev-eyebrow">22 June 2026 · Monday</span>
     <div class="ev-rule ev-rule-ring" aria-hidden="true"></div>
 
     <div class="ev-full-card reveal">
-      <!-- IMAGE PLACEHOLDER — Ring Ceremony
-           Replace with: <img src="ring-ceremony.jpg" class="ev-full-img" alt="Ring Ceremony"/> -->
       <div class="ev-full-ph ring-ph photo-frame">
         <svg width="52" height="52" viewBox="0 0 52 52" fill="none">
           <circle cx="26" cy="26" r="15" stroke="#C8D8FF" stroke-width="2" fill="none"/>
@@ -428,7 +374,6 @@ body.splash-hidden { opacity:0 !important; }
         </svg>
         <img src="assets/ring.png" class="ev-full-img" alt="Ring Ceremony"/>
       </div>
-
       <div class="ev-full-info">
         <h3 class="ev-name-mr devanagari ev-name-ring">साखरपुडा</h3>
         <p class="ev-name-en ev-en-ring">Ring Ceremony</p>
@@ -436,8 +381,7 @@ body.splash-hidden { opacity:0 !important; }
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
           </svg>
-          <!-- Edit time here -->
-<span class="devanagari">सायंकाळी ५:०० वाजता &nbsp;|&nbsp; 5:00 PM onwards</span>
+          <span class="devanagari">सायंकाळी ५:०० वाजता &nbsp;|&nbsp; 5:00 PM onwards</span>
         </div>
         <div class="ev-detail-row ev-row-ring">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -451,18 +395,11 @@ body.splash-hidden { opacity:0 !important; }
 </section>
 
 <!-- ── TRANSITION: Ring → Sangeet ── -->
-<div class="orn-band band-ring-haldi" aria-hidden="true">
-  <div class="orn-band-inner">
-    <span class="orn-line"></span>
-    <span class="orn-centre"></span>
-    <span class="orn-line"></span>
-  </div>
-</div>
+<div class="orn-band band-ring-haldi" aria-hidden="true"></div>
 
 
 <!-- ═══════════════════════════
      §3b  SANGEET NIGHT
-     Pink · Magenta · Rose
      ═══════════════════════════ -->
 <section id="ev-sangeet" class="ev-section">
   <div class="ev-section-inner">
@@ -499,25 +436,19 @@ body.splash-hidden { opacity:0 !important; }
 </section>
 
 <!-- ── TRANSITION: Sangeet → Haldi ── -->
-<div class="orn-band band-haldi-sangeet" aria-hidden="true">
-  <div class="orn-band-inner">
-    <span class="orn-line"></span>
-    <span class="orn-centre"></span>
-    <span class="orn-line"></span>
-  </div>
-</div>
+<div class="orn-band band-haldi-sangeet" aria-hidden="true"></div>
 
 
+<!-- ═══════════════════════════
+     §3c  HALDI
+     ═══════════════════════════ -->
 <section id="ev-haldi" class="ev-section">
   <div class="ev-section-inner">
 
     <div class="ev-deco-imgs">
-      <img src="assets/nimishamba devi.png" alt="" class="ev-deco-img"
-           onerror="this.style.display='none'"/>
-      <img src="assets/khandoba.png" alt="" class="ev-deco-img"
-           onerror="this.style.display='none'"/>
-      <img src="assets/tuljabhavani devi.png" alt="" class="ev-deco-img"
-           onerror="this.style.display='none'"/>
+      <img src="assets/nimishamba devi.png" alt="" class="ev-deco-img" onerror="this.style.display='none'"/>
+      <img src="assets/khandoba.png"         alt="" class="ev-deco-img" onerror="this.style.display='none'"/>
+      <img src="assets/tuljabhavani devi.png" alt="" class="ev-deco-img" onerror="this.style.display='none'"/>
     </div>
 
     <span class="ev-eyebrow ev-eyebrow-haldi">22 June 2026 · Monday</span>
@@ -525,8 +456,7 @@ body.splash-hidden { opacity:0 !important; }
 
     <div class="ev-full-card reveal">
       <div class="ev-full-ph haldi-ph photo-frame">
-        <img src="assets/haldi.png" class="ev-full-img" alt="Haldi Ceremony"
-             onerror="this.style.display='none'"/>
+        <img src="assets/haldi.png" class="ev-full-img" alt="Haldi Ceremony" onerror="this.style.display='none'"/>
       </div>
       <div class="ev-full-info">
         <h3 class="ev-name-mr devanagari ev-name-haldi">हळदी</h3>
@@ -549,30 +479,21 @@ body.splash-hidden { opacity:0 !important; }
 </section>
 
 <!-- ── TRANSITION: Haldi → Wedding ── -->
-<div class="orn-band band-sangeet-wedding" aria-hidden="true">
-  <div class="orn-band-inner">
-    <span class="orn-line"></span>
-    <span class="orn-centre"></span>
-    <span class="orn-line"></span>
-  </div>
-</div>
+<div class="orn-band band-sangeet-wedding" aria-hidden="true"></div>
+
 
 <!-- ═══════════════════════════
      §3d  WEDDING CEREMONY
-     Royal Red · Gold
      ═══════════════════════════ -->
 <section id="ev-wedding" class="ev-section">
   <div class="ev-section-inner">
-
     <span class="ev-eyebrow ev-eyebrow-wedding">23 June 2026 · Tuesday</span>
     <div class="ev-rule ev-rule-wedding" aria-hidden="true"></div>
 
     <div class="ev-full-card reveal">
       <div class="ev-full-ph wedding-ph photo-frame">
-        <img src="assets/wedding.png" class="ev-full-img" alt="Wedding Ceremony"
-             onerror="this.style.display='none'"/>
+        <img src="assets/wedding.png" class="ev-full-img" alt="Wedding Ceremony" onerror="this.style.display='none'"/>
       </div>
-
       <div class="ev-full-info">
         <h3 class="ev-name-mr devanagari ev-name-wedding">विवाह सोहळा</h3>
         <p class="ev-name-en ev-en-wedding">Wedding Ceremony</p>
@@ -594,7 +515,7 @@ body.splash-hidden { opacity:0 !important; }
 </section>
 
 
-<!-- ── ORNAMENTAL BAND: Wedding → Venue ── -->
+<!-- ── TRANSITION: Wedding → Venue ── -->
 <div class="orn-band band-wedding-venue" aria-hidden="true">
   <div class="orn-band-inner">
     <span class="orn-line"></span>
@@ -617,10 +538,6 @@ body.splash-hidden { opacity:0 !important; }
      §4  VENUE
      ═══════════════════════════ -->
 <section id="venue">
-  <!--
-    BG IMAGE: In style.css find  #venue { background:
-    Add:  background-image: url('venue-bg.jpg'); background-blend-mode:overlay;
-  -->
   <span class="eyebrow eyebrow-pale">The Venue</span>
   <div class="gold-bar gold-bar-blue" aria-hidden="true"></div>
   <h1 class="sec-head sec-head-pale devanagari">विवाह स्थळ</h1>
@@ -646,14 +563,12 @@ body.splash-hidden { opacity:0 !important; }
     </a>
   </div>
 </section>
-<!-- ── TRANSITION: Peacock → Countdown ── -->
-<div class="orn-band band-peacock-countdown" aria-hidden="true">
-  <div class="orn-band-inner">
-    <span class="orn-line"></span>
-    <span class="orn-centre"></span>
-    <span class="orn-line"></span>
-  </div>
-</div>
+
+
+<!-- ── TRANSITION: Venue → Countdown ── -->
+<div class="orn-band band-peacock-countdown" aria-hidden="true"></div>
+
+
 <!-- ═══════════════════════════
      §5  COUNTDOWN
      ═══════════════════════════ -->
@@ -671,16 +586,13 @@ body.splash-hidden { opacity:0 !important; }
   <p class="cd-sub devanagari reveal">विवाह सोहळा &nbsp;&middot;&nbsp; मंगळवार, २३ जून २०२६</p>
 </section>
 
+
 <!-- ── TRANSITION: Countdown → Peacock ── -->
-<div class="orn-band band-countdown-peacock" aria-hidden="true">
-  <div class="orn-band-inner">
-    <span class="orn-line"></span>
-    <span class="orn-centre"></span>
-    <span class="orn-line"></span>
-  </div>
-</div>
+<div class="orn-band band-countdown-peacock" aria-hidden="true"></div>
+
+
 <!-- ═══════════════════════════
-     PEACOCK DIVIDER — no names
+     PEACOCK DIVIDER
      ═══════════════════════════ -->
 <div class="peacock-band" aria-hidden="true">
   <svg class="peacock-svg" viewBox="0 0 480 140" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -691,7 +603,7 @@ body.splash-hidden { opacity:0 !important; }
     <ellipse cx="68"  cy="93" rx="6"   ry="36" transform="rotate(-65,68,93)"  fill="rgba(150,70,35,0.34)" stroke="#905030" stroke-width="0.9"/>
     <ellipse cx="52"  cy="96" rx="5.5" ry="29" transform="rotate(-75,52,96)"  fill="rgba(22,110,88,0.3)"  stroke="#1A9070" stroke-width="0.8"/>
     <ellipse cx="38"  cy="99" rx="5"   ry="23" transform="rotate(-83,38,99)"  fill="rgba(95,50,130,0.28)" stroke="#704090" stroke-width="0.7"/>
-    <!-- Eye spots — left -->
+    <!-- Eye spots left -->
     <circle cx="128" cy="23" r="9"   fill="rgba(15,85,115,0.58)" stroke="#D4A040" stroke-width="1.2"/>
     <circle cx="128" cy="23" r="6"   fill="rgba(18,48,88,0.82)"/>
     <circle cx="128" cy="23" r="3"   fill="rgba(55,200,180,0.9)"/>
@@ -760,41 +672,31 @@ body.splash-hidden { opacity:0 !important; }
     <line x1="227" y1="139" x2="219" y2="140" stroke="#1A9070" stroke-width="1.8" stroke-linecap="round"/>
     <line x1="227" y1="139" x2="227" y2="140" stroke="#1A9070" stroke-width="1.8" stroke-linecap="round"/>
     <line x1="253" y1="139" x2="261" y2="140" stroke="#1A9070" stroke-width="1.8" stroke-linecap="round"/>
-    <!-- NO names text near peacock -->
   </svg>
 </div>
-<!-- ── TRANSITION: Countdown → Note ── -->
-<div class="orn-band band-countdown-note" aria-hidden="true">
-  <div class="orn-band-inner">
-    <span class="orn-line"></span>
-    <span class="orn-centre"></span>
-    <span class="orn-line"></span>
-  </div>
-</div>
+
+
+<!-- ── TRANSITION: Peacock → Note ── -->
+<div class="orn-band band-countdown-note" aria-hidden="true"></div>
+
 
 <!-- ═══════════════════════════
      §6  NOTE
      ═══════════════════════════ -->
 <section id="note">
-  <!--
-    BG IMAGE: In style.css find  #note { background:
-    Add:  background-image: url('note-bg.jpg'); background-blend-mode:soft-light;
-  -->
   <h2 class="sec-head">A Note from the <br>Groom &amp; Bride</h2>
 
   <div class="note-card reveal">
     <div class="note-qm open">&ldquo;</div>
-    <!-- Edit note text here -->
     <p class="note-mr devanagari">
       आमच्या आयुष्यातील या खास क्षणाचे साक्षीदार होण्यासाठी आपण जरूर उपस्थित राहावे, ही नम्र विनंती.
-आपली उपस्थिती आमच्यासाठी अत्यंत मोलाची आहे.
-आपले आशीर्वाद आणि प्रेम आमच्यासोबत असावे, हीच अपेक्षा.
+      आपली उपस्थिती आमच्यासाठी अत्यंत मोलाची आहे.
+      आपले आशीर्वाद आणि प्रेम आमच्यासोबत असावे, हीच अपेक्षा.
     </p>
     <p class="note-en">
       With joyful hearts, we invite you to be a part of our special day!
-Your presence will make our celebration even more meaningful.
-We look forward to sharing love, laughter, and blessings with you.
-
+      Your presence will make our celebration even more meaningful.
+      We look forward to sharing love, laughter, and blessings with you.
     </p>
     <div class="note-qm close">&rdquo;</div>
     <div class="note-sep" aria-hidden="true">
@@ -810,68 +712,24 @@ We look forward to sharing love, laughter, and blessings with you.
       </svg>
       <span class="nsep"></span>
     </div>
-    <!-- Uday & Unnati — Uday first -->
     <p class="note-sig-mr devanagari">उदय &nbsp;&amp;&nbsp; उन्नती</p>
     <p class="note-sig-en">Uday &amp; Unnati</p>
   </div>
 </section>
+
+
 <!-- ── TRANSITION: Note → Footer ── -->
-<div class="orn-band band-note-footer" aria-hidden="true">
-  <div class="orn-band-inner">
-    <span class="orn-line"></span>
-    <span class="orn-centre"></span>
-    <span class="orn-line"></span>
-  </div>
-</div>
+<div class="orn-band band-note-footer" aria-hidden="true"></div>
+
+
 <footer>
   <div class="footer-inner">
     <div class="footer-names">
-  <span class="footer-amp">✦ &nbsp;made with 🧡✦<br>✦ © 2026 U.S.S ivy-1602 &nbsp; ✦</span>
+      <span class="footer-amp">✦ &nbsp;made with 🧡✦<br>✦ © 2026 U.S.S ivy-1602 &nbsp; ✦</span>
+    </div>
+  </div>
 </footer>
 
-
-<script>
-  /* Progress bar */
-  const bar = document.getElementById('progress-bar');
-  window.addEventListener('scroll', () => {
-    const s = document.documentElement;
-    bar.style.width = (s.scrollTop / (s.scrollHeight - s.clientHeight) * 100) + '%';
-  }, { passive: true });
-
-  /* Smooth reveal — generous threshold for browseable feel */
-  const ro = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('visible'); ro.unobserve(e.target); }
-    });
-  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-  document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
-
-  /* Falling petals */
-  (function() {
-    const cv = document.getElementById('petal-canvas'); if (!cv) return;
-    const cols = ['#E8821A','#F5A623','#D4783A','#E86060','#F0A080','#D4B060','#FF80CC','#FFD700','#C8E0A0','#F0D0FF'];
-    for (let i = 0; i < 24; i++) {
-      const p = document.createElement('div'); p.className = 'petal';
-      const sz = 5 + Math.random()*9, dur = 9 + Math.random()*12, del = Math.random()*16;
-      p.style.cssText = `left:${Math.random()*100}%;width:${sz}px;height:${sz*1.9}px;background:${cols[Math.floor(Math.random()*cols.length)]};border-radius:${Math.random()>.5?'62% 0 62% 0':'0 62% 0 62%'};animation-duration:${dur}s;animation-delay:${del}s;opacity:0`;
-      cv.appendChild(p);
-    }
-  })();
-
-  /* Countdown */
-  const tgt = new Date('2026-06-23T12:30:00+05:30').getTime();
-  const els = ['cd-d','cd-h','cd-m','cd-s'].map(id => document.getElementById(id));
-  const pad = n => String(n).padStart(2,'0');
-  function tick() {
-    const d = tgt - Date.now(); if (d <= 0) { els.forEach(e => e&&(e.textContent='00')); return; }
-    if(els[0]) els[0].textContent=pad(Math.floor(d/86400000));
-    if(els[1]) els[1].textContent=pad(Math.floor(d%86400000/3600000));
-    if(els[2]) els[2].textContent=pad(Math.floor(d%3600000/60000));
-    if(els[3]) els[3].textContent=pad(Math.floor(d%60000/1000));
-  }
-  tick(); setInterval(tick, 1000);
-</script>
-
-  <script src="animate.js"></script>
+<script src="animate.js"></script>
 </body>
 </html>
