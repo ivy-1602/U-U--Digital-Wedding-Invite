@@ -15,8 +15,9 @@ This is what happens when a CS student with love for UIUX really lover her vahin
 
 ## The people this is for
 
-**Unnati** — my vahini saheb. You are kind and warm and genuinely fun to be around, and I am very glad you said yes. Welcome to the Salunke family. I'm in your team.
-**Uday** — my dada. He's fine. He's getting married. Congratulations to him as well.
+**Unnati** - my vahini saheb. You are kind and warm and genuinely fun to be around, and I am very glad you said yes. Welcome to the Salunke family. I'm in your team.
+
+**Uday** - my dada. He's fine. He's getting married. Congratulations to him as well.
 
 ---
 
@@ -58,7 +59,7 @@ I had no option but to make this public on github because i deyployed it on verc
 ---
 
 ## Closing Note
-I wish for a veryyyy sucessfull marraige for both of youu, i love you guys, i'll pray that do evil eyes touch this divine bond of yours.
+I wish for a veryyyy sucessfull marraige for both of youu, i love you guys, i'll pray that no evil eyes touch this divine bond of yours.
 
 ---
 ps. vahini saheb, I hope every day with dada and us feels like a Saturday 🌸
