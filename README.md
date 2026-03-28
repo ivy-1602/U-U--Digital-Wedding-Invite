@@ -1,5 +1,4 @@
-# उदय & उन्नती ❤️
-कळले ना असे कसे सूर जुळले, मन जुळले...
+# उदय & उन्नती 
 ### A digital wedding invitation.
 
 My vahini saheb is getting married into our family on **23 June 2026**. *clapsss
