@@ -4,18 +4,28 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
   <title>Uday &amp; Unnati — Wedding Invitation</title>
+
+  <!-- DNS prefetch & preconnect for fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Devanagari:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet"/>
+
+  <!-- Critical fonts only; swap so text renders immediately -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Devanagari:wght@400;700&family=Playfair+Display:ital,wght@0,600;1,400&family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Cinzel:wght@400;600&display=swap" rel="stylesheet"/>
+
+  <!-- Preload hero assets that are above the fold -->
+  <link rel="preload" as="image" href="assets/ganpati.png"/>
+  <link rel="preload" as="image" href="assets/1.png"/>
+
   <link rel="stylesheet" href="style.css"/>
 
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-85FC75N1NV"></script>
+  <!-- Google Analytics — defer so it doesn't block render -->
+  <script defer src="https://www.googletagmanager.com/gtag/js?id=G-85FC75N1NV"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'G-85FC75N1NV');
+    gtag('config', 'G-85FC75N1NV', { 'send_page_view': false });
+    window.addEventListener('load', () => gtag('event', 'page_view'));
   </script>
 </head>
 <body>
@@ -35,7 +45,6 @@
     position:relative;z-index:2;text-align:center;
     padding:2.5rem 2rem 2rem;margin-top:-10vh;
     background:rgba(255,248,240,.12);
-    backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
     border-radius:20px;border:1px solid rgba(180,100,30,.18);
     box-shadow:0 8px 32px rgba(80,20,0,.08);
     max-width:88vw;width:360px;
@@ -53,7 +62,7 @@
       font-family:'Cinzel',serif;font-size:clamp(.7rem,2.2vw,.88rem);
       letter-spacing:.12em;color:#FFE580;font-weight:700;
       white-space:nowrap;cursor:pointer;max-width:85vw;box-sizing:border-box;
-      box-shadow:0 0 20px rgba(255,120,40,.5),0 0 50px rgba(200,60,0,.3),0 4px 20px rgba(0,0,0,.4);
+      box-shadow:0 0 20px rgba(255,120,40,.5),0 4px 20px rgba(0,0,0,.4);
       text-shadow:0 0 14px rgba(255,200,60,.8),0 1px 3px rgba(0,0,0,.5);
       animation:splash-btn-pulse 1.8s ease-in-out infinite;
     ">
@@ -69,12 +78,12 @@
 }
 </style>
 
-<audio id="bg-audio" loop preload="auto">
+<audio id="bg-audio" loop preload="none">
   <source src="assets/Sukh Kalale Piano Version.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-/* Splash flower confetti */
+/* Splash flower confetti — lightweight version */
 (function() {
   const canvas = document.getElementById('splash-canvas');
   if (!canvas) return;
@@ -82,6 +91,10 @@
   const splash = document.getElementById('splash');
   let W = canvas.width  = splash.offsetWidth  || window.innerWidth;
   let H = canvas.height = splash.offsetHeight || window.innerHeight;
+
+  const isMob = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+  const COUNT = isMob ? 12 : 26;
+
   window.addEventListener('resize', () => {
     W = canvas.width  = splash.offsetWidth  || window.innerWidth;
     H = canvas.height = splash.offsetHeight || window.innerHeight;
@@ -109,7 +122,7 @@
     };
   }
 
-  const pieces = Array.from({ length: 26 }, () => spawn(true));
+  const pieces = Array.from({ length: COUNT }, () => spawn(true));
   let animId;
 
   function draw() {
@@ -170,7 +183,6 @@ document.addEventListener('click', function() {
 
 <div id="progress-bar"></div>
 <canvas id="petal-canvas-2d" style="position:fixed;inset:0;pointer-events:none;z-index:2;"></canvas>
-<div class="petal-canvas" id="petal-canvas" aria-hidden="true"></div>
 
 
 <!-- ═══════════════════════════
@@ -192,7 +204,7 @@ document.addEventListener('click', function() {
   </svg>
 
   <div class="ganpati-wrap">
-    <img src="assets/ganpati.png" alt="Ganpati Bappa" class="ganpati-img"
+    <img src="assets/ganpati.png" alt="Ganpati Bappa" class="ganpati-img" width="115" height="115"
          onerror="this.style.display='none';document.getElementById('ganpati-fallback').style.display='block';"/>
     <p id="ganpati-fallback" class="ganpati-fallback devanagari">गणपती बाप्पा</p>
   </div>
@@ -207,12 +219,8 @@ document.addEventListener('click', function() {
       </div>
 
       <div class="hero-centre-img">
-        <img
-          src="assets/1.png"
-          alt=""
-          class="hero-centre-icon"
-          onerror="this.style.display='none';"
-        />
+        <img src="assets/1.png" alt="" class="hero-centre-icon" width="130" height="130"
+             onerror="this.style.display='none';"/>
       </div>
 
       <div class="hero-name-block">
@@ -372,7 +380,7 @@ document.addEventListener('click', function() {
           <line x1="26" y1="11" x2="26" y2="6"  stroke="#C8D8FF" stroke-width="1.6"/>
           <line x1="36" y1="16" x2="39" y2="13" stroke="#C8D8FF" stroke-width="1.6"/>
         </svg>
-        <img src="assets/ring.png" class="ev-full-img" alt="Ring Ceremony"/>
+        <img src="assets/ring.png" class="ev-full-img" alt="Ring Ceremony" loading="lazy" width="540" height="270"/>
       </div>
       <div class="ev-full-info">
         <h3 class="ev-name-mr devanagari ev-name-ring">साखरपुडा</h3>
@@ -413,7 +421,7 @@ document.addEventListener('click', function() {
           <circle cx="18" cy="37" r="6" stroke="#FFB0E0" stroke-width="1.6" fill="rgba(255,140,220,0.18)"/>
           <circle cx="36" cy="33" r="6" stroke="#FFB0E0" stroke-width="1.6" fill="rgba(255,140,220,0.18)"/>
         </svg>
-        <img src="assets/sangeet.png" class="ev-full-img" alt="Sangeet Ceremony"/>
+        <img src="assets/sangeet.png" class="ev-full-img" alt="Sangeet Ceremony" loading="lazy" width="540" height="270"/>
       </div>
       <div class="ev-full-info">
         <h3 class="ev-name-mr devanagari ev-name-sangeet">संगीत</h3>
@@ -450,7 +458,8 @@ document.addEventListener('click', function() {
 
     <div class="ev-full-card reveal">
       <div class="ev-full-ph haldi-ph photo-frame">
-        <img src="assets/haldi.png" class="ev-full-img" alt="Haldi Ceremony" onerror="this.style.display='none'"/>
+        <img src="assets/haldi.png" class="ev-full-img" alt="Haldi Ceremony" loading="lazy" width="540" height="270"
+             onerror="this.style.display='none'"/>
       </div>
       <div class="ev-full-info">
         <h3 class="ev-name-mr devanagari ev-name-haldi">हळदी</h3>
@@ -486,7 +495,8 @@ document.addEventListener('click', function() {
 
     <div class="ev-full-card reveal">
       <div class="ev-full-ph wedding-ph photo-frame">
-        <img src="assets/wedding.png" class="ev-full-img" alt="Wedding Ceremony" onerror="this.style.display='none'"/>
+        <img src="assets/wedding.png" class="ev-full-img" alt="Wedding Ceremony" loading="lazy" width="540" height="270"
+             onerror="this.style.display='none'"/>
       </div>
       <div class="ev-full-info">
         <h3 class="ev-name-mr devanagari ev-name-wedding">विवाह सोहळा</h3>
@@ -540,8 +550,9 @@ document.addEventListener('click', function() {
   <p class="venue-addr reveal">4, Karve Road, Mayur Colony, Kothrud, Pune.</p>
 
   <div class="map-wrap reveal">
+    <!-- Map loads only when section is visible -->
     <iframe
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3783.5692695435523!2d73.8187434!3d18.5031598!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2bfeaae3f7cad%3A0x3cf4cb59ee98389a!2sShri%20Swami%20Krupa%20Hall!5e0!3m2!1sen!2sin!4v1773407180467!5m2!1sen!2sin"
+      data-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3783.5692695435523!2d73.8187434!3d18.5031598!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2bfeaae3f7cad%3A0x3cf4cb59ee98389a!2sShri%20Swami%20Krupa%20Hall!5e0!3m2!1sen!2sin!4v1773407180467!5m2!1sen!2sin"
       title="Shree Swami Krupa Hall, Kothrud Pune"
       allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
     </iframe>
@@ -724,6 +735,21 @@ document.addEventListener('click', function() {
   </div>
 </footer>
 
-<script src="animate.js"></script>
+<!-- Lazy-load the map iframe when venue is visible -->
+<script>
+(function() {
+  const iframe = document.querySelector('.map-wrap iframe[data-src]');
+  if (!iframe) return;
+  const io = new IntersectionObserver(([e]) => {
+    if (e.isIntersecting) {
+      iframe.src = iframe.dataset.src;
+      io.disconnect();
+    }
+  }, { rootMargin: '200px' });
+  io.observe(iframe);
+})();
+</script>
+
+<script src="animate.js" defer></script>
 </body>
 </html>
