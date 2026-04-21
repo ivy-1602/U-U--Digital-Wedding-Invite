@@ -1,8 +1,21 @@
 /* ============================================================
    animate.js — Uday & Unnati Wedding Invitation
-   Motion & Life Layer — v4 Clean
+   Motion & Life Layer — v5 Performance
    ============================================================ */
 'use strict';
+
+/* ── DEVICE CAPABILITY DETECTION ─────────────────────────── */
+const isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+const isLowEnd  = isMobile && (navigator.hardwareConcurrency || 4) <= 4;
+
+/* Reduce work on low-end devices */
+const CFG = {
+  petalCount:   isLowEnd ? 8  : isMobile ? 14 : 25,
+  splashPetals: isLowEnd ? 10 : isMobile ? 16 : 26,
+  enableHero:   !isLowEnd,
+  enableWedding:!isLowEnd,
+  enableLilies: !isLowEnd,
+};
 
 /* ── CONSTANTS ─────────────────────────────────────────── */
 const SECTION_COLOURS = {
@@ -28,12 +41,32 @@ const PETAL_COLOURS = [
 ];
 
 /* ══════════════════════════════════════════════════════════
-   1. GLOWING CONFETTI — fixed canvas
+   UNIFIED RAF MANAGER — single requestAnimationFrame loop
+   All canvas animations register here; one loop drives all.
+   ══════════════════════════════════════════════════════════ */
+const RAF = {
+  _tasks: new Map(),
+  _running: false,
+  _id: null,
+  _tick() {
+    for (const fn of RAF._tasks.values()) fn();
+    if (RAF._tasks.size) RAF._id = requestAnimationFrame(RAF._tick);
+    else RAF._running = false;
+  },
+  add(key, fn) {
+    RAF._tasks.set(key, fn);
+    if (!RAF._running) { RAF._running = true; RAF._id = requestAnimationFrame(RAF._tick); }
+  },
+  remove(key) { RAF._tasks.delete(key); }
+};
+
+/* ══════════════════════════════════════════════════════════
+   1. GLOWING CONFETTI — fixed canvas (lightweight)
    ══════════════════════════════════════════════════════════ */
 function initGlowConfetti() {
   const canvas = document.getElementById('petal-canvas-2d');
   if (!canvas) return;
-  const ctx = canvas.getContext('2d');
+  const ctx = canvas.getContext('2d', { alpha: true });
   let W, H;
 
   function resize() {
@@ -41,7 +74,13 @@ function initGlowConfetti() {
     H = canvas.height = window.innerHeight;
   }
   resize();
-  window.addEventListener('resize', resize, { passive: true });
+
+  // Debounced resize
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(resize, 200);
+  }, { passive: true });
 
   function spawnPetal(randomY = false) {
     const c = PETAL_COLOURS[Math.floor(Math.random() * PETAL_COLOURS.length)];
@@ -57,16 +96,16 @@ function initGlowConfetti() {
       wobble:  Math.random() * Math.PI * 2,
       wobbleS: 0.012 + Math.random() * 0.016,
       alpha:   0.22 + Math.random() * 0.28,
-      glowR:   1.6 + Math.random() * 1.2,
       glowT:   Math.random() * Math.PI * 2,
       glowS:   0.018 + Math.random() * 0.012,
       r: c[0], g: c[1], b: c[2],
     };
   }
 
-  const petals = Array.from({ length: 25 }, () => spawnPetal(true));
+  const petals = Array.from({ length: CFG.petalCount }, () => spawnPetal(true));
 
-  function drawFrame() {
+  // Shared reusable gradient cache for mobile
+  RAF.add('confetti', () => {
     ctx.clearRect(0, 0, W, H);
     for (const p of petals) {
       p.wobble += p.wobbleS;
@@ -77,21 +116,23 @@ function initGlowConfetti() {
       if (p.y > H + 30) Object.assign(p, spawnPetal(false));
 
       const pulse = p.alpha * (0.65 + 0.35 * Math.sin(p.glowT));
-      const gr    = p.w * p.glowR;
 
       ctx.save();
       ctx.globalAlpha = pulse;
       ctx.translate(p.x, p.y);
       ctx.rotate(p.rot);
 
-      const grd = ctx.createRadialGradient(0, 0, 0, 0, 0, gr);
-      grd.addColorStop(0,   `rgba(${p.r},${p.g},${p.b},0.5)`);
-      grd.addColorStop(0.5, `rgba(${p.r},${p.g},${p.b},0.18)`);
-      grd.addColorStop(1,   `rgba(${p.r},${p.g},${p.b},0)`);
-      ctx.fillStyle = grd;
-      ctx.beginPath();
-      ctx.ellipse(0, 0, gr, gr * 1.15, 0, 0, Math.PI * 2);
-      ctx.fill();
+      // Skip expensive glow on mobile to save fill calls
+      if (!isLowEnd) {
+        const gr    = p.w * 1.8;
+        const grd = ctx.createRadialGradient(0, 0, 0, 0, 0, gr);
+        grd.addColorStop(0,   `rgba(${p.r},${p.g},${p.b},0.5)`);
+        grd.addColorStop(1,   `rgba(${p.r},${p.g},${p.b},0)`);
+        ctx.fillStyle = grd;
+        ctx.beginPath();
+        ctx.ellipse(0, 0, gr, gr * 1.15, 0, 0, Math.PI * 2);
+        ctx.fill();
+      }
 
       ctx.globalAlpha = pulse * 1.3;
       ctx.fillStyle = `rgb(${p.r},${p.g},${p.b})`;
@@ -100,22 +141,21 @@ function initGlowConfetti() {
       ctx.fill();
       ctx.restore();
     }
-    requestAnimationFrame(drawFrame);
-  }
-  drawFrame();
+  });
 }
 
 /* ══════════════════════════════════════════════════════════
    2. HERO SPARKLE — rotating lotus mandalas
    ══════════════════════════════════════════════════════════ */
 function initHeroSparkles() {
+  if (!CFG.enableHero) return;
   const hero = document.getElementById('hero');
   if (!hero) return;
 
   const canvas = document.createElement('canvas');
   canvas.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:3;';
   hero.appendChild(canvas);
-  const ctx = canvas.getContext('2d');
+  const ctx = canvas.getContext('2d', { alpha: true });
   let W, H;
 
   function resize() {
@@ -123,7 +163,7 @@ function initHeroSparkles() {
     H = canvas.height = hero.offsetHeight || window.innerHeight;
   }
   resize();
-  window.addEventListener('resize', resize, { passive: true });
+  window.addEventListener('resize', () => { clearTimeout(resize._t); resize._t = setTimeout(resize, 200); }, { passive: true });
 
   const flowers = [
     { x: 0.15, y: 0.35, r: 0.38, speed: 0.004, phase: 0,              petals: 8,  alpha: 0.18 },
@@ -136,8 +176,8 @@ function initHeroSparkles() {
     ctx.globalAlpha = alpha;
     ctx.translate(cx, cy);
     ctx.rotate(rotation);
-
     const step = (Math.PI * 2) / petals;
+
     for (let i = 0; i < petals; i++) {
       ctx.save();
       ctx.rotate(i * step);
@@ -177,21 +217,20 @@ function initHeroSparkles() {
     ctx.restore();
   }
 
-  function drawFrame() {
+  RAF.add('hero', () => {
     ctx.clearRect(0, 0, W, H);
     for (const f of flowers) {
       f.phase += f.speed;
       drawFlower(f.x * W, f.y * H, f.r * Math.min(W, H), f.petals, f.phase, f.alpha);
     }
-    requestAnimationFrame(drawFrame);
-  }
-  drawFrame();
+  });
 }
 
 /* ══════════════════════════════════════════════════════════
    3. WEDDING FLOWERS — spinning gold mandalas
    ══════════════════════════════════════════════════════════ */
 function initWeddingFlowers() {
+  if (!CFG.enableWedding) return;
   const section = document.getElementById('ev-wedding');
   if (!section) return;
 
@@ -199,7 +238,7 @@ function initWeddingFlowers() {
   canvas.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;';
   section.style.position = 'relative';
   section.appendChild(canvas);
-  const ctx = canvas.getContext('2d');
+  const ctx = canvas.getContext('2d', { alpha: true });
   let W, H;
 
   function resize() {
@@ -207,7 +246,7 @@ function initWeddingFlowers() {
     H = canvas.height = section.offsetHeight || window.innerHeight;
   }
   resize();
-  window.addEventListener('resize', resize, { passive: true });
+  window.addEventListener('resize', () => { clearTimeout(resize._t2); resize._t2 = setTimeout(resize, 200); }, { passive: true });
 
   const flowers = [
     { x: 0.04, y: 0.42, r: 0.28, speed: 0.004, phase: 0,          petals: 8, alpha: 0.14 },
@@ -222,7 +261,6 @@ function initWeddingFlowers() {
     ctx.translate(cx, cy);
     ctx.rotate(rotation);
     const step = (Math.PI * 2) / petals;
-
     for (let i = 0; i < petals; i++) {
       ctx.save();
       ctx.rotate(i * step);
@@ -236,7 +274,6 @@ function initWeddingFlowers() {
       ctx.fill();
       ctx.restore();
     }
-
     ctx.rotate(step / 2);
     for (let i = 0; i < petals; i++) {
       ctx.save();
@@ -250,7 +287,6 @@ function initWeddingFlowers() {
       ctx.fill();
       ctx.restore();
     }
-
     const cg = ctx.createRadialGradient(0, 0, 0, 0, 0, radius * 0.18);
     cg.addColorStop(0,   'rgba(255,240,160,0.85)');
     cg.addColorStop(0.5, 'rgba(255,200,60,0.4)');
@@ -262,21 +298,20 @@ function initWeddingFlowers() {
     ctx.restore();
   }
 
-  function drawFrame() {
+  RAF.add('wedding', () => {
     ctx.clearRect(0, 0, W, H);
     for (const f of flowers) {
       f.phase += f.speed;
       drawFlower(f.x * W, f.y * H, f.r * Math.min(W, H), f.petals, f.phase, f.alpha);
     }
-    requestAnimationFrame(drawFrame);
-  }
-  drawFrame();
+  });
 }
 
 /* ══════════════════════════════════════════════════════════
    4. NOTE LILIES — swaying stems
    ══════════════════════════════════════════════════════════ */
 function initNoteLilies() {
+  if (!CFG.enableLilies) return;
   const section = document.getElementById('note');
   if (!section) return;
 
@@ -284,7 +319,7 @@ function initNoteLilies() {
   canvas.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;';
   section.style.position = 'relative';
   section.appendChild(canvas);
-  const ctx = canvas.getContext('2d');
+  const ctx = canvas.getContext('2d', { alpha: true });
   let W, H;
 
   function resize() {
@@ -292,7 +327,7 @@ function initNoteLilies() {
     H = canvas.height = section.offsetHeight || window.innerHeight;
   }
   resize();
-  window.addEventListener('resize', resize, { passive: true });
+  window.addEventListener('resize', () => { clearTimeout(resize._t3); resize._t3 = setTimeout(resize, 200); }, { passive: true });
 
   const lilies = [
     { x: 0.04, speed: 0.008, phase: 0,           height: 0.85, alpha: 0.55, petals: 5 },
@@ -308,7 +343,6 @@ function initNoteLilies() {
     ctx.globalAlpha = alpha;
     ctx.translate(cx, baseY);
     ctx.rotate(swayAngle * 0.08);
-
     ctx.beginPath();
     ctx.moveTo(0, 0);
     ctx.bezierCurveTo(
@@ -320,7 +354,6 @@ function initNoteLilies() {
     ctx.lineWidth   = 2.8;
     ctx.lineCap     = 'round';
     ctx.stroke();
-
     ctx.translate(swayAngle * stemH * 0.18, -stemH);
     const step = (Math.PI * 2) / nPetals;
     for (let i = 0; i < nPetals; i++) {
@@ -336,7 +369,6 @@ function initNoteLilies() {
       ctx.fill();
       ctx.restore();
     }
-
     const cg = ctx.createRadialGradient(0, 0, 0, 0, 0, 5);
     cg.addColorStop(0, 'rgba(255,240,180,0.9)');
     cg.addColorStop(1, 'rgba(255,180,60,0)');
@@ -347,15 +379,13 @@ function initNoteLilies() {
     ctx.restore();
   }
 
-  function drawFrame() {
+  RAF.add('lilies', () => {
     ctx.clearRect(0, 0, W, H);
     for (const l of lilies) {
       l.phase += l.speed;
       drawLily(l.x * W, H, l.height * H, Math.sin(l.phase), l.alpha, l.petals);
     }
-    requestAnimationFrame(drawFrame);
-  }
-  drawFrame();
+  });
 }
 
 /* ══════════════════════════════════════════════════════════
@@ -370,25 +400,40 @@ function initColourTransitions() {
   const bar = document.getElementById('progress-bar');
   function lerp(a, b, t) { return Math.round(a + (b - a) * t); }
 
-  function onScroll() {
+  // Pre-cache bounding tops once, refresh on resize
+  let tops = [];
+  function cacheTops() {
     const sy = window.scrollY;
-    const dh = document.documentElement.scrollHeight - window.innerHeight;
-    if (bar) bar.style.width = (Math.min(sy / dh, 1) * 100) + '%';
+    tops = entries.map(e => e.el.getBoundingClientRect().top + sy - 60);
+  }
+  cacheTops();
+  window.addEventListener('resize', () => { clearTimeout(cacheTops._t); cacheTops._t = setTimeout(cacheTops, 200); }, { passive: true });
 
-    for (let i = 0; i < entries.length - 1; i++) {
-      const aTop = entries[i].el.getBoundingClientRect().top   + sy - 60;
-      const bTop = entries[i+1].el.getBoundingClientRect().top + sy - 60;
-      if (sy >= aTop && sy < bTop) {
-        const t  = Math.max(0, Math.min(1, (sy - aTop) / (bTop - aTop)));
-        const [r1,g1,b1] = entries[i].rgb;
-        const [r2,g2,b2] = entries[i+1].rgb;
-        document.body.style.backgroundColor =
-          `rgb(${lerp(r1,r2,t)},${lerp(g1,g2,t)},${lerp(b1,b2,t)})`;
-        return;
+  // Throttle to ~30fps
+  let ticking = false;
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      const sy = window.scrollY;
+      const dh = document.documentElement.scrollHeight - window.innerHeight;
+      if (bar) bar.style.width = (Math.min(sy / dh, 1) * 100) + '%';
+
+      for (let i = 0; i < entries.length - 1; i++) {
+        if (sy >= tops[i] && sy < tops[i + 1]) {
+          const t  = Math.max(0, Math.min(1, (sy - tops[i]) / (tops[i + 1] - tops[i])));
+          const [r1,g1,b1] = entries[i].rgb;
+          const [r2,g2,b2] = entries[i+1].rgb;
+          document.body.style.backgroundColor =
+            `rgb(${lerp(r1,r2,t)},${lerp(g1,g2,t)},${lerp(b1,b2,t)})`;
+          ticking = false;
+          return;
+        }
       }
-    }
-    const last = entries[sy < 200 ? 0 : entries.length - 1].rgb;
-    document.body.style.backgroundColor = `rgb(${last[0]},${last[1]},${last[2]})`;
+      const last = entries[sy < 200 ? 0 : entries.length - 1].rgb;
+      document.body.style.backgroundColor = `rgb(${last[0]},${last[1]},${last[2]})`;
+      ticking = false;
+    });
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });
@@ -396,19 +441,26 @@ function initColourTransitions() {
 }
 
 /* ══════════════════════════════════════════════════════════
-   6. PARALLAX BACKGROUNDS
+   6. PARALLAX BACKGROUNDS (disabled on mobile — not worth it)
    ══════════════════════════════════════════════════════════ */
 function initParallax() {
+  if (isMobile) return; // skip on mobile entirely
   const sections = [...document.querySelectorAll('[data-parallax]')];
   if (!sections.length) return;
 
+  let ticking = false;
   function onScroll() {
-    for (const sec of sections) {
-      const rate  = parseFloat(sec.dataset.parallax) || 0.2;
-      const rect  = sec.getBoundingClientRect();
-      const shift = ((rect.top + rect.height / 2) - window.innerHeight / 2) * rate;
-      sec.style.backgroundPositionY = `calc(50% + ${shift.toFixed(1)}px)`;
-    }
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      for (const sec of sections) {
+        const rate  = parseFloat(sec.dataset.parallax) || 0.2;
+        const rect  = sec.getBoundingClientRect();
+        const shift = ((rect.top + rect.height / 2) - window.innerHeight / 2) * rate;
+        sec.style.backgroundPositionY = `calc(50% + ${shift.toFixed(1)}px)`;
+      }
+      ticking = false;
+    });
   }
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
@@ -444,9 +496,10 @@ function initFrameCorners() {
 }
 
 /* ══════════════════════════════════════════════════════════
-   9. CEREMONY MILESTONE BURSTS
+   9. CEREMONY MILESTONE BURSTS (skip on low-end)
    ══════════════════════════════════════════════════════════ */
 function initMilestoneBursts() {
+  if (isLowEnd) return;
   const PALETTES = {
     'ev-ring':    ['#B8D8FF','#DEEEFF','#FFFFFF','#7AAADE'],
     'ev-haldi':   ['#FFE840','#FFB800','#FFF4A0','#FFA020'],
@@ -459,7 +512,11 @@ function initMilestoneBursts() {
     const rect = el.getBoundingClientRect();
     const cx   = rect.left + rect.width  / 2;
     const cy   = rect.top  + rect.height * 0.22;
-    const N    = 18;
+    const N    = 14; // reduced from 18
+
+    // Use a DocumentFragment for fewer reflows
+    const frag = document.createDocumentFragment();
+    const particles = [];
 
     for (let i = 0; i < N; i++) {
       const angle  = (i / N) * Math.PI * 2;
@@ -473,21 +530,25 @@ function initMilestoneBursts() {
         position:fixed;left:${cx}px;top:${cy}px;
         width:${size}px;height:${size}px;border-radius:50%;
         background:${colour};pointer-events:none;z-index:9999;
-        transform:translate(-50%,-50%);
-        box-shadow:0 0 ${size*2}px ${colour};
+        translate:-50% -50%;
+        will-change:transform,opacity;
         transition:all ${dur}s cubic-bezier(.22,1,.36,1);
       `;
-      document.body.appendChild(p);
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          p.style.left      = `${cx + Math.cos(angle) * speed}px`;
-          p.style.top       = `${cy + Math.sin(angle) * speed * 0.55}px`;
-          p.style.opacity   = '0';
-          p.style.transform = 'translate(-50%,-50%) scale(0)';
-          setTimeout(() => p.remove(), (dur + 0.1) * 1000);
-        });
-      });
+      frag.appendChild(p);
+      particles.push({ el: p, cx, cy, angle, speed, dur });
     }
+    document.body.appendChild(frag);
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        for (const { el: p, cx, cy, angle, speed, dur } of particles) {
+          p.style.left    = `${cx + Math.cos(angle) * speed}px`;
+          p.style.top     = `${cy + Math.sin(angle) * speed * 0.55}px`;
+          p.style.opacity = '0';
+          setTimeout(() => p.remove(), (dur + 0.1) * 1000);
+        }
+      });
+    });
   }
 
   const io = new IntersectionObserver(entries => {
@@ -506,9 +567,10 @@ function initMilestoneBursts() {
 }
 
 /* ══════════════════════════════════════════════════════════
-   10. CARD 3D TILT
+   10. CARD 3D TILT (desktop only)
    ══════════════════════════════════════════════════════════ */
 function initCardTilt() {
+  if (isMobile) return;
   document.querySelectorAll('.ev-full-card').forEach(card => {
     let rafId;
     card.addEventListener('pointermove', e => {
@@ -585,6 +647,12 @@ function initHeroEntrance() {
 function initCountdown() {
   const tgt = new Date('2026-06-23T12:30:00+05:30').getTime();
   const pad = n => String(n).padStart(2, '0');
+  const els = {
+    d: document.getElementById('cd-d'),
+    h: document.getElementById('cd-h'),
+    m: document.getElementById('cd-m'),
+    s: document.getElementById('cd-s'),
+  };
 
   function tick() {
     const diff = tgt - Date.now();
@@ -593,14 +661,10 @@ function initCountdown() {
     const h = Math.floor(diff % 86400000 / 3600000);
     const m = Math.floor(diff % 3600000 / 60000);
     const s = Math.floor(diff % 60000 / 1000);
-    const dEl = document.getElementById('cd-d');
-    const hEl = document.getElementById('cd-h');
-    const mEl = document.getElementById('cd-m');
-    const sEl = document.getElementById('cd-s');
-    if (dEl) dEl.textContent = pad(d);
-    if (hEl) hEl.textContent = pad(h);
-    if (mEl) mEl.textContent = pad(m);
-    if (sEl) sEl.textContent = pad(s);
+    if (els.d) els.d.textContent = pad(d);
+    if (els.h) els.h.textContent = pad(h);
+    if (els.m) els.m.textContent = pad(m);
+    if (els.s) els.s.textContent = pad(s);
   }
   tick();
   setInterval(tick, 1000);
