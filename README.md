@@ -1,21 +1,21 @@
 # उदय & उन्नती 
 ### A digital wedding invitation.
 
-My vahini saheb is getting married into our family on **23 June 2026**. *clapsss
+My vahini is getting married into our family on **23 June 2026**. *clapsss
 
-So I built her a website. Dada happens to be in it too.
+So I built an online digital invite for them.
 
 ---
 
-It started as a simple idea... why send a printed card when I could build something that actually moves, glows, plays music, and counts down to the exact moment the pheras begin? One weekend turned into several. The splash screen got flower confetti. The hero got spinning gold mandalas. There's a peacock drawn entirely in SVG markup sitting between sections because I thought it would be nice and then couldn't stop until it had eye-spots and a crown.
+It started as a simple idea... why send a printed card or generic whatsapp image invite when I could build something that actually moves, glows, plays music, and counts down to the exact moment the pheras begin? The splash screen got flower confetti. The hero got spinning gold mandalas. There's a peacock drawn entirely in SVG markup sitting between sections because I thought it would be nice and then couldn't stop until it had eye-spots and a crown.
 
-This is what happens when a CS student with love for UIUX really lover her vahini saheb.
+This is what happens when a CS student with love for UIUX makes a wedding invite.
 
 ---
 
 ## The people this is for
 
-**Unnati** - my vahini saheb. You are kind and warm and genuinely fun to be around, and I am very glad you said yes. Welcome to the Salunke family. I'm in your team.
+**Unnati** - my vahini. You are kind and warm and genuinely fun to be around, and I am very glad you said yes. Welcome to the Salunke family. I'm in your team.
 
 **Uday** - my dada. He's fine. He's getting married. Congratulations to him as well.
 
@@ -62,4 +62,4 @@ I had no option but to make this public on github because i deyployed it on verc
 I wish for a veryyyy sucessfull marraige for both of youu, i love you guys, i'll pray that no evil eyes touch this divine bond of yours.
 
 ---
-ps. vahini saheb, I hope every day with dada and us feels like a Saturday 🌸
+ps. vahini, I hope every day with dada and us feels like a Saturday 🌸
