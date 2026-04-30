@@ -17,6 +17,14 @@ const CFG = {
   enableLilies: !isLowEnd,
 };
 
+/* On very low-end, slow down ganpati glow instead of killing it */
+if (isLowEnd) {
+  document.addEventListener('DOMContentLoaded', () => {
+    const g = document.querySelector('.ganpati-img');
+    if (g) g.style.animationDuration = '5s'; // slower = less GPU pressure
+  });
+}
+
 /* ── CONSTANTS ─────────────────────────────────────────── */
 const SECTION_COLOURS = {
   'hero':       [74,  8,   8  ],
@@ -320,14 +328,21 @@ function initNoteLilies() {
   section.style.position = 'relative';
   section.appendChild(canvas);
   const ctx = canvas.getContext('2d', { alpha: true });
-  let W, H;
+  let W = 0, H = 0;
 
   function resize() {
     W = canvas.width  = section.offsetWidth  || window.innerWidth;
-    H = canvas.height = section.offsetHeight || window.innerHeight;
+    H = canvas.height = section.offsetHeight || 600;
   }
   resize();
-  window.addEventListener('resize', () => { clearTimeout(resize._t3); resize._t3 = setTimeout(resize, 200); }, { passive: true });
+
+  // Use ResizeObserver so canvas updates when section height changes
+  // (e.g. fonts load, content reflows) — prevents coordinate glitch
+  if (window.ResizeObserver) {
+    new ResizeObserver(resize).observe(section);
+  } else {
+    window.addEventListener('resize', () => { clearTimeout(resize._t3); resize._t3 = setTimeout(resize, 200); }, { passive: true });
+  }
 
   const lilies = [
     { x: 0.04, speed: 0.008, phase: 0,           height: 0.85, alpha: 0.55, petals: 5 },
@@ -339,6 +354,8 @@ function initNoteLilies() {
   ];
 
   function drawLily(cx, baseY, stemH, swayAngle, alpha, nPetals) {
+    // Guard: skip drawing if canvas not sized yet
+    if (!W || !H) return;
     ctx.save();
     ctx.globalAlpha = alpha;
     ctx.translate(cx, baseY);
@@ -380,6 +397,7 @@ function initNoteLilies() {
   }
 
   RAF.add('lilies', () => {
+    if (!W || !H) return;
     ctx.clearRect(0, 0, W, H);
     for (const l of lilies) {
       l.phase += l.speed;
