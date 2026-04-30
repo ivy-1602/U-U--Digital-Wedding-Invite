@@ -543,12 +543,28 @@ body {
 .ev-full-card:hover { transform: translateY(-6px); }
 
 .ev-full-ph {
-  width: 100%; height: 230px;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center; gap: 1rem;
+  width: 100%;
+  /* height controlled by image — no fixed height to avoid strip */
+  display: block; overflow: hidden;
+  line-height: 0; /* kills inline gap below img */
 }
-.ev-full-img { width: 100%; height: 270px; object-fit: cover; display: block; }
-.ev-full-info { padding: 3.2rem 2rem 2.6rem; text-align: left; }
+/* Placeholder SVG shown only when image fails to load */
+.ev-full-ph > svg {
+  display: none; /* hidden by default; shown via JS if img errors */
+}
+/* Fallback: if img is hidden (onerror), show SVG placeholder */
+.ev-full-ph > svg:first-child { display: none; }
+.ev-full-img {
+  width: 100%;
+  height: clamp(200px, 56vw, 320px);
+  object-fit: cover; display: block;
+}
+.ev-full-info {
+  padding: 2rem 2rem 2.6rem; /* reduced top padding — names no longer overlap */
+  text-align: left;
+  /* Ensure card bg fully covers info area */
+  position: relative; z-index: 1;
+}
 
 .ev-name-mr {
   font-family: 'Noto Serif Devanagari', serif;
@@ -779,7 +795,9 @@ body {
     #F8E4E8 0%, #F2D0D8 28%, #ECC0CC 55%, #F4D4DA 78%, #F8E6E8 100%
   );
   padding: 5.5rem 1.5rem 5rem;
-  position: relative; overflow: visible; margin-top: 0;
+  position: relative;
+  overflow: hidden; /* was visible — caused lily canvas overflow glitch */
+  margin-top: 0;
 }
 #note::before {
   content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px;
@@ -889,12 +907,16 @@ footer::after {
     text-shadow: 0 0 14px rgba(255,215,60,.85), 0 2px 4px rgba(0,0,0,.5);
     animation: none;
   }
-  .ganpati-img { animation: none; }
+  /* Keep ganpati glow — it's a single filter, not heavy */
+  .ganpati-img {
+    animation: ganpatiGlow 2.5s ease-in-out infinite;
+  }
 
   .bride-name, .groom-name { font-size: 2.8rem; }
   .hero-names-en { font-size: 1.1rem; }
   .bless-card { padding: 2rem 1.3rem; }
-  .ev-full-info { padding: 1.5rem 1.2rem; }
+  .ev-full-img { height: clamp(180px, 52vw, 260px); }
+  .ev-full-info { padding: 1.4rem 1.2rem 1.8rem; }
   .cd-box { min-width: 60px; padding: .9rem .65rem; }
   .note-card { padding: 2rem 1.3rem; }
   .sw { width: 30px; height: 30px; }
