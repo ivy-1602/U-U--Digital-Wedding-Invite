@@ -30,8 +30,8 @@ const SECTION_COLOURS = {
   'hero':       [74,  8,   8  ],
   'blessings':  [58,  26,  10 ],
   'ev-ring':    [10,  22,  64 ],
-  'ev-sangeet': [68,  8,   24 ],
-  'ev-haldi':   [80,  30,  0  ],  /* warmer bridge — was [64,40,0] which swung too fast */
+  'ev-sangeet': [106, 36,  16 ],  /* warm dark auburn — matches new section bottom */
+  'ev-haldi':   [122, 50,  0  ],  /* warm amber — matches new section top */
   'ev-wedding': [48,  8,   8  ],
   'venue':      [4,   30,  16 ],
   'countdown':  [228, 244, 228],
