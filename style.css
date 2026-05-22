@@ -27,6 +27,8 @@ body {
   font-family: 'Cormorant Garamond', Georgia, serif;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+  /* Prevent lighter body bg from showing as strip below footer on mobile */
+  background-color: #1A0404;
 }
 
 /* ── SCROLL PROGRESS BAR (maroon→gold) ── */
@@ -874,7 +876,7 @@ body {
 
 .venue-name {
   font-family: 'Playfair Display', serif;
-  font-size: clamp(2.2rem, 8vw, 3.6rem); color: #FFE580;
+  font-size: clamp(1.75rem, 6.2vw, 2.8rem); color: #FFE580;
   text-shadow: 0 0 22px rgba(255,210,60,.7), 0 2px 6px rgba(0,0,0,.65);
   margin: 1.2rem 0 .4rem; position: relative; z-index: 2;
 }
@@ -1022,8 +1024,10 @@ body {
    ═══════════════════════════════════════════════════════════ */
 footer {
   background: #1A0404;
-  padding: .8rem 1.5rem;
+  padding: .8rem 1.5rem env(safe-area-inset-bottom, 0px);
+  padding-bottom: calc(.8rem + env(safe-area-inset-bottom, 0px));
   text-align: center; position: relative; overflow: hidden;
+  margin-bottom: 0;
 }
 footer::after {
   content: ''; position: absolute; top: 0; left: 10%; right: 10%; height: 1px;
@@ -1033,10 +1037,8 @@ footer::after {
 .footer-names { display: flex; align-items: center; justify-content: center; gap: 1.2rem; }
 .footer-amp {
   font-size: clamp(.85rem, 2.5vw, 1rem);
-  color: rgba(255,200,80,.82);
-  text-shadow:
-    0 0 10px rgba(255,200,60,.55),
-    0 0 22px rgba(220,150,20,.28);
+  color: rgba(255,200,80,.65);
+  animation: goldShine 3.5s .8s ease-in-out infinite;
 }
 
 
@@ -1067,7 +1069,7 @@ footer::after {
     transition-duration: .01ms !important;
   }
   .sw, .ganpati-img, .bride-name, .groom-name,
-  .hero-centre-icon, .scroll-line { animation: none !important; }
+  .hero-centre-icon, .footer-amp, .scroll-line { animation: none !important; }
 }
 
 
