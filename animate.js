@@ -478,10 +478,10 @@ function initScratchCard() {
 
   function drawScratchSurface() {
     const grad = ctx.createLinearGradient(0, 0, W, H);
-    grad.addColorStop(0,    '#5C0E0E');
-    grad.addColorStop(0.35, '#6E1414');
-    grad.addColorStop(0.65, '#7A1818');
-    grad.addColorStop(1,    '#5C0E0E');
+    grad.addColorStop(0,    '#1A0404');
+    grad.addColorStop(0.35, '#220505');
+    grad.addColorStop(0.65, '#1E0404');
+    grad.addColorStop(1,    '#1A0404');
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, W, H);
 
